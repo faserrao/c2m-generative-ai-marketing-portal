@@ -207,13 +207,37 @@ class CDSAIAPIConstructs(Construct):
         self.client_id = self.user_pool_client.user_pool_client_id
 
     ## **************** Lambda Layers ****************
+    """
     def create_lambda_layers(self, stack_name):
+
+
         self.layer_langchain = _lambda.LayerVersion(
             self,
             f"{stack_name}-langchain-layer",
             compatible_runtimes=[self._runtime],
             compatible_architectures=[self._architecture],
             code=_lambda.Code.from_asset("./assets/layers/langchain/langchain-layer.zip"),
+            description="A layer for langchain library",
+            layer_version_name=f"{stack_name}-langchain-layer",
+        )
+    """
+
+    def create_lambda_layers(self, stack_name):
+        self.layer_langchain = _lambda.LayerVersion(
+            self,
+            f"{stack_name}-langchain-layer",
+            compatible_runtimes=[self._runtime],
+            compatible_architectures=[self._architecture],
+            code=_lambda.Code.from_asset(
+                path=os.path.join(".", "assets", "layers", "langchain"),
+                bundling={
+                    "image": _lambda.Runtime.PYTHON_3_9.bundling_image,
+                    "command": [
+                        "bash", "-c",
+                        "pip install -r requirements.txt -t /asset-output/python/lib/python3.9/site-packages/ && cp -au . /asset-output"
+                    ],
+                },
+            ),
             description="A layer for langchain library",
             layer_version_name=f"{stack_name}-langchain-layer",
         )
