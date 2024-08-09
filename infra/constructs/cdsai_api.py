@@ -223,6 +223,8 @@ class CDSAIAPIConstructs(Construct):
     """
 
     def create_lambda_layers(self, stack_name):
+#        bundling_image = self._runtime.bundling_image
+#        python_version = self._runtime.name.replace("python", "")  # Extracts '3.9' from 'python3.9'
         self.layer_langchain = _lambda.LayerVersion(
             self,
             f"{stack_name}-langchain-layer",
@@ -232,8 +234,10 @@ class CDSAIAPIConstructs(Construct):
                 path=os.path.join(".", "assets", "layers", "langchain"),
                 bundling={
                     "image": _lambda.Runtime.PYTHON_3_9.bundling_image,
+#                   "image": bundling_image,
                     "command": [
                         "bash", "-c",
+#                       f"pip install -r requirements.txt -t /asset-output/python/lib/python{python_version}/site-packages/"
                         "pip install -r requirements.txt -t /asset-output/python/lib/python3.9/site-packages/ && cp -au . /asset-output"
                     ],
                 },
@@ -616,18 +620,18 @@ class CDSAIAPIConstructs(Construct):
 
         # Create a policy statement for SES email sending with a specific ARN
         ##
-        ## pinpoint_ses_send_email_policy_statement = iam.PolicyStatement(
-        ##    actions=["ses:SendEmail", "ses:SendRawEmail"],
-        ##   resources=[f"arn:aws:ses:{Aws.REGION}:{Aws.ACCOUNT_ID}:identity/{self.email_identity}"],
-        ##    effect=iam.Effect.ALLOW,
-       ## )
+        pinpoint_ses_send_email_policy_statement = iam.PolicyStatement(
+            actions=["ses:SendEmail", "ses:SendRawEmail"],
+            resources=[f"arn:aws:ses:{Aws.REGION}:{Aws.ACCOUNT_ID}:identity/{self.email_identity}"],
+            effect=iam.Effect.ALLOW,
+        )
 
         pinpoint_send_message_policy = iam.Policy(
             self,
             id=f"{stack_name}-pinpoint-send-message-policy",
             policy_name=f"{stack_name}-pinpoint-send-message-policy",
-        ##    statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement, pinpoint_ses_send_email_policy_statement],
-            statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement],
+            statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement, pinpoint_ses_send_email_policy_statement],
+        ##    statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement],
         )
 
         pinpoint_send_message_policy.attach_to_role(self.lambda_pinpoint_message_role)
