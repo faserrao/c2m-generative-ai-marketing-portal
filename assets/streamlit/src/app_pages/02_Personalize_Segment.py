@@ -409,7 +409,6 @@ if show_segment_info:
             print(Exception)
             st.error("No Segment Export File Found. Is your Segment Export Job ACTIVE?")
 
-        # TODO
         # For now just take demo data
         with fs.open(f"s3://{BUCKET_NAME}/demo-data/df_segment_data.csv", "rb") as f:
             user_data = pd.read_csv(f)

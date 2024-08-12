@@ -13,7 +13,8 @@ streamlit:
   # ip_address_allowed: [pl-4e2ece27] # List of IP addresses (cidr ranges) and prefix lists allowed to access the app in the ALB Security Group. If not set, SG is open to the internet
   ecs_memory: 1024 # Memory of the ECS instance (Mb)
   ecs_cpu: 512 # CPU of ECS instance
-  cover_image_url: "https://reinvent.awsevents.com/content/dam/reinvent/2023/media/ripples/countdown-keyart.png" # custom cover image on app pages
+  # cover_image_url: "https://reinvent.awsevents.com/content/dam/reinvent/2023/media/ripples/countdown-keyart.png" # custom cover image on app pages
+  cover_image_url: "https://c2m-genai-marketing-images.s3.amazonaws.com/banner2.webp" # custom cover image on app pages
   cover_image_login_url: "https://reinvent.awsevents.com/content/dam/reinvent/2023/media/ripples/countdown-keyart.png" # default cover image on login page
 
 pinpoint:
@@ -34,3 +35,8 @@ bedrock:
 cloudfront:
   custom_header_name: "X-My-Custom-Header" # Name of the custom header to be used for authentication
   custom_header_value: "aijfoiwjeoijfawioejfoiwajefoiwjeofiwoefjaoiwjefooijawefoij" # Value of the custom header to be used for authentication, change this to a random value
+
+channels:
+  email_enabled: True
+  sms_enabled: True 
+  custom_enabled: True

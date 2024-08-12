@@ -74,6 +74,7 @@ def invoke_pinpoint_export_job_status(
     )
     return response.content
 
+
 def invoke_pinpoint_send_message(
     access_token: str,
     address: str,
@@ -82,9 +83,7 @@ def invoke_pinpoint_send_message(
     message_subject: str = None,
     message_body_html: str = None
 ) -> list:
-    """
-    Send Message via Pinpoint
-    """
+
     params = {
         "address": address,
         "channel": channel,
@@ -92,13 +91,28 @@ def invoke_pinpoint_send_message(
         "message-body-html": message_body_html,
         "message-body-text": message_body_text,
     }
+
+    api_endpoints = {
+        "EMAIL": "/pinpoint/email",
+        "SMS": "/pinpoint/sms",
+        "CUSTOM": "/pinpoint/custom"
+    }
+
+    # Select the appropriate API endpoint based on the channel
+    url = API_URI + api_endpoints.get(channel)
+    if not url:
+        raise ValueError(f"Unsupported channel: {channel}")
+
+    # TODO: Use APU_URI
     response = requests.post(
-        url=API_URI + "/pinpoint/message",
+#        url=API_URI + "/pinpoint/message",
+        url=url,
         json=params,
         stream=False,
         headers={"Authorization": access_token},
     )
     return response.content
+
 
 def invoke_s3_fetch_files(
     access_token: str,

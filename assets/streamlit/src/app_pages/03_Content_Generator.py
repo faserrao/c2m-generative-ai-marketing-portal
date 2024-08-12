@@ -422,10 +422,30 @@ def process_df(df):
 
     return df, user_attribute_columns, attribute_columns, metric_columns, other_columns
 
+    """
+    def send_message_pinpoint(
+        address, channel, message_body_text, message_subject=None, message_body_html=None, first_name=None, last_name=None
+    ):
+        job_response = pinpoint_api.invoke_pinpoint_send_message(
+            access_token=st.session_state["access_token"],
+            address=address,
+            channel=channel,
+            message_body_text=message_body_text,
+            message_subject=message_subject,
+            message_body_html=message_body_html,
+        )
+        return job_response
+    """
 
-def send_message_pinpoint(
-    address, channel, message_body_text, message_subject=None, message_body_html=None, first_name=None, last_name=None
-):
+def send_message_pinpoint(address,
+                          channel,
+                          message_body_text,
+                          message_subject=None,
+                          message_body_html=None,
+                          first_name=None,
+                          last_name=None,
+                         ):
+
     job_response = pinpoint_api.invoke_pinpoint_send_message(
         access_token=st.session_state["access_token"],
         address=address,

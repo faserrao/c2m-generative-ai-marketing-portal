@@ -104,12 +104,13 @@ class CDSAIAPIConstructs(Construct):
         log_group = logs.LogGroup(self, "ApiGatewayAccessLogs", retention=logs.RetentionDays.ONE_WEEK)
 
         # set access logging for default stage
-
+        """
         _stage: _apigwv2.CfnStage = http_api.default_stage.node.default_child
         _stage.access_log_settings = _apigwv2.CfnStage.AccessLogSettingsProperty(
             destination_arn=log_group.log_group_arn,
             format="$context.requestId",
         )
+        """
 
         # add content/bedrock to POST /
         http_api.add_routes(
@@ -144,6 +145,31 @@ class CDSAIAPIConstructs(Construct):
                 "LambdaProxyIntegration", handler=self.pinpoint_message_lambda
             ),
         )
+
+        http_api.add_routes(
+            path="/pinpoint/email",
+            methods=[_apigw.HttpMethod.POST],
+            integration=_integrations.HttpLambdaIntegration(
+                "LambdaProxyIntegration", handler=self.pinpoint_message_email_lambda
+            ),
+        )
+
+        http_api.add_routes(
+            path="/pinpoint/sms",
+            methods=[_apigw.HttpMethod.POST],
+            integration=_integrations.HttpLambdaIntegration(
+                "LambdaProxyIntegration", handler=self.pinpoint_message_sms_lambda
+            ),
+        )
+
+        http_api.add_routes(
+            path="/pinpoint/custom",
+            methods=[_apigw.HttpMethod.POST],
+            integration=_integrations.HttpLambdaIntegration(
+                "LambdaProxyIntegration", handler=self.pinpoint_message_custom_lambda
+            ),
+        )
+
 
         # add s3 file to GET /
         http_api.add_routes(
@@ -222,6 +248,8 @@ class CDSAIAPIConstructs(Construct):
         )
     """
 
+# TODO: Replace python version in code with variable.
+
     def create_lambda_layers(self, stack_name):
 #        bundling_image = self._runtime.bundling_image
 #        python_version = self._runtime.name.replace("python", "")  # Extracts '3.9' from 'python3.9'
@@ -244,6 +272,37 @@ class CDSAIAPIConstructs(Construct):
             ),
             description="A layer for langchain library",
             layer_version_name=f"{stack_name}-langchain-layer",
+        )
+
+        """
+        self.layer_factory_module = _lambda.LayerVersion(
+            self,
+            f"{stack_name}-factory-module-layer",
+            compatible_runtimes=[self._runtime],
+            compatible_architectures=[self._architecture],
+            code=_lambda.Code.from_asset(
+                path=os.path.join(".", "assets", "layers", "factory_module"),
+                bundling={
+                    "image": _lambda.Runtime.PYTHON_3_9.bundling_image,
+                    "command": [
+                        "bash", "-c",
+                        "cp -au . /asset-output"
+                    ],
+                },
+            ),
+            description="A layer for the factory module",
+            layer_version_name=f"{stack_name}-factory-module-layer",
+        )
+        """
+
+        self.layer_factory_module = _lambda.LayerVersion(
+            self,
+            f"{stack_name}-factory_module-layer",
+            compatible_runtimes=[self._runtime],
+            compatible_architectures=[self._architecture],
+            code=_lambda.Code.from_asset("./assets/layers/factory_module"),
+            description="A layer for factory_module",
+            layer_version_name=f"{stack_name}-factory_module-layer",
         )
 
     ## **************** Lambda Functions ****************
@@ -343,6 +402,86 @@ class CDSAIAPIConstructs(Construct):
             description="Alias used for Lambda provisioned concurrency",
         )
 
+
+        self.pinpoint_message_email_lambda = _lambda.Function(
+            self,
+            f"{stack_name}-pinpoint-message-email-lambda",
+            runtime=self._runtime,
+            code=_lambda.Code.from_asset("./assets/lambda/genai_pinpoint_message_email"),
+            handler="pinpoint_message_email.lambda_handler",
+            function_name=f"{stack_name}-pinpoint-message-email",
+            memory_size=3008,
+            timeout=Duration.seconds(PINPOINT_TIMEOUT),
+            environment={
+                "PINPOINT_PROJECT_ID": self.pinpoint_project_id,
+                "BUCKET_NAME": self.s3_data_bucket.bucket_name,
+                "EMAIL_IDENTITY": self.email_identity,
+                "SMS_IDENTITY": self.sms_identity,
+            },
+            role=self.lambda_pinpoint_message_role,
+            # FAS Attached the Layer - because of need for the requests_toolbelt module.
+            layers=[self.layer_langchain, self.layer_factory_module],
+        )
+        self.pinpoint_message_email_lambda.add_alias(
+            "Warm",
+            provisioned_concurrent_executions=0,
+            description="Alias used for Lambda provisioned concurrency",
+        )
+
+
+        self.pinpoint_message_sms_lambda = _lambda.Function(
+            self,
+            f"{stack_name}-pinpoint-message-sms-lambda",
+            runtime=self._runtime,
+            code=_lambda.Code.from_asset("./assets/lambda/genai_pinpoint_message_sms"),
+            handler="pinpoint_message_sms.lambda_handler",
+            function_name=f"{stack_name}-pinpoint-message-sms",
+            memory_size=3008,
+            timeout=Duration.seconds(PINPOINT_TIMEOUT),
+            environment={
+                "PINPOINT_PROJECT_ID": self.pinpoint_project_id,
+                "BUCKET_NAME": self.s3_data_bucket.bucket_name,
+                "EMAIL_IDENTITY": self.email_identity,
+                "SMS_IDENTITY": self.sms_identity,
+            },
+            role=self.lambda_pinpoint_message_role,
+            # FAS Attached the Layer - because of need for the requests_toolbelt module.
+            layers=[self.layer_langchain, self.layer_factory_module],
+        )
+        self.pinpoint_message_sms_lambda.add_alias(
+            "Warm",
+            provisioned_concurrent_executions=0,
+            description="Alias used for Lambda provisioned concurrency",
+        )
+
+
+        self.pinpoint_message_custom_lambda = _lambda.Function(
+            self,
+            f"{stack_name}-pinpoint-message-custom-lambda",
+            runtime=self._runtime,
+            code=_lambda.Code.from_asset("./assets/lambda/genai_pinpoint_message_custom"),
+            handler="pinpoint_message_custom.lambda_handler",
+            function_name=f"{stack_name}-pinpoint-message-custom",
+            memory_size=3008,
+            timeout=Duration.seconds(PINPOINT_TIMEOUT),
+            environment={
+                "PINPOINT_PROJECT_ID": self.pinpoint_project_id,
+                "BUCKET_NAME": self.s3_data_bucket.bucket_name,
+                "custom_IDENTITY": self.email_identity,
+                "SMS_IDENTITY": self.sms_identity,
+            },
+            role=self.lambda_pinpoint_message_role,
+            # FAS Attached the Layer - because of need for the requests_toolbelt module.
+            layers=[self.layer_langchain, self.layer_factory_module],
+        )
+        self.pinpoint_message_custom_lambda.add_alias(
+            "Warm",
+            provisioned_concurrent_executions=0,
+            description="Alias used for Lambda provisioned concurrency",
+        )
+
+
+
         ## ********* S3 Fetch *********
         self.s3_fetch_lambda = _lambda.Function(
             self,
@@ -407,6 +546,7 @@ class CDSAIAPIConstructs(Construct):
             description="Alias used for Lambda provisioned concurrency",
         )
 
+    # TODO: Separate roles for 3 message lambdas.
     ## **************** IAM Permissions ****************
     def create_roles(self, stack_name: str):
         ## ********* IAM Roles *********

@@ -20,10 +20,6 @@ from botocore.exceptions import ClientError
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 import requests
 
-# Define credentials
-myusername = 'stellario'
-mypassword = 'Babushka1!'
-
 purchase_url            = "https://stage-rest.click2mail.com/molpro/credit/purchase"
 
 """
@@ -33,15 +29,9 @@ HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s")
 LOGGER.addHandler(HANDLER)
 """
 
-
-#########################
-#        HELPER
-#########################
-
-PINPOINT_PROJECT_ID = os.environ["PINPOINT_PROJECT_ID"]
-CHARSET = "UTF-8"
-EMAIL_IDENTITY = os.environ["EMAIL_IDENTITY"]
-SMS_IDENTITY = os.environ["SMS_IDENTITY"]
+# Define credentials
+myusername = 'stellario'
+mypassword = 'Babushka1!'
 
 #########################
 #        HANDLER
