@@ -60,6 +60,11 @@ def c2m_upload_document(document_format:  str = 'ODT',
                         document_content: str = None,
                         document_type:    str = 'application/odt'):
 
+  print('Entering c2m_upload_document()')
+  print('document_content = ', document_content)
+
+  # document_content = "Test Content"
+
   # Convert string to ODT in memory
   odt_stream = string_to_odt_in_memory(document_content)
 
@@ -82,14 +87,16 @@ def c2m_upload_document(document_format:  str = 'ODT',
   # Make the POST call
   r = requests.post(upload_doc_url, auth=(myusername, mypassword), headers=headers, data=mp_encoder)
 
+  # TODO: Check status code and exit if bad.
   # Display the result - a success should return status_code 201
+  print('r.status_code = ')
   print(r.status_code)
 
   # Display the full XML returned. The new document_id will be in 
   # <document>
   #   <id>document_id</id>
   # <document>
-  print(r.text)
+  # print('r.text = ' + r.text)
 
   # The XML string
   #xml_data = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -110,5 +117,7 @@ def c2m_upload_document(document_format:  str = 'ODT',
 
   # Print the document ID
   print(f"Document ID: {document_id}")
+
+  print('Exiting c2m_submit_job()')
 
   return document_id

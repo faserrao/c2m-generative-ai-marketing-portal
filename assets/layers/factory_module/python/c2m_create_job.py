@@ -47,6 +47,9 @@ def c2m_create_job(document_class:    str = 'Letter 8.5 x 11',
                    document_id:       str = None,
                    address_list_id:   str = None):
 
+
+  print('Entering c2m_create_job()')
+
   # Define the endpoint to use
   url = create_job_url
 
@@ -75,16 +78,15 @@ def c2m_create_job(document_class:    str = 'Letter 8.5 x 11',
           'addressId'     : address_list_id}
   """
 
-  print('values = ', values)
-
   # Make the POST call
   r = requests.post(url, data=values, headers=headers, auth=(myusername, mypassword))
 
   # Display the result - a success should return status_code 201
+  print('r.status_code = ')
   print(r.status_code)
 
   # Display the full XML returned.
-  print(r.text)
+  print('r.text = ' + r.text)
 
   xml_data = r.text
 
@@ -96,5 +98,7 @@ def c2m_create_job(document_class:    str = 'Letter 8.5 x 11',
 
   # Print the document ID
   print(f"Job ID: {job_id}")
+
+  print('Exiting c2m_create_job()')
 
   return job_id

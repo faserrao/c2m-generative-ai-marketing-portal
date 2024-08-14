@@ -17,7 +17,7 @@ from botocore.exceptions import ClientError
 
 import requests
 
-submit_job_url          = "https://stage-rest.click2mail.com/molpro/jobs/"
+check_tracking_url      = "https://stage-rest.click2mail.com/molpro/jobs/"
 
 """
 LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
@@ -34,24 +34,24 @@ mypassword = 'Babushka1!'
 #        HANDLER
 #########################
 
-def c2m_submit_job(billing_type: str = 'User Credit', job_id: str = ''):
-    
-  # Define the endpoint to use, including the jobId
-
-  url = submit_job_url + job_id + "/submit"
+def c2m_check_tracking(tracking_type: str = 'IMB', job_id: str = ''):
 
   headers = {'user-agent': 'my-app/0.0.1'}
 
-  # Set the source of payment for the job
-  values = {'billingType': billing_type}
+  # Set the tracking for the job
+  tracking_type = tracking_type
 
-  # Make the POST call
-  r = requests.post(url, data=values, headers=headers, auth=(myusername, mypassword))
+  # Define the endpoint to use, including the jobId
+  url = check_tracking_url + job_id + "/tracking?tracking_type=" + tracking_type
+
+  # Make the GET call
+  r = requests.get(url, headers=headers, auth=(myusername, mypassword))
 
   # Display the result - a success should return status_code 201
+  print('r.status_code = ')
   print(r.status_code)
 
   # Display the full XML returned.
   print(r.text)
 
-  return(r.text)
+  return r.text

@@ -50,6 +50,8 @@ def c2m_add_credit(billing_name: str = None,
 							  	 billing_cvv: str = None, 
 							  	 billing_cc_type: str = None):
 
+  print('Entering c2m_add_credit')
+
   # Set up parameters for calling the endpoint
   data = {'billingName' : billing_name,
           'billingAddress1' :billing_address1,
@@ -66,11 +68,15 @@ def c2m_add_credit(billing_name: str = None,
 
   # Make the POST call
   r = requests.post(purchase_url, auth=(myusername, mypassword), data=data)
+  print('After post in add credit')
 
   # Display the result - a success should return status_code 200
+  print('r.status_code = ')
   print(r.status_code)
 
   # Display the full XML returned.
-  print(r.text)
+  print('r.text = ' + r.text)
+
+  print('Exiting c2m_add_credit')
 
   return r.text

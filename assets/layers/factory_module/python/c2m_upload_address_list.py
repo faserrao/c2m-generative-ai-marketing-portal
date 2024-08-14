@@ -69,6 +69,9 @@ def c2m_upload_address_list(address_list_name :       str = '',
                             postal_code:              str = '',
                             country:                  str = ''):
 
+
+  print('Entering c2m_upload_address_list()')
+
   # Define the endpoint to use
   url = upload_address_list_url
 
@@ -106,10 +109,11 @@ def c2m_upload_address_list(address_list_name :       str = '',
   r = requests.post(url, data=body, headers=headers, auth=(myusername, mypassword))
 
   # Display the result - a success should return status_code 201
+  print('r.status_code = ')
   print(r.status_code)
 
   # Display the full XML returned.
-  print(r.text)
+  print('r.text = ' + r.text)
 
   xml_data = r.text
 
@@ -121,5 +125,7 @@ def c2m_upload_address_list(address_list_name :       str = '',
 
   # Print the document ID
   print(f"Address List ID: {address_list_id}")
+
+  print('Exiting c2m_upload_address_list()')
 
   return address_list_id

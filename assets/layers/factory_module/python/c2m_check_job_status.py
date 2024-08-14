@@ -36,6 +36,8 @@ mypassword = 'Babushka1!'
 
 def c2m_check_job_status(job_id: str = None):
 
+  print('Entering c2m_check_job_status()')
+
   # Define the endpoint to use, including the jobId
   url = check_job_status_url + job_id 
 
@@ -45,9 +47,12 @@ def c2m_check_job_status(job_id: str = None):
   r = requests.get(url, headers=headers, auth=(myusername, mypassword))
 
   # Display the result - a success should return an HTTP status_code 201
+  print('r.status_code = ')
   print(r.status_code)
 
   # Display the full XML returned.
-  print(r.text)
+  print('r.text = ' + r.text)
+
+  print('Exiting c2m_check_job_status()')
 
   return r.text
