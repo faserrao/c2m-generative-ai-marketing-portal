@@ -117,6 +117,9 @@ class CDSGenAIStack(Stack):
             sms_identity=config["pinpoint"]["sms_identity"],
             personalize_role_arn=self.personalize_constructs.personalize_role_ARN,
             personalize_solution_version_arn=config["personalize"]["personalize_solution_version_arn"],
+            email_enabled=config["channels"]["email_enabled"],
+            sms_enabled=config["channels"]["sms_enabled"],
+            custom_enabled=config["channels"]["custom_enabled"],
         )
 
         output(
@@ -126,6 +129,9 @@ class CDSGenAIStack(Stack):
             value=self.api_constructs.api_uri,
         )
         output(self, "Cognito Client ID", description="Cognito Client ID", value=self.api_constructs.client_id)
+
+        print(config)
+        print(config["channels"]["email_enabled"])
 
         ## **************** Streamlit NestedStack ****************
         if config["streamlit"]["deploy_streamlit"]:
@@ -144,6 +150,9 @@ class CDSGenAIStack(Stack):
                 ip_address_allowed=config["streamlit"].get("ip_address_allowed"),
                 custom_header_name=config["cloudfront"]["custom_header_name"],
                 custom_header_value=config["cloudfront"]["custom_header_value"],
+                email_enabled=config["channels"]["email_enabled"],
+                sms_enabled=config["channels"]["sms_enabled"],
+                custom_enabled=config["channels"]["custom_enabled"],
             )
 
             self.cloudfront_distribution_name = output(

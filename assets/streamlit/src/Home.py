@@ -87,13 +87,14 @@ if "authenticated" in st.session_state and st.session_state["authenticated"]:
 #        SIDEBAR
 #########################
 
+# TODO: Add the title application tabs back.
 # sidebar title
 if st.session_state["authenticated"]:
     st.sidebar.markdown(
         """
         <style>
             [data-testid="stSidebarNav"]::before {
-                content: "Application Tabs";
+                content: "";
                 margin-left: 20px;
                 margin-top: 20px;
                 margin-bottom: 20px;

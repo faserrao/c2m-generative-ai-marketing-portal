@@ -37,6 +37,6 @@ cloudfront:
   custom_header_value: "aijfoiwjeoijfawioejfoiwajefoiwjeofiwoefjaoiwjefooijawefoij" # Value of the custom header to be used for authentication, change this to a random value
 
 channels:
-  email_enabled: True
-  sms_enabled: True 
-  custom_enabled: True
+  email_enabled: "false"
+  sms_enabled: "true"
+  custom_enabled: "true"

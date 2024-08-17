@@ -12,6 +12,8 @@ import c2m_submit_job
 import c2m_upload_address_list
 import c2m_upload_document
 
+from shared_module.channel_states import get_channel_states
+
 """
 LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
@@ -136,12 +138,16 @@ class CustomMessageConfig(MessageConfigFactory):
 class MessageConfigFactoryCreator:
     @staticmethod
     def create_factory(channel):
-        # Fetch channel states from environment variables
+
+        """
         channel_states = {
-            "EMAIL": os.environ.get("EMAIL_CHANNEL_ENABLED", "true").lower() == "true",
-            "SMS": os.environ.get("SMS_CHANNEL_ENABLED", "true").lower() == "true",
-            "CUSTOM": os.environ.get("CUSTOM_CHANNEL_ENABLED", "true").lower() == "true"
+            "EMAIL": os.environ.get("EMAIL_ENAMBLED", "true").lower(),
+            "SMS": os.environ.get("SMS_ENABLED", "true").lower(),
+            "CUSTOM": os.environ.get("CUSTOM_ENABLED", "true").lower(),
         }
+        """
+
+        channel_states = get_channel_states()
 
         if channel_states.get(channel):
             if channel == "EMAIL":

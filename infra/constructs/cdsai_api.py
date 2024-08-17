@@ -42,6 +42,9 @@ class CDSAIAPIConstructs(Construct):
         personalize_role_arn: str,
         personalize_solution_version_arn: str,
         bedrock_role_arn: str = None,
+        email_enabled: bool = True,
+        sms_enabled: bool = True,
+        custom_enabled:bool = True,
         **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
@@ -55,6 +58,9 @@ class CDSAIAPIConstructs(Construct):
         self.sms_identity = sms_identity
         self.personalize_role_arn = personalize_role_arn
         self.personalize_solution_version_arn = personalize_solution_version_arn
+        self.email_enabled = str(email_enabled)
+        self.sms_enabled = str(sms_enabled)
+        self.custom_enabled = str(custom_enabled)
 
         ## **************** Set Architecture and Python Runtime ****************
         if architecture == "ARM_64":
@@ -305,6 +311,16 @@ class CDSAIAPIConstructs(Construct):
             layer_version_name=f"{stack_name}-factory_module-layer",
         )
 
+        self.layer_shared_module = _lambda.LayerVersion(
+            self,
+            f"{stack_name}-shared_module-layer",
+            compatible_runtimes=[self._runtime],
+            compatible_architectures=[self._architecture],
+            code=_lambda.Code.from_asset("./assets/python"),
+            description="A layer for shared code",
+            layer_version_name=f"{stack_name}-shared_module-layer",
+        )
+
     ## **************** Lambda Functions ****************
     def create_lambda_functions(self, stack_name):
         ## ********* Create Marketing Content Bedrock *********
@@ -391,6 +407,9 @@ class CDSAIAPIConstructs(Construct):
                 "BUCKET_NAME": self.s3_data_bucket.bucket_name,
                 "EMAIL_IDENTITY": self.email_identity,
                 "SMS_IDENTITY": self.sms_identity,
+                "EMAIL_ENABLED": self.email_enabled,
+                "SMS_ENABLED": self.sms_enabled,
+                "CUSTOM_ENABLED": self.custom_enabled
             },
             role=self.lambda_pinpoint_message_role,
             # FAS Attached the Layer - because of need for the requests_toolbelt module.
@@ -401,7 +420,6 @@ class CDSAIAPIConstructs(Construct):
             provisioned_concurrent_executions=0,
             description="Alias used for Lambda provisioned concurrency",
         )
-
 
         self.pinpoint_message_email_lambda = _lambda.Function(
             self,
@@ -417,17 +435,20 @@ class CDSAIAPIConstructs(Construct):
                 "BUCKET_NAME": self.s3_data_bucket.bucket_name,
                 "EMAIL_IDENTITY": self.email_identity,
                 "SMS_IDENTITY": self.sms_identity,
+                "EMAIL_ENABLED": self.email_enabled,
+                "SMS_ENABLED": self.sms_enabled,
+                "CUSTOM_ENABLED": self.custom_enabled
             },
             role=self.lambda_pinpoint_message_role,
             # FAS Attached the Layer - because of need for the requests_toolbelt module.
-            layers=[self.layer_langchain, self.layer_factory_module],
+            layers=[self.layer_langchain, self.layer_factory_module, self.layer_shared_module, ],
         )
+
         self.pinpoint_message_email_lambda.add_alias(
             "Warm",
             provisioned_concurrent_executions=0,
             description="Alias used for Lambda provisioned concurrency",
         )
-
 
         self.pinpoint_message_sms_lambda = _lambda.Function(
             self,
@@ -443,17 +464,19 @@ class CDSAIAPIConstructs(Construct):
                 "BUCKET_NAME": self.s3_data_bucket.bucket_name,
                 "EMAIL_IDENTITY": self.email_identity,
                 "SMS_IDENTITY": self.sms_identity,
+                "EMAIL_ENABLED": self.email_enabled,
+                "SMS_ENABLED": self.sms_enabled,
+                "CUSTOM_ENABLED": self.custom_enabled
             },
             role=self.lambda_pinpoint_message_role,
             # FAS Attached the Layer - because of need for the requests_toolbelt module.
-            layers=[self.layer_langchain, self.layer_factory_module],
+            layers=[self.layer_langchain, self.layer_factory_module, self.layer_shared_module, ],
         )
         self.pinpoint_message_sms_lambda.add_alias(
             "Warm",
             provisioned_concurrent_executions=0,
             description="Alias used for Lambda provisioned concurrency",
         )
-
 
         self.pinpoint_message_custom_lambda = _lambda.Function(
             self,
@@ -469,17 +492,20 @@ class CDSAIAPIConstructs(Construct):
                 "BUCKET_NAME": self.s3_data_bucket.bucket_name,
                 "custom_IDENTITY": self.email_identity,
                 "SMS_IDENTITY": self.sms_identity,
+                "EMAIL_ENABLED": self.email_enabled,
+                "SMS_ENABLED": self.sms_enabled,
+                "CUSTOM_ENABLED": self.custom_enabled
             },
             role=self.lambda_pinpoint_message_role,
             # FAS Attached the Layer - because of need for the requests_toolbelt module.
-            layers=[self.layer_langchain, self.layer_factory_module],
+            layers=[self.layer_langchain, self.layer_factory_module, self.layer_shared_module, ],
         )
+        
         self.pinpoint_message_custom_lambda.add_alias(
             "Warm",
             provisioned_concurrent_executions=0,
             description="Alias used for Lambda provisioned concurrency",
         )
-
 
 
         ## ********* S3 Fetch *********

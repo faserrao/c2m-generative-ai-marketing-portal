@@ -27,6 +27,8 @@ from streamlit_extras.switch_page_button import switch_page
 import s3fs
 from components.utils_models import BEDROCK_MODELS
 
+from shared_module.channel_states import get_channel_states
+
 LOGGER = logging.Logger("AI-Chat", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
 HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
@@ -422,20 +424,6 @@ def process_df(df):
 
     return df, user_attribute_columns, attribute_columns, metric_columns, other_columns
 
-    """
-    def send_message_pinpoint(
-        address, channel, message_body_text, message_subject=None, message_body_html=None, first_name=None, last_name=None
-    ):
-        job_response = pinpoint_api.invoke_pinpoint_send_message(
-            access_token=st.session_state["access_token"],
-            address=address,
-            channel=channel,
-            message_body_text=message_body_text,
-            message_subject=message_subject,
-            message_body_html=message_body_html,
-        )
-        return job_response
-    """
 
 def send_message_pinpoint(address,
                           channel,
@@ -501,10 +489,9 @@ def set_button_clicked():
     """
     Set button as clicked and send out content
     """
+
     first_name=customer_details["User.UserAttributes.FirstName"],
     last_name=customer_details["User.UserAttributes.LastName"],
-
-    # Send Content to Amazon Pinpoint
     send_message_pinpoint(
         address=customer_details.loc["Address"],
         channel=customer_details.loc["ChannelType"],
@@ -514,6 +501,7 @@ def set_button_clicked():
         first_name=first_name,
         last_name=last_name,
     )
+
     st.session_state.button_clicked = True
 
 
@@ -618,6 +606,7 @@ else:
     #       PAGE CONTENT
     #########################
 
+    # TODO: Display something different if NOT button_clicked?
     # Check the session state variable at the beginning of the script
     if st.session_state.button_clicked:
         st.success("Message sent! Click to Proceed to next customer.")
@@ -634,8 +623,6 @@ else:
     # Get the specific customer's details
     customer_details = df.iloc[st.session_state["customer_counter"]]
     customer_details_df = customer_details.to_frame()
-
-    channel = customer_details.loc["ChannelType"]
 
     #### GET PRODUCT DATA FOR CONTENT GENERATION
 
@@ -662,6 +649,10 @@ else:
 
     for col, value in row.items():
         product_data += f"{col}: {value}; "
+
+    channel_states = get_channel_states()
+    channel        = customer_details.loc["ChannelType"]
+    channel_state  = channel_states.get(channel)
 
     # create a button that will generate the channel content
     content = generateMarketingContent(
@@ -698,13 +689,30 @@ else:
 
     col1, _, _, _, col2 = st.columns([2, 1, 1, 2, 2], gap="small")
 
-    with col1:
-        st.button(
-            "Send with Amazon Pinpoint",
-            key="accept",
-            help="Move to the next customer",
-            on_click=set_button_clicked,
-        )
+    # Get the specific customer's details
+    customer_details = df.iloc[st.session_state["customer_counter"]]
+    customer_details_df = customer_details.to_frame()
+
+    # channel        = customer_details.loc["ChannelType"]
+    # channel_state  = channel_states.get(channel)
+
+    if (channel_state == "false"):
+        with col1:
+            st.button(
+                channel + " Chanel Is Disabled",
+                key="accept",
+                help="Move to the next customer",
+    #           on_click=set_button_clicked,
+                disabled=True
+            )
+    else:
+        with col1:
+            st.button(
+                "Send with Amazon Pinpoint",
+                key="accept",
+                help="Move to the next customer",
+                on_click=set_button_clicked,
+            )
 
     with col2:
         st.button(

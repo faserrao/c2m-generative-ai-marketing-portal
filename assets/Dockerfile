@@ -14,15 +14,16 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends\
     git \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml /app
-COPY .streamlit/ /app/.streamlit/
+COPY streamlit/pyproject.toml /app
+COPY streamlit/.streamlit/ /app/.streamlit/
+COPY python/shared_module /app/shared_module
 
 RUN pip3 --no-cache-dir install -U pip
 RUN pip3 --no-cache-dir install poetry
 RUN poetry config virtualenvs.create false
 RUN poetry install --only main
 
-COPY src/ /app/src
+COPY streamlit/src/ /app/src
 
 EXPOSE 8501
 

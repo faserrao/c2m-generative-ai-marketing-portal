@@ -37,6 +37,9 @@ class StreamlitStack(NestedStack):
         sm_endpoints: dict = None,
         custom_header_name="X-Custom-Header",
         custom_header_value="MyNewCustomHeaderValue",
+        email_enabled: bool = True,
+        sms_enabled: bool = True,
+        custom_enabled: bool = True,
         **kwargs,
     ) -> None:
         super().__init__(scope, id, **kwargs)
@@ -54,6 +57,9 @@ class StreamlitStack(NestedStack):
         self.custom_header_name = custom_header_name
         self.custom_header_value = custom_header_value
         self.retriever_options = retriever_options if retriever_options is not None else ["N/A"]
+        self.email_enabled = str(email_enabled)
+        self.sms_enabled = str(sms_enabled)
+        self.custom_enabled = str(custom_enabled)
 
         self.docker_asset = self.build_docker_push_ecr()
 
@@ -78,7 +84,7 @@ class StreamlitStack(NestedStack):
             self,
             "StreamlitImg",
             # asset_name = f"{prefix}-streamlit-img",
-            directory=os.path.join(Path(__file__).parent.parent.parent, "assets/streamlit"),
+            directory=os.path.join(Path(__file__).parent.parent.parent, "assets"),
         )
 
     def create_webapp_vpc(self, open_to_public_internet=False):
@@ -223,6 +229,9 @@ class StreamlitStack(NestedStack):
                 "BUCKET_NAME": self.s3_data_bucket.bucket_name,
                 "COVER_IMAGE_URL": self.cover_image_url,
                 "COVER_IMAGE_LOGIN_URL": self.cover_image_login_url,
+                "EMAIL_ENABLED": self.email_enabled,
+                "SMS_ENABLED": self.sms_enabled,
+                "CUSTOM_ENABLED": self.custom_enabled
             },
             logging=ecs.LogDrivers.aws_logs(stream_prefix="WebContainerLogs"),
         )
