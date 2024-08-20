@@ -4,24 +4,21 @@ name="Home"
 icon="🏠"
 
 [[pages]]
-path="src/app_pages/00_Prompt_Iterator.py"
-name="Prompt Iterator"
+path="src/app_pages/00_Prompt_Smith.py"
+name="Prompt Smith"
 icon="🧙🏻‍♀️"
 
 [[pages]]
-path="src/app_pages/01_Pinpoint_Segment.py"
-name="Amazon Pinpoint Segment"
+path="src/app_pages/01_Segment_Architect.py"
+name="Segment Architect"
 icon=":bar_chart:"
 
 [[pages]]
-path="src/app_pages/02_Personalize_Segment.py"
-name="Amazon Personalize Segment"
+path="src/app_pages/02_Content_Personalizer.py"
+name="Content Personalizer"
 icon=":white_check_mark:"
 
 [[pages]]
-path="src/app_pages/03_Content_Generator.py"
-name="1:1 Content Generator"
+path="src/app_pages/03_Message_Dispatcher.py"
+name="Message Dispatcher"
 icon="🪄"
-
-
-

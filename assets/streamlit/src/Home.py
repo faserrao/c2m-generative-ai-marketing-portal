@@ -54,9 +54,9 @@ COVER_IMAGE = (
     if "authenticated" in st.session_state and st.session_state["authenticated"]
     else os.environ.get("COVER_IMAGE_LOGIN_URL")
 )
-TITLE = "MARKETING CONTENT GENERATOR"
+TITLE = "CLICK2MAIL CAMPAIGN GENIUS"
 DESCRIPTION = ""
-PAGE_TITLE = "MARKETING CONTENT GENERATOR"
+PAGE_TITLE = "CLICK2MAIL CAMPAIGN GENIUS"
 PAGE_ICON = "🧙🏻‍♀️"
 
 # page config
@@ -87,7 +87,6 @@ if "authenticated" in st.session_state and st.session_state["authenticated"]:
 #        SIDEBAR
 #########################
 
-# TODO: Add the title application tabs back.
 # sidebar title
 if st.session_state["authenticated"]:
     st.sidebar.markdown(
@@ -279,19 +278,19 @@ if st.session_state["authenticated"]:
         """
 Please select a tab from the left sidebar.
 
-#### :mag: **Prompt iterator**
+#### :mag: **Prompt Smith**
 - Create crafted prompts using Prompt Engineering and Auto Prompt Optimization
 - Enable crafted prompts to be used in batch or 1:1 marketing operations
 
-#### :mag: **Amazon Pinpoint Segment**
+#### :mag: **Segment Architect**
 - Leverage Amazon Pinpoint to retrieve customer segment for outreach
 - Utilize filters to identify your target segment
 
-#### :mag: **Amazon Personalize Segment**
+#### :mag: **Content Personalizer**
 - Leverage Amazon Personalize to retrieve recommended customer segment for product you want to push
 - Automated segmentation of users for recommended item using power AIML models
 
-#### :mag: **1:1 Marketing Generator**
+#### :mag: **Message Dispatcher**
 - Create and send 1:1 direct marketing messages to your customers
 - Generate personalized marketing messages using Bedrock models, based on preferences and customer data
 

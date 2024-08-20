@@ -42,9 +42,9 @@ sys.path.append(str(path.parent.parent.absolute()))
 
 # titles
 COVER_IMAGE = os.environ.get("COVER_IMAGE_URL")
-TITLE = "Marketing Content Generator"
-DESCRIPTION = "Generate marketing content for your customers"
-PAGE_TITLE = "GenAI Marketing Content Generator"
+TITLE = "CLICK2MAIL CAMPAIGN GENIUS"
+DESCRIPTION = "SEGMENT ARCHITECT"
+PAGE_TITLE = "SEGMENT ARCHITECT"
 PAGE_ICON = "🧙🏻‍♀️"
 
 # page config

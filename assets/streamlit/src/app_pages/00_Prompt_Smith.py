@@ -41,9 +41,9 @@ sys.path.append(str(path.parent.parent.absolute()))
 
 # titles
 COVER_IMAGE = os.environ.get("COVER_IMAGE_URL")
-TITLE = "Prompt Iterator"
-DESCRIPTION = "Iterate on your Prompt using Prompt Engineering and Auto-Prompting"
-PAGE_TITLE = "Prompt Iterator"
+TITLE = "CLICK2MAIL CAMPAIGN GENIUS"
+DESCRIPTION = "PROMPT SMITH"
+PAGE_TITLE = "PROMPT SMITH"
 PAGE_ICON = "🧙🏻‍♀️"
 
 # page config

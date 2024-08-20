@@ -58,7 +58,7 @@ def display_cover_with_title(
     description: str,
     image_url: str,
     width: int = 100,
-    text_color: str = "#FFFFFF",
+    text_color: str = "#15e85f",
 ) -> None:
     """
     Display cover with title
@@ -77,7 +77,7 @@ def display_cover_with_title(
     <div class="container" align="center">
     <img src={image_url} alt="Cover" style="width:{width}%;">
     <div style="position: absolute; top: 8px; left: 32px; font-size: 3rem; font-weight: bold; color: {text_color}" align="center">{title}</div>
-    <div style="position: absolute; bottom: 8px; left: 32px; font-size: 1.5rem; color: {text_color}" align="center">{description}</div>
+    <div style="position: absolute; bottom: 16px; left: 32px; font-size: 3rem; font-weight: bold; color: {text_color}" align="center">{description}</div>
     </div>
     """  # noqa: E501
 
