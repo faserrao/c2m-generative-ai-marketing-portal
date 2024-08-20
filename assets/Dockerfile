@@ -16,7 +16,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends\
 
 COPY streamlit/pyproject.toml /app
 COPY streamlit/.streamlit/ /app/.streamlit/
-COPY python/shared_module /app/shared_module
+COPY shared_module/python /app/shared_module
 
 RUN pip3 --no-cache-dir install -U pip
 RUN pip3 --no-cache-dir install poetry

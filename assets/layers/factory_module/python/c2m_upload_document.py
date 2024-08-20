@@ -6,17 +6,10 @@ Lambda that prompts Pinpoint to send a message based on channel
 #   LIBRARIES & LOGGER
 #########################
 
-import json
-# import logging
-import os
-import sys
-from datetime import datetime, timezone
+import logging
 from io import BytesIO
 import xml.etree.ElementTree as ET
-
-import boto3
-from botocore.exceptions import ClientError
-
+import sys
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 import requests
 from odf.opendocument import OpenDocumentText
@@ -24,12 +17,10 @@ from odf.text import P
 
 upload_doc_url          = "https://stage-rest.click2mail.com/molpro/documents"
 
-"""
 LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
 HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
 LOGGER.addHandler(HANDLER)
-"""
 
 # Define credentials
 myusername = 'stellario'
@@ -40,14 +31,10 @@ mypassword = 'Babushka1!'
 #########################
 
 def string_to_odt_in_memory(content: str):
-    # Create an OpenDocumentText document
+
     doc = OpenDocumentText()
-    
-    # Add a paragraph with the content
     paragraph = P(text=content)
     doc.text.addElement(paragraph)
-    
-    # Save the document to a BytesIO object
     odt_stream = BytesIO()
     doc.save(odt_stream)
     odt_stream.seek(0)  # Reset stream position to the beginning
@@ -60,20 +47,7 @@ def c2m_upload_document(document_format:  str = 'ODT',
                         document_content: str = None,
                         document_type:    str = 'application/odt'):
 
-  print('Entering c2m_upload_document()')
-  print('document_content = ', document_content)
-
-  # document_content = "Test Content"
-
-  # Convert string to ODT in memory
   odt_stream = string_to_odt_in_memory(document_content)
-
-  # Set up parameters for calling the endpoint
-  # The API enforces strict HTTPS, so the payload
-  # needs to be encoded
-  # The 'file.pdf' value in the 'file' value tuple 
-  # is a placeholder whose file extension must 
-  # match the document type, but whose name does not matter
   mp_encoder = MultipartEncoder(
     fields={
       'documentFormat': document_format,
@@ -82,42 +56,29 @@ def c2m_upload_document(document_format:  str = 'ODT',
       'file': ('file.odt', odt_stream, document_type)
     }
   )
+
   headers = {'user-agent': 'my-app/0.0.1','Content-Type': mp_encoder.content_type}
 
-  # Make the POST call
-  r = requests.post(upload_doc_url, auth=(myusername, mypassword), headers=headers, data=mp_encoder)
-
-  # TODO: Check status code and exit if bad.
-  # Display the result - a success should return status_code 201
-  print('r.status_code = ')
-  print(r.status_code)
-
-  # Display the full XML returned. The new document_id will be in 
-  # <document>
-  #   <id>document_id</id>
-  # <document>
-  # print('r.text = ' + r.text)
-
-  # The XML string
-  #xml_data = '''<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-  #<document>
-  #    <id>750373</id>
-  #    <status>0</status>
-  #    <description>Success</description>
-  #    <pages>6</pages>
-  #</document>'''
-
-  xml_data = r.text
-
-  # Parse the XML string
-  root = ET.fromstring(xml_data)
-
-  # Find the <id> element
-  document_id = root.find('id').text
-
-  # Print the document ID
-  print(f"Document ID: {document_id}")
-
-  print('Exiting c2m_submit_job()')
-
-  return document_id
+  try:
+    r = requests.post(upload_doc_url, auth=(myusername, mypassword), headers=headers, data=mp_encoder)
+    r.raise_for_status()  # Raise an exception for HTTP errors
+    xml_data = r.text
+    root = ET.fromstring(xml_data)
+    document_id = root.find('id').text
+    return {
+      "statusCode": r.status_code,
+      "body": document_id,
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  except requests.exceptions.RequestException as e:
+    # Log the error for debugging
+    logging.error(f"Request failed: {e}")
+    return {
+      "statusCode": 400,
+      "body": str(e),
+      "headers": {
+      "Content-Type": "application/json"
+      }
+    }

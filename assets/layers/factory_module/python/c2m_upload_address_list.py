@@ -6,16 +6,10 @@ Lambda that prompts Pinpoint to send a message based on channel
 #   LIBRARIES & LOGGER
 #########################
 
-import json
-# import logging
-import os
-import sys
-from datetime import datetime, timezone
+import logging
 from io import BytesIO
 import xml.etree.ElementTree as ET
-
-import boto3
-from botocore.exceptions import ClientError
+import sys
 
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 import requests
@@ -24,12 +18,10 @@ from odf.text import P
 
 upload_address_list_url = "https://stage-rest.click2mail.com/molpro/addressLists"
 
-"""
 LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
 HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
 LOGGER.addHandler(HANDLER)
-"""
 
 # Define credentials
 myusername = 'stellario'
@@ -40,14 +32,10 @@ mypassword = 'Babushka1!'
 #########################
 
 def string_to_odt_in_memory(content: str):
-    # Create an OpenDocumentText document
+
     doc = OpenDocumentText()
-    
-    # Add a paragraph with the content
     paragraph = P(text=content)
     doc.text.addElement(paragraph)
-    
-    # Save the document to a BytesIO object
     odt_stream = BytesIO()
     doc.save(odt_stream)
     odt_stream.seek(0)  # Reset stream position to the beginning
@@ -55,7 +43,6 @@ def string_to_odt_in_memory(content: str):
     return odt_stream
 
 
-###############################################
 def c2m_upload_address_list(address_list_name :       str = '',
                             address_list_mapping_id:  str = '',
                             first_name:               str = 'first_name',
@@ -69,19 +56,6 @@ def c2m_upload_address_list(address_list_name :       str = '',
                             postal_code:              str = '',
                             country:                  str = ''):
 
-
-  print('Entering c2m_upload_address_list()')
-
-  # Define the endpoint to use
-  url = upload_address_list_url
-
-  headers = {
-      "Accept": "application/xml",
-      "Content-Type": "application/xml"
-  }
-
-  # Build the XML block containing the mappingId and the 
-  # address information
   body = (
   '<addressList>'
     '<addressListName>' + address_list_name + '</addressListName>'
@@ -103,29 +77,27 @@ def c2m_upload_address_list(address_list_name :       str = '',
   '</addressList>'
   )
 
-  print('body = ' + body)
+  url = upload_address_list_url
+  headers = { "Accept": "application/xml", "Content-Type": "application/xml" }
 
-  # Make the POST call
-  r = requests.post(url, data=body, headers=headers, auth=(myusername, mypassword))
-
-  # Display the result - a success should return status_code 201
-  print('r.status_code = ')
-  print(r.status_code)
-
-  # Display the full XML returned.
-  print('r.text = ' + r.text)
-
-  xml_data = r.text
-
-  # Parse the XML string
-  root = ET.fromstring(xml_data)
-
-  # Find the <id> element
-  address_list_id = root.find('id').text
-
-  # Print the document ID
-  print(f"Address List ID: {address_list_id}")
-
-  print('Exiting c2m_upload_address_list()')
-
-  return address_list_id
+  try:
+    r = requests.post(url, data=body, headers=headers, auth=(myusername, mypassword))
+    r.raise_for_status()  # Raise an exception for HTTP errors
+    xml_data = r.text
+    root = ET.fromstring(xml_data)
+    address_list_id = root.find('id').text
+    return {
+      "statusCode": r.status_code,
+      "body": address_list_id,
+      "headers": {"Content-Type": "application/json"}
+    }
+  except requests.exceptions.RequestException as e:
+    # Log the error for debugging
+    logging.error(f"Request failed: {e}")
+    return {
+      "statusCode": 400,
+      "body": str(e),
+      "headers": {
+      "Content-Type": "application/json"
+      }
+    }

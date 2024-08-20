@@ -6,25 +6,19 @@ Lambda that prompts Pinpoint to send a message based on channel
 #   LIBRARIES & LOGGER
 #########################
 
-import json
-# import logging
-import os
+import logging
 import sys
-from datetime import datetime, timezone
 
-import boto3
 from botocore.exceptions import ClientError
 
 import requests
 
 check_tracking_url      = "https://stage-rest.click2mail.com/molpro/jobs/"
 
-"""
 LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
 HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
 LOGGER.addHandler(HANDLER)
-"""
 
 # Define credentials
 myusername = 'stellario'
@@ -37,21 +31,24 @@ mypassword = 'Babushka1!'
 def c2m_check_tracking(tracking_type: str = 'IMB', job_id: str = ''):
 
   headers = {'user-agent': 'my-app/0.0.1'}
-
-  # Set the tracking for the job
   tracking_type = tracking_type
-
-  # Define the endpoint to use, including the jobId
   url = check_tracking_url + job_id + "/tracking?tracking_type=" + tracking_type
 
-  # Make the GET call
-  r = requests.get(url, headers=headers, auth=(myusername, mypassword))
-
-  # Display the result - a success should return status_code 201
-  print('r.status_code = ')
-  print(r.status_code)
-
-  # Display the full XML returned.
-  print(r.text)
-
-  return r.text
+  try:
+    r = requests.get(url, headers=headers, auth=(myusername, mypassword))
+    r.raise_for_status()  # Raise an exception for HTTP errors
+    return {
+      "statusCode": r.status_code,
+      "body": r.text,
+      "headers": {"Content-Type": "application/json"}
+    }
+  except requests.exceptions.RequestException as e:
+    # Log the error for debugging
+    logging.error(f"Request failed: {e}")
+    return {
+      "statusCode": 400,
+      "body": str(e),
+      "headers": {
+      "Content-Type": "application/json"
+      }
+    }

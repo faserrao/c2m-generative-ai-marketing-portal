@@ -316,7 +316,8 @@ class CDSAIAPIConstructs(Construct):
             f"{stack_name}-shared_module-layer",
             compatible_runtimes=[self._runtime],
             compatible_architectures=[self._architecture],
-            code=_lambda.Code.from_asset("./assets/python"),
+#           code=_lambda.Code.from_asset("./assets/python/shared_module"),
+            code=_lambda.Code.from_asset("./assets/shared_module"),
             description="A layer for shared code",
             layer_version_name=f"{stack_name}-shared_module-layer",
         )

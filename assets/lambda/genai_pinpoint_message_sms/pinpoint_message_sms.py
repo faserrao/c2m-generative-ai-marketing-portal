@@ -4,14 +4,13 @@ import json
 from factory_module import MessageConfigFactoryCreator  # Import your factory module
 
 def lambda_handler(event, context):
+
+    event_body = json.loads(event["body"])
+    address = event_body["address"]
+    message_body_text = event_body["message-body-text"]
+    address = '+1' + address
+
     try:
-        event_body = json.loads(event["body"])
-        address = event_body["address"]
-        message_body_text = event_body["message-body-text"]
-
-        # Preface the SMS address with +1 for Pinpoint
-        address = '+1' + address
-
         try:
             factory = MessageConfigFactoryCreator.create_factory("SMS")
             message_request = factory.create_message_request(address, None, None, message_body_text)
