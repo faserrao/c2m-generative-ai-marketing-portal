@@ -15,10 +15,11 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 import requests
 from odf.opendocument import OpenDocumentText
 from odf.text import P
+from print_response import print_response
 
 upload_address_list_url = "https://stage-rest.click2mail.com/molpro/addressLists"
 
-LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
+LOGGER = logging.Logger("Content-generation", level=logging.INFO)
 HANDLER = logging.StreamHandler(sys.stdout)
 HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
 LOGGER.addHandler(HANDLER)
@@ -56,6 +57,9 @@ def c2m_upload_address_list(address_list_name :       str = '',
                             postal_code:              str = '',
                             country:                  str = ''):
 
+  print(f"c2m_upload_address_list():address_list_name = {address_list_name}")
+  logging.info(f"c2m_upload_address_list():address_list_name = {address_list_name}")
+
   body = (
   '<addressList>'
     '<addressListName>' + address_list_name + '</addressListName>'
@@ -77,23 +81,64 @@ def c2m_upload_address_list(address_list_name :       str = '',
   '</addressList>'
   )
 
-  url = upload_address_list_url
+  print(f"c2m_upload_address_list():body = {body}")
+  logging.info(f"c2m_upload_address_list():body = {body}")
+
   headers = { "Accept": "application/xml", "Content-Type": "application/xml" }
 
   try:
-    r = requests.post(url, data=body, headers=headers, auth=(myusername, mypassword))
+    r = requests.post(upload_address_list_url, data=body, headers=headers, auth=(myusername, mypassword))
+    print_response('c2m_upload_address_list', 'The response is', r)
+
     r.raise_for_status()  # Raise an exception for HTTP errors
-    xml_data = r.text
-    root = ET.fromstring(xml_data)
-    address_list_id = root.find('id').text
-    return {
-      "statusCode": r.status_code,
-      "body": address_list_id,
-      "headers": {"Content-Type": "application/json"}
-    }
+
+    print(f"c2m_upload_address_list():Upload Address List r: {r}")
+    logging.info(f"c2m_upload_address_list():Upload Address List status_code: {r.status_code}")
+    print(f"c2m_upload_address_list():Upload Address List status_code: {r.status_code}")
+
+    if (r.status_code == 200):
+      xml_data = r.text
+      print(f"c2m_upload_address_list():xml_data = {xml_data}")
+      logging.info(f"c2m_upload_address_list():Upload Address List xml_data: {xml_data}")
+
+      root = ET.fromstring(xml_data)
+
+      # Find the specific list element by name
+      # Dont need the .// anymore - Use the old code
+      # list_element = root.find(f".//list[name='{address_list_name}']")
+
+      list_element = root.find('id')
+
+      # Ensure the list element was found before trying to access its id
+      if list_element is not None:
+        address_list_id = list_element.text
+        print(f"c2m_upload_address_list():Address List ID: {address_list_id}")
+        logging.info(f"c2m_upload_address_list():Address List ID: {address_list_id}")
+        return {
+          "statusCode": 200,
+          "body": address_list_id,
+          "headers": {"Content-Type": "application/json"}
+        }
+      else:
+        print(f"c2m_upload_address_list():Upload address list call failed: {r.status_code}, {r.text}")
+        logging.error(f"c2m_upload_address_list():Upload address list call failed: {r.status_code}, {r.text}")
+        return {
+          "statusCode": 400,
+          "body": r.text,
+          "headers": {"Content-Type": "application/json"}
+        }
+    else:
+      print(f"c2m_upload_address_list():Upload address list call failed: {r.status_code}, {r.text}")
+      logging.error(f"c2m_upload_address_list():Upload address list call failed: {r.status_code}, {r.text}")
+      return {
+        "statusCode": 400,
+        "body": r.text,
+        "headers": {"Content-Type": "application/json"}
+      }
+
   except requests.exceptions.RequestException as e:
-    # Log the error for debugging
-    logging.error(f"Request failed: {e}")
+    print(f"c2m_upload_address_list():Upload address list http request failed: {e}")
+    logging.error(f"c2m_upload_address_list():Upload address list http request failed: {e}")
     return {
       "statusCode": 400,
       "body": str(e),

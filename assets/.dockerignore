@@ -1,0 +1,22 @@
+# Exclude git files
+.git
+.gitignore
+
+# Exclude Node.js dependencies
+node_modules
+
+# Exclude CDK output
+cdk.out
+
+# Exclude environment files
+*.env
+
+# Exclude Python cache files
+__pycache__/
+*.pyc
+
+demo-data/
+
+lambda/
+
+layers/

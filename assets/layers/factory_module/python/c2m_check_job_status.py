@@ -11,9 +11,11 @@ import sys
 
 import requests
 
+from print_response import print_response
+
 check_job_status_url    = "https://stage-rest.click2mail.com/molpro/jobs/"
 
-LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
+LOGGER = logging.Logger("Content-generation", level=logging.INFO)
 HANDLER = logging.StreamHandler(sys.stdout)
 HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
 LOGGER.addHandler(HANDLER)
@@ -34,14 +36,25 @@ def c2m_check_job_status(job_id: str = None):
   try:
     r = requests.get(url, headers=headers, auth=(myusername, mypassword))
     r.raise_for_status()  # Raise an exception for HTTP errors
-    return {
-      "statusCode": r.status_code,
-      "body": r.text,
-      "headers": {"Content-Type": "application/json"}
+    if (r.status_code == 201):
+      return {
+        "statusCode": 200,
+        "body": r.text,
+        "headers": {"Content-Type": "application/json"}
+      }
+    else:
+      print(f"c2m_check_job_status():Check job status call failed: {r.status_code}, {r.text}")
+      logging.error(f"c2m_check_job_status():Check job status call failed: {r.status_code}, {r.text}")
+      return {
+        "statusCode": 400,
+        "body": r.text,
+        "headers": {"Content-Type": "application/json"
+      }
     }
   except requests.exceptions.RequestException as e:
     # Log the error for debugging
-    logging.error(f"Request failed: {e}")
+    print(f"c2m_check_job_status():Check job status http request failed: {e}")
+    logging.error(f"c2m_check_job_status():Check job status http request failed: {e}")
     return {
       "statusCode": 400,
       "body": str(e),

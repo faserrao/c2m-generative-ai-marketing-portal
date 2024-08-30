@@ -16,7 +16,7 @@ import requests
 
 purchase_url            = "https://stage-rest.click2mail.com/molpro/credit/purchase"
 
-LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
+LOGGER = logging.Logger("Content-generation", level=logging.INFO)
 HANDLER = logging.StreamHandler(sys.stdout)
 HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
 LOGGER.addHandler(HANDLER)
@@ -59,14 +59,25 @@ def c2m_add_credit(billing_name: str = None,
   try:
       r = requests.post(purchase_url, auth=(myusername, mypassword), data=data)
       r.raise_for_status()  # Raise an exception for HTTP errors
-      return {
-        "statusCode": r.status_code,
-        "body": r.text,
-        "headers": {"Content-Type": "application/json"}
+      if (r.status_code == 200):
+        return {
+          "statusCode": 200,
+          "body": r.text,
+          "headers": {"Content-Type": "application/json"}
+        }
+      else:
+        print(f"c2m_add_credit():Add credit call failed: {r.status_code}, {r.text}")
+        logging.error(f"c2m_add_credit():Add credit call failed: {r.status_code}, {r.text}")
+        return {
+          "statusCode": 400,
+          "body": r.text,
+          "headers": {"Content-Type": "application/json"
+        }
       }
   except requests.exceptions.RequestException as e:
       # Log the error for debugging
-      logging.error(f"Request failed: {e}")
+      print(f"c2m_add_credit():Add credit http request failed: {e}, {str(e)}")
+      logging.error(f"c2m_add_credit():Add credit http request failed: {e}, {str(e)}")
       return {
           "statusCode": 400,
           "body": str(e),

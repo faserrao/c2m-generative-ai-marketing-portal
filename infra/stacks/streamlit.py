@@ -16,7 +16,9 @@ from aws_cdk.aws_cloudfront_origins import LoadBalancerV2Origin
 from constructs import Construct
 from aws_cdk import RemovalPolicy
 from cdk_nag import NagSuppressions
+from aws_cdk import Duration
 
+#TODO: Need to modify desired tasks to 4 to get UPDATE not to hang
 
 class StreamlitStack(NestedStack):
     def __init__(
@@ -25,8 +27,11 @@ class StreamlitStack(NestedStack):
         id: str,
         stack_name: str,
         s3_data_bucket: _s3.Bucket,
-        ecs_cpu: int = 512,
-        ecs_memory: int = 1024,
+
+        # Doubled next 2 to try to fix UPDATE hang
+        ecs_cpu: int = 2048,
+        ecs_memory: int = 4096,
+
         client_id: str = None,
         api_uri: str = None,
         cover_image_url: str = None,
@@ -37,7 +42,7 @@ class StreamlitStack(NestedStack):
         sm_endpoints: dict = None,
         custom_header_name="X-Custom-Header",
         custom_header_value="MyNewCustomHeaderValue",
-        email_enabled: bool = True,
+        email_enabled: bool = False,
         sms_enabled: bool = True,
         custom_enabled: bool = True,
         **kwargs,
@@ -196,9 +201,9 @@ class StreamlitStack(NestedStack):
 
         ## FAS: Trying to fix access logs prefix problem.
 
-#        alb.log_access_logs(log_bucket, "")
+        # alb.log_access_logs(log_bucket, "")
 
-#        alb.log_access_logs(bucket=log_bucket, prefix="alb-logs/")
+        # alb.log_access_logs(bucket=log_bucket, prefix="alb-logs/")
         alb.log_access_logs(bucket=log_bucket, prefix="alb-logs")
 
         # Create web app task role
@@ -212,12 +217,20 @@ class StreamlitStack(NestedStack):
             )
         )
 
+        # Create a log group
+        log_group = logs.LogGroup(
+            self, "WebappTaskDefLogGroup",
+            log_group_name="/aws/ecs/genai-marketer/web-container",
+            removal_policy=RemovalPolicy.DESTROY  # Destroy log group on stack deletion
+        )
+
         fargate_task_definition = ecs.FargateTaskDefinition(
             self, "WebappTaskDef", memory_limit_mib=self.ecs_memory, cpu=self.ecs_cpu, task_role=task_role
         )
 
         # app_uri = f"http://{alb.load_balancer_dns_name}"
 
+        # Add container to the task definition
         fargate_task_definition.add_container(
             "WebContainer",
             # Use an image from DockerHub
@@ -233,7 +246,10 @@ class StreamlitStack(NestedStack):
                 "SMS_ENABLED": self.sms_enabled,
                 "CUSTOM_ENABLED": self.custom_enabled
             },
-            logging=ecs.LogDrivers.aws_logs(stream_prefix="WebContainerLogs"),
+            logging=ecs.LogDrivers.aws_logs(
+                stream_prefix="WebContainerLogs",
+                log_group=log_group  # Associate the log group
+            )
         )
 
         service = ecs.FargateService(
@@ -241,9 +257,16 @@ class StreamlitStack(NestedStack):
             "StreamlitECSService",
             cluster=cluster,
             task_definition=fargate_task_definition,
+            desired_count=3,  # Set the desired number of tasks
             service_name=f"{self.prefix}-stl-front",
             security_groups=[self.ecs_security_group],
             vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PRIVATE_WITH_EGRESS),
+            # Added to try to fix UPDATE hang
+            health_check_grace_period=Duration.seconds(900),
+            # Added to try to fix UPDATE hang
+            circuit_breaker=ecs.DeploymentCircuitBreaker(rollback=True),  # Enable rollback on failure
+            # Added to try to fix UPDATE hang
+            deployment_controller=ecs.DeploymentController(type=ecs.DeploymentControllerType.ECS),  # Set deployment type
         )
 
         NagSuppressions.add_resource_suppressions(
