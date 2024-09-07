@@ -18,7 +18,7 @@ from aws_cdk import RemovalPolicy
 from cdk_nag import NagSuppressions
 from aws_cdk import Duration
 
-#TODO: Need to modify desired tasks to 4 to get UPDATE not to hang
+#TODO: Need to modify desired tasks to 3 to get UPDATE not to hang
 
 class StreamlitStack(NestedStack):
     def __init__(
@@ -223,6 +223,10 @@ class StreamlitStack(NestedStack):
             log_group_name="/aws/ecs/genai-marketer/web-container",
             removal_policy=RemovalPolicy.DESTROY  # Destroy log group on stack deletion
         )
+        
+        # Assume you have obtained the image URI and DIGEST through your earlier steps
+        # ecr_repository_uri = "562860900886.dkr.ecr.us-east-1.amazonaws.com/cdk-hnb659fds-container-assets-562860900886-us-east-1"
+        # image_digest = "sha256:bb35b839431fed8d378ba37d0496d9bcd5deb99e348b87bdc86a437273df40d9"
 
         fargate_task_definition = ecs.FargateTaskDefinition(
             self, "WebappTaskDef", memory_limit_mib=self.ecs_memory, cpu=self.ecs_cpu, task_role=task_role
@@ -230,10 +234,34 @@ class StreamlitStack(NestedStack):
 
         # app_uri = f"http://{alb.load_balancer_dns_name}"
 
+        """
         # Add container to the task definition
         fargate_task_definition.add_container(
             "WebContainer",
             # Use an image from DockerHub
+            image=ecs.ContainerImage.from_registry(
+                f"{ecr_repository_uri}@{image_digest}"),
+            port_mappings=[ecs.PortMapping(container_port=8501, protocol=ecs.Protocol.TCP)],
+            environment={
+                "CLIENT_ID": self.client_id,
+                "API_URI": self.api_uri,
+                "BUCKET_NAME": self.s3_data_bucket.bucket_name,
+                "COVER_IMAGE_URL": self.cover_image_url,
+                "COVER_IMAGE_LOGIN_URL": self.cover_image_login_url,
+                "EMAIL_ENABLED": self.email_enabled,
+                "SMS_ENABLED": self.sms_enabled,
+                "CUSTOM_ENABLED": self.custom_enabled
+            },
+            logging=ecs.LogDrivers.aws_logs(
+                stream_prefix="WebContainerLogs",
+                log_group=log_group  # Associate the log group
+            )
+        )
+        """
+
+        # Add container to the task definition
+        fargate_task_definition.add_container(
+            "WebContainer",
             image=ecs.ContainerImage.from_docker_image_asset(self.docker_asset),
             port_mappings=[ecs.PortMapping(container_port=8501, protocol=ecs.Protocol.TCP)],
             environment={
@@ -252,6 +280,7 @@ class StreamlitStack(NestedStack):
             )
         )
 
+        # TODO: May not need the 3 changes I made to try to fix the UPDATE hang.  At some point deleete and test.
         service = ecs.FargateService(
             self,
             "StreamlitECSService",
@@ -264,9 +293,9 @@ class StreamlitStack(NestedStack):
             # Added to try to fix UPDATE hang
             health_check_grace_period=Duration.seconds(900),
             # Added to try to fix UPDATE hang
-            circuit_breaker=ecs.DeploymentCircuitBreaker(rollback=True),  # Enable rollback on failure
+            # circuit_breaker=ecs.DeploymentCircuitBreaker(rollback=True),  # Enable rollback on failure
             # Added to try to fix UPDATE hang
-            deployment_controller=ecs.DeploymentController(type=ecs.DeploymentControllerType.ECS),  # Set deployment type
+            # deployment_controller=ecs.DeploymentController(type=ecs.DeploymentControllerType.ECS),  # Set deployment type
         )
 
         NagSuppressions.add_resource_suppressions(

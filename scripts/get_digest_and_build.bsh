@@ -1,0 +1,22 @@
+ECR_REPOSITORY='cdk-hnb659fds-container-assets-562860900886-us-east-1'
+# ECR_REPOSITORY='cdk-hnb659fds-container-assets-454674044397-us-east-1'
+IMAGE_TAG="v1.0"
+AWS_REGION="us-east-1"
+AWS_ACCOUNT_ID=562860900886
+
+DIGEST=$(aws ecr describe-images \
+    --repository-name $ECR_REPOSITORY \
+    --image-ids imageTag=$IMAGE_TAG \
+    --query 'imageDetails[0].imageDigest' \
+    --output text \
+    --region $AWS_REGION)
+
+echo "Image Digest: $DIGEST"
+
+aws ecr list-images --repository-name $ECR_REPOSITORY --region $AWS_REGION
+
+
+docker build . --tag $IMAGE_TAG
+docker tag $IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+

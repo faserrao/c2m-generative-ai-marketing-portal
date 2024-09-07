@@ -1,0 +1,17 @@
+{
+  "Dimensions": {
+    "Attributes": {
+      "email": {
+        "Values": ["endpoint1@example.com", "endpoint2@example.com"],
+        "AttributeType": "INCLUSIVE"
+      }
+    }
+  },
+  "ImportJobRequest": {
+    "S3Url": "s3://your-bucket-name/path/to/file.csv",
+    "RoleArn": "arn:aws:iam::your-account-id:role/your-import-role"
+  },
+  "Name": "your-segment-name",
+  "SegmentType": "IMPORT"
+}
+

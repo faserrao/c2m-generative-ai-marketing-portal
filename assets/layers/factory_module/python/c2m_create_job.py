@@ -6,20 +6,12 @@ Lambda that prompts Pinpoint to send a message based on channel
 #   LIBRARIES & LOGGER
 #########################
 
-import logging
-import sys
-
 import requests
 import xml.etree.ElementTree as ET
 
 from print_response import print_response
 
 create_job_url          = "https://stage-rest.click2mail.com/molpro/jobs"
-
-LOGGER = logging.Logger("Content-generation", level=logging.INFO)
-HANDLER = logging.StreamHandler(sys.stdout)
-HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
-LOGGER.addHandler(HANDLER)
 
 # Define credentials
 myusername = 'stellario'
@@ -52,41 +44,32 @@ def c2m_create_job(document_class:    str = 'Letter 8.5 x 11',
             'addressId'     : address_list_id}
 
   try:
-    r = requests.post(create_job_url, data=values, headers=headers, auth=(myusername, mypassword))
-    r.raise_for_status()
-    print_response('c2m_create_job', 'The response is:', r)
-    print(f"c2m_create_job(): status_code = {r.status_code}")
-    if (r.status_code == 201):
-      xml_data = r.text
-      logging.info(f"xml_data = {xml_data}")
-      print(f"xml_data = {xml_data}")
+    response = requests.post(create_job_url, data=values, headers=headers, auth=(myusername, mypassword))
+    response.raise_for_status()
+    if (response.status_code == 201):
+      print_response("Add create job successful", response)
 
+      xml_data = response.text
       root = ET.fromstring(xml_data)
-
-      # Directly find the <id> element within the xml
       id_element = root.find('id')
 
       if id_element is not None:
         job_id = id_element.text
-        print(f"c2m_upload_document():document_id = {job_id}")
-        logging.info(f"c2m_upload_document():document_id = {job_id}")
         return {
           "statusCode": 200,
           "body": job_id,
           "headers": {"Content-Type": "application/json"}
         }
       else:
-        print(f"c2m_create_job():Create job call failed: {r.status_code}, {r.text}")
-        logging.error(f"c2m_create_job():Create job call failed: {r.status_code}, {r.text}")
+        print_response("Add create job failed", response)
         return {
           "statusCode": 400,
-          "body": r.text,
+          "body": response.text,
           "headers": {"Content-Type": "application/json"}
         }
   except requests.exceptions.RequestException as e:
-    # Log the error for debugging
-    print(f"c2m_create_job():Create job http request failed: {e}")
-    logging.error(f"c2m_create_job():Create job http request failed: {e}")
+    exception_string = f"Create jobhttp request failed: {e}, {str(e)}"
+    print_response(exception_string)
     return {
       "statusCode": 400,
       "body": str(e),

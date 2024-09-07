@@ -6,20 +6,12 @@ Lambda that prompts Pinpoint to send a message based on channel
 #   LIBRARIES & LOGGER
 #########################
 
-import json
-import logging
-import sys
 import xml.etree.ElementTree as ET
 from botocore.exceptions import ClientError
-from requests_toolbelt.multipart.encoder import MultipartEncoder
 import requests
+from print_response import print_response
 
 purchase_url            = "https://stage-rest.click2mail.com/molpro/credit/purchase"
-
-LOGGER = logging.Logger("Content-generation", level=logging.INFO)
-HANDLER = logging.StreamHandler(sys.stdout)
-HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
-LOGGER.addHandler(HANDLER)
 
 # Define credentials
 myusername = 'stellario'
@@ -42,7 +34,7 @@ def c2m_add_credit(billing_name: str = None,
 							  	 billing_cvv: str = None, 
 							  	 billing_cc_type: str = None):
 
-  # Set up parameters for calling the endpoint
+  # Set up parameters foresponse calling the endpoint
   data = {'billingName' : billing_name,
           'billingAddress1' :billing_address1,
           'billingCity' : billing_city,
@@ -57,27 +49,26 @@ def c2m_add_credit(billing_name: str = None,
         }
 
   try:
-      r = requests.post(purchase_url, auth=(myusername, mypassword), data=data)
-      r.raise_for_status()  # Raise an exception for HTTP errors
-      if (r.status_code == 200):
+      response = requests.post(purchase_url, auth=(myusername, mypassword), data=data)
+      response.raise_for_status()  # Raise an exception foresponse HTTP errors
+      print_response("Add credit call successful", response)
+      if (response.status_code == 200):
         return {
           "statusCode": 200,
-          "body": r.text,
+          "body": response.text,
           "headers": {"Content-Type": "application/json"}
         }
       else:
-        print(f"c2m_add_credit():Add credit call failed: {r.status_code}, {r.text}")
-        logging.error(f"c2m_add_credit():Add credit call failed: {r.status_code}, {r.text}")
+        print_response("Add credit call failed", response)
         return {
           "statusCode": 400,
-          "body": r.text,
+          "body": response.text,
           "headers": {"Content-Type": "application/json"
         }
       }
   except requests.exceptions.RequestException as e:
-      # Log the error for debugging
-      print(f"c2m_add_credit():Add credit http request failed: {e}, {str(e)}")
-      logging.error(f"c2m_add_credit():Add credit http request failed: {e}, {str(e)}")
+      exception_string = f"Add credit http request failed: {e}, {str(e)}"
+      print_response(exception_string)
       return {
           "statusCode": 400,
           "body": str(e),

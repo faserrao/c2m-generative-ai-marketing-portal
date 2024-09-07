@@ -20,3 +20,7 @@ demo-data/
 lambda/
 
 layers/
+
+shared_module/python/print_response.py
+
+.dockerignore

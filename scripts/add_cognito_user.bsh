@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Define your AWS Region
+REGION="us-east-1" # Change to your region
+
+# Optionally, specify a user pool name or a keyword to filter by
+USER_POOL_NAME="genai-marketer-user-pool"
+
+# List user pools and filter for the desired user pool name
+USER_POOL_ID=$(aws cognito-idp list-user-pools --max-results 60 --region $REGION \
+    | jq -r --arg NAME "$USER_POOL_NAME" \
+    '.UserPools[] | select(.Name == $NAME) | .Id')
+
+# Check if USER_POOL_ID is empty
+if [ -z "$USER_POOL_ID" ]; then
+    echo "User Pool ID not found for the name: $USER_POOL_NAME"
+else
+    echo "User Pool ID: $USER_POOL_ID"
+fi
+
+aws cognito-idp admin-create-user \
+    --user-pool-id $USER_POOL_ID \
+    --username stellario \
+    --temporary-password Babushka1! \
+    --message-action SUPPRESS \
+    --user-attributes Name=email,Value=stellario2021@gmail.com Name=email_verified,Value=True
