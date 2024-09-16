@@ -4,7 +4,7 @@
 # ----------------------------------------------------------------------
 # File content:
 #       Docker image of the streamlit container
-FROM --platform=linux/amd64 python:3.9-slim
+FROM --platform=linux/amd64 python:3.9.19-slim
 WORKDIR /app
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends\
@@ -17,6 +17,8 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends\
 COPY streamlit/pyproject.toml /app
 COPY streamlit/.streamlit/ /app/.streamlit/
 COPY shared_module/python /app/shared_module
+
+RUN python --version
 
 RUN pip3 --no-cache-dir install -U pip
 RUN pip3 --no-cache-dir install poetry

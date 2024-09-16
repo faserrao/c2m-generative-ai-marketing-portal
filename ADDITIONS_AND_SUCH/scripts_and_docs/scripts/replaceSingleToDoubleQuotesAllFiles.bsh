@@ -1,0 +1,24 @@
+import os
+
+def replace_quotes_in_file(file_path):
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+    # Replace single quotes with double quotes
+    new_content = content.replace("'", '"')
+
+    # Write the updated content back to the file
+    with open(file_path, 'w') as file:
+        file.write(new_content)
+
+def replace_quotes_in_directory(directory):
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith(".py"):
+                file_path = os.path.join(root, file)
+                replace_quotes_in_file(file_path)
+                print(f"Processed file: {file_path}")
+
+# Run the script for your project directory
+project_directory = '.'  # Replace with the path to your project if necessary
+replace_quotes_in_directory(project_directory)

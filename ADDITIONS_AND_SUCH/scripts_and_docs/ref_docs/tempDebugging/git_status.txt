@@ -1,0 +1,50 @@
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../assets/lambda/genai_personalize_batch_segment_jobs/personalize_batch_segment_jobs.py
+	modified:   ../assets/lambda/genai_pinpoint_job/pinpoint_job.py
+	modified:   ../assets/lambda/genai_pinpoint_message/pinpoint_message.py
+	modified:   ../assets/lambda/genai_pinpoint_message_custom/pinpoint_message_custom.py
+	modified:   ../assets/lambda/genai_pinpoint_message_email/pinpoint_message_email.py
+	modified:   ../assets/lambda/genai_pinpoint_message_sms/pinpoint_message_sms.py
+	modified:   ../assets/lambda/genai_pinpoint_segment/pinpoint_segment.py
+	modified:   ../assets/lambda/genai_s3/s3_fetch.py
+	modified:   ../assets/layers/factory_module/python/c2m_add_credit.py
+	modified:   ../assets/layers/factory_module/python/c2m_check_job_status.py
+	modified:   ../assets/layers/factory_module/python/c2m_check_tracking.py
+	modified:   ../assets/layers/factory_module/python/c2m_create_job.py
+	modified:   ../assets/layers/factory_module/python/c2m_delete_address_lists.py
+	modified:   ../assets/layers/factory_module/python/c2m_submit_job.py
+	modified:   ../assets/layers/factory_module/python/c2m_upload_address_list.py
+	modified:   ../assets/layers/factory_module/python/c2m_upload_document.py
+	modified:   ../assets/layers/factory_module/python/factory_module.py
+	modified:   ../assets/shared_module/python/channel_states.py
+	modified:   ../assets/shared_module/python/print_response.py
+	modified:   ../assets/streamlit/src/Home.py
+	modified:   ../assets/streamlit/src/app_pages/00_Prompt_Smith.py
+	modified:   ../assets/streamlit/src/app_pages/01_Segment_Architect.py
+	modified:   ../assets/streamlit/src/app_pages/02_Content_Personalizer.py
+	modified:   ../assets/streamlit/src/app_pages/03_Message_Dispatcher.py
+	modified:   ../assets/streamlit/src/components/authenticate.py
+	modified:   ../assets/streamlit/src/components/personalize_api.py
+	modified:   ../assets/streamlit/src/components/pinpoint_api.py
+	modified:   ../assets/streamlit/src/components/utils.py
+	modified:   ../infra/constructs/cdsai_api.py
+	modified:   ../infra/constructs/llm_endpoints/config_factory/__init__.py
+	modified:   ../infra/constructs/llm_endpoints/config_factory/base.py
+	modified:   ../infra/constructs/llm_endpoints/config_factory/jumpstart.py
+	modified:   ../infra/constructs/llm_endpoints/config_factory/marketplace.py
+	modified:   ../infra/constructs/llm_endpoints/config_factory/tgi.py
+	modified:   ../infra/constructs/llm_endpoints/constants.py
+	modified:   ../infra/constructs/llm_endpoints/iam.py
+	modified:   ../infra/stacks/streamlit.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	../scripts/replaceSingleToDoubleQuotesAllFiles.bsh
+	./
+
+no changes added to commit (use "git add" and/or "git commit -a")
