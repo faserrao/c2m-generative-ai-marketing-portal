@@ -1,6 +1,4 @@
-"""
-Lambda that interacts with Amazon Personalize and S3 through APIGateway
-"""
+"""Lambda that interacts with Amazon Personalize and S3 through APIGateway."""
 
 #########################
 #   LIBRARIES & LOGGER
@@ -10,13 +8,12 @@ import json
 import logging
 import os
 import sys
+import tempfile
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 
 import boto3
-import tempfile
 from botocore.exceptions import ClientError
-
 
 LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
@@ -37,6 +34,8 @@ solution_version_arn = os.environ["SOLUTION_VERSION_ARN"]
 
 
 def lambda_handler(event, context):
+    """Handle POST and GET requests for Amazon Personalize batch segment
+    jobs."""
     print(event)
     # Get the HTTP method from the event object
     http_method = event["requestContext"]["http"]["method"]
@@ -53,7 +52,7 @@ def lambda_handler(event, context):
         # generate job name
         job_name = str(uuid.uuid4())
 
-        ### Upload input file to s3 with list of itemIDs
+        # Upload input file to s3 with list of itemIDs
 
         # Split the string by commas to get a list of item IDs
         item_id_list = item_ids.split(",")
@@ -132,6 +131,17 @@ def lambda_handler(event, context):
 
 
 def datetime_handler(x):
+    """Convert datetime objects to ISO format string.
+
+    Args:
+        x: Object to be converted.
+
+    Returns:
+        str: ISO format string if x is a datetime object.
+
+    Raises:
+        TypeError: If x is not a datetime object.
+    """
     if isinstance(x, datetime):
         return x.isoformat()
     raise TypeError("Unknown type")

@@ -10,12 +10,12 @@ from infra.constructs.llm_endpoints.config_factory import (
     JumpStartEndpointConfigurationFactory,
     MarketplaceModelEndpointConfigurationFactory,
 )
+from infra.constructs.llm_endpoints.constants import NAME_SEPARATOR
 from infra.constructs.llm_endpoints.iam import (
     ImageRepositoryAccessGrantor,
     ModelArtifactsAccessGrantor,
     SageMakerEndpointBasicExecutionRole,
 )
-from infra.constructs.llm_endpoints.constants import NAME_SEPARATOR
 
 
 class CDSAIEndpointConstructs(Construct):
@@ -109,7 +109,7 @@ class CDSAIEndpointConstructs(Construct):
     def create_endpoint_config_factory(
         self, config: Dict[str, Any], resource_prefix: str
     ) -> BaseEndpointConfigurationFactory:
-        "Factory method"
+        """Factory method."""
         endpoint_type = config["type"]
         user_config = config.get("endpoint_config", {})
         if endpoint_type == "jumpstart":

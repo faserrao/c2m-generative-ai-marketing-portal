@@ -1,6 +1,4 @@
-"""
-Lambda that prompts Pinpoint to send a message based on channel
-"""
+"""Lambda that prompts Pinpoint to send a message based on channel."""
 
 #########################
 #   LIBRARIES & LOGGER
@@ -10,11 +8,13 @@ Lambda that prompts Pinpoint to send a message based on channel
 import requests
 from print_response import print_response
 
-submit_job_url = "https://stage-rest.click2mail.com/molpro/jobs/"
+CONTENT_TYPE_JSON = "application/json"
+
+SUBMIT_JOB_URL = "https://stage-rest.click2mail.com/molpro/jobs/"
 
 # Define credentials
-myusername = "stellario"
-mypassword = "Babushka1!"
+USERNAME = "stellario"
+PASSWORD = "Babushka1!"
 
 #########################
 #        HANDLER
@@ -22,20 +22,29 @@ mypassword = "Babushka1!"
 
 
 def c2m_submit_job(billing_type: str = "User Credit", job_id: str = ""):
+    """Submit a job to Click2Mail.
 
-    url = submit_job_url + job_id + "/submit"
+    Args:
+        billing_type (str): Type of billing. Defaults to "User Credit".
+        job_id (str): ID of the job to submit.
+
+    Returns:
+        dict: Response containing status code, body, and headers.
+    """
+
+    url = SUBMIT_JOB_URL + job_id + "/submit"
     headers = {"user-agent": "my-app/0.0.1"}
     values = {"billingType": billing_type}
 
     try:
-        response = requests.post(url, data=values, headers=headers, auth=(myusername, mypassword))
+        response = requests.post(url, data=values, headers=headers, auth=(USERNAME, PASSWORD))
         response.raise_for_status()  # Raise an exception for HTTP errors
         print_response("Submit job successful", response)
         if response.status_code == 200:
-            return {"statusCode": 200, "body": response.text, "headers": {"Content-Type": "application/json"}}
+            return {"statusCode": 200, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
         print_response("Submit job failed:", response)
-        return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": "application/json"}}
+        return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
     except requests.exceptions.RequestException as e:
         exception_string = f"Submit job http request failed:: {e}, {str(e)}"
         print_response(exception_string)
-        return {"statusCode": 400, "body": str(e), "headers": {"Content-Type": "application/json"}}
+        return {"statusCode": 400, "body": str(e), "headers": {"Content-Type": CONTENT_TYPE_JSON}}

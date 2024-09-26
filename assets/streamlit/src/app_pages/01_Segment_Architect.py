@@ -1,32 +1,25 @@
-import streamlit as st
-import pandas as pd
-import langchain as lc
-from langchain import PromptTemplate
-
-# FAS
-# Made changed based on error message received.
-from langchain.llms.bedrock import Bedrock
-# from langchain_community.llms.bedrock import Bedrock
-
+import json
+import logging
 import os
 import sys
 import time
-import boto3
-from pprint import pprint
-from streamlit_extras.echo_expander import echo_expander
-from streamlit_extras.add_vertical_space import add_vertical_space
-import json
 from pathlib import Path
-from st_pages import show_pages_from_config
-from components.utils import display_cover_with_title, reset_session_state
+
 import components.authenticate as authenticate  # noqa: E402
-import components.genai_api as genai_api  # noqa: E402
 import components.pinpoint_api as pinpoint_api
+import pandas as pd
 import s3fs
+import streamlit as st
+from components.utils import display_cover_with_title, reset_session_state
 from components.utils_models import BEDROCK_MODELS
 
-import logging
+# FAS
+# Made changed based on error message received.
+from st_pages import show_pages_from_config
 from streamlit_extras.switch_page_button import switch_page
+
+# from langchain_community.llms.bedrock import Bedrock
+
 
 LOGGER = logging.Logger("AI-Chat", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
@@ -88,7 +81,7 @@ PAGE_NAME = "choose_segment"
 POLL_INTERVAL = 1
 
 # default model specs
-with open(f"{path.parent.absolute()}/components/model_specs.json") as f:
+with open(f"{path.parent.absolute()}/components/model_specs.json", encoding="utf-8") as f:
     MODEL_SPECS = json.load(f)
 
 # Hardcoded lists of available and non available models.
@@ -125,7 +118,7 @@ reset_session_state(page_name=PAGE_NAME)
 st.session_state.setdefault("ai_model", MODELS_DISPLAYED[0])  # default model
 # if "ai_model" not in st.session_state:
 #     st.session_state["ai_model"] = MODELS_DISPLAYED[0]  # default model
-LOGGER.log(logging.DEBUG, (f"ai_model selected: {st.session_state['ai_model']}"))
+LOGGER.log(logging.DEBUG, "ai_model selected: %s", st.session_state["ai_model"])
 
 # Initialize df in session state if it's not already present
 if "df_name" not in st.session_state:
@@ -154,50 +147,51 @@ box_style = {
 
 
 def get_pinpoint_segments():
+    """Fetch Pinpoint segments using the API."""
     with st.spinner("Processing..."):
-        segments = pinpoint_api.invoke_pinpoint_segment(
+        return pinpoint_api.invoke_pinpoint_segment(
             access_token=st.session_state["access_token"],
         )
-        return segments
 
 
 def create_pinpoint_export_job(segment_id):
-    job_response = pinpoint_api.invoke_pinpoint_create_export_job(
+    """Create a Pinpoint export job for the given segment ID."""
+    return pinpoint_api.invoke_pinpoint_create_export_job(
         access_token=st.session_state["access_token"], segment_id=segment_id
     )
-    return job_response
 
 
-def get_pinpoint_job_status(job_id):
-    job_status_response = pinpoint_api.invoke_pinpoint_export_job_status(
-        access_token=st.session_state["access_token"], job_id=job_id
+def get_pinpoint_job_status(export_job_id):
+    """Get the status of a Pinpoint export job."""
+    return pinpoint_api.invoke_pinpoint_export_job_status(
+        access_token=st.session_state["access_token"], job_id=export_job_id
     )
-    return job_status_response
 
 
 def get_export_files_uri(s3_url_prefix, total_pieces):
-    job_status_response = pinpoint_api.invoke_s3_fetch_files(
+    """Fetch S3 files using the Pinpoint API."""
+    return pinpoint_api.invoke_s3_fetch_files(
         access_token=st.session_state["access_token"],
         s3_url_prefix=s3_url_prefix,
         total_pieces=total_pieces,
     )
-    return job_status_response
 
 
-def read_s3_file(file_path):
+def read_s3_file(s3_file_path):
     """Read a gzipped file from S3 and return its content as a DataFrame."""
-    with fs.open(file_path, "rb") as f:
-        df = pd.read_json(f, compression="gzip", lines=True)
-        normalized_df = pd.json_normalize(df.to_dict(orient="records"))
-    return normalized_df
+    with fs.open(s3_file_path, "rb") as file:
+        data = pd.read_json(file, compression="gzip", lines=True)
+        return pd.json_normalize(data.to_dict(orient="records"))
 
 
-def save_df_session_state(df, df_name):
-    st.session_state["df"] = df
+def save_df_session_state(dataframe, df_name):
+    """Save DataFrame and its name to session state."""
+    st.session_state["df"] = dataframe
     st.session_state["df_name"] = df_name
 
 
 def disable(b):
+    """Set the 'disabled' state in the session state."""
     st.session_state["disabled"] = b
 
 
@@ -281,9 +275,7 @@ st.dataframe(df, hide_index=True)
 segment_names = df["Name"].tolist()
 
 # Create a select box
-selected_segment_name = st.selectbox(
-    label="Select an Amazon Pinpoint Segment to deep dive:", options=segment_names
-)
+selected_segment_name = st.selectbox(label="Select an Amazon Pinpoint Segment to deep dive:", options=segment_names)
 
 # Get the selected segment
 selected_segment = df[df["Name"] == selected_segment_name]
@@ -293,9 +285,7 @@ selected_segment_id = selected_segment["Segment ID"].values[0]
 
 # Create a button placeholder
 placeholder = st.empty()
-segment_button = placeholder.button(
-    "Export and Analyze Segment", disabled=False, key="1"
-)
+segment_button = placeholder.button("Export and Analyze Segment", disabled=False, key="1")
 
 job_status = "FAILED"
 status_placeholder = st.empty()
@@ -332,9 +322,7 @@ if segment_button:
 
 if exported_files is not None:
     empty_button = placeholder.empty()
-    status_placeholder.success(
-        f"Segment {selected_segment_name} has been successfully retrieved."
-    )
+    status_placeholder.success(f"Segment {selected_segment_name} has been successfully retrieved.")
     # Create an empty DataFrame
     combined_df = pd.DataFrame()
 
@@ -349,7 +337,5 @@ if exported_files is not None:
     # Create a button for confirmation
     st.button(
         "Confirm to use this Segment Data",
-        on_click=save_df_session_state(
-            df=combined_df, df_name=f"(Pinpoint)-{selected_segment_name}"
-        ),
+        on_click=save_df_session_state(dataframe=combined_df, df_name=f"(Pinpoint)-{selected_segment_name}"),
     )

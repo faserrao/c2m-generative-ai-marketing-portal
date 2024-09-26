@@ -1,18 +1,15 @@
-"""
-CDSGenAI API constructs
-"""
+"""CDSGenAI API constructs."""
+
 import os
 
 import aws_cdk.aws_apigatewayv2_alpha as _apigw
 import aws_cdk.aws_apigatewayv2_integrations_alpha as _integrations
-import aws_cdk.aws_apigatewayv2 as _apigwv2
-from aws_cdk import Duration, RemovalPolicy
+from aws_cdk import Aws, Duration, RemovalPolicy
 from aws_cdk import aws_cognito as cognito
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_lambda as _lambda
-from aws_cdk import aws_s3 as _s3
-from aws_cdk import Aws
 from aws_cdk import aws_logs as logs
+from aws_cdk import aws_s3 as _s3
 from aws_cdk.aws_apigatewayv2_authorizers_alpha import HttpUserPoolAuthorizer
 from cdk_nag import NagSuppressions
 from constructs import Construct
@@ -44,7 +41,7 @@ class CDSAIAPIConstructs(Construct):
         bedrock_role_arn: str = None,
         email_enabled: bool = True,
         sms_enabled: bool = True,
-        custom_enabled:bool = True,
+        custom_enabled: bool = True,
         **kwargs,
     ) -> None:
         super().__init__(scope, construct_id, **kwargs)
@@ -62,7 +59,7 @@ class CDSAIAPIConstructs(Construct):
         self.sms_enabled = str(sms_enabled)
         self.custom_enabled = str(custom_enabled)
 
-        ## **************** Set Architecture and Python Runtime ****************
+        # **************** Set Architecture and Python Runtime ****************
         if architecture == "ARM_64":
             self._architecture = _lambda.Architecture.ARM_64
         elif architecture == "X86_64":
@@ -79,7 +76,7 @@ class CDSAIAPIConstructs(Construct):
         else:
             raise RuntimeError("Select a Python version >= PYTHON_3_9")
 
-        ## **************** Create resources ****************
+        # **************** Create resources ****************
 
         self.create_lambda_layers(stack_name)
         self.create_roles(stack_name)
@@ -107,7 +104,7 @@ class CDSAIAPIConstructs(Construct):
         )
 
         # create log group for HTTP API access logging
-        log_group = logs.LogGroup(self, "ApiGatewayAccessLogs", retention=logs.RetentionDays.ONE_WEEK)
+        logs.LogGroup(self, "ApiGatewayAccessLogs", retention=logs.RetentionDays.ONE_WEEK)
 
         # set access logging for default stage
         """
@@ -175,7 +172,6 @@ class CDSAIAPIConstructs(Construct):
                 "LambdaProxyIntegration", handler=self.pinpoint_message_custom_lambda
             ),
         )
-
 
         # add s3 file to GET /
         http_api.add_routes(
@@ -254,11 +250,11 @@ class CDSAIAPIConstructs(Construct):
         )
     """
 
-# TODO: Replace python version in code with variable.
+    # TODO: Replace python version in code with variable.
 
     def create_lambda_layers(self, stack_name):
-#        bundling_image = self._runtime.bundling_image
-#        python_version = self._runtime.name.replace("python", "")  # Extracts '3.9' from 'python3.9'
+        #        bundling_image = self._runtime.bundling_image
+        #        python_version = self._runtime.name.replace("python", "")  # Extracts '3.9' from 'python3.9'
         self.layer_langchain = _lambda.LayerVersion(
             self,
             f"{stack_name}-langchain-layer",
@@ -268,11 +264,13 @@ class CDSAIAPIConstructs(Construct):
                 path=os.path.join(".", "assets", "layers", "langchain"),
                 bundling={
                     "image": _lambda.Runtime.PYTHON_3_9.bundling_image,
-#                   "image": bundling_image,
+                    #                   "image": bundling_image,
                     "command": [
-                        "bash", "-c",
-#                       f"pip install -r requirements.txt -t /asset-output/python/lib/python{python_version}/site-packages/"
-                        "pip install -r requirements.txt -t /asset-output/python/lib/python3.9/site-packages/ && cp -au . /asset-output"
+                        "bash",
+                        "-c",
+                        "pip install -r requirements.txt "
+                        "-t /asset-output/python/lib/python3.9/site-packages/ && "
+                        "cp -au . /asset-output",
                     ],
                 },
             ),
@@ -316,15 +314,15 @@ class CDSAIAPIConstructs(Construct):
             f"{stack_name}-shared_module-layer",
             compatible_runtimes=[self._runtime],
             compatible_architectures=[self._architecture],
-#           code=_lambda.Code.from_asset("./assets/python/shared_module"),
+            #           code=_lambda.Code.from_asset("./assets/python/shared_module"),
             code=_lambda.Code.from_asset("./assets/shared_module"),
             description="A layer for shared code",
             layer_version_name=f"{stack_name}-shared_module-layer",
         )
 
-    ## **************** Lambda Functions ****************
+    # **************** Lambda Functions ****************
     def create_lambda_functions(self, stack_name):
-        ## ********* Create Marketing Content Bedrock *********
+        # ********* Create Marketing Content Bedrock *********
         self.bedrock_content_generation_lambda = _lambda.Function(
             self,
             f"{stack_name}-bedrock-content-generation-lambda",
@@ -349,7 +347,7 @@ class CDSAIAPIConstructs(Construct):
             description="Alias used for Lambda provisioned concurrency",
         )
 
-        ## ********* Pinpoint Segment *********
+        # ********* Pinpoint Segment *********
         self.pinpoint_segment_lambda = _lambda.Function(
             self,
             f"{stack_name}-pinpoint-segment-lambda",
@@ -370,7 +368,7 @@ class CDSAIAPIConstructs(Construct):
             description="Alias used for Lambda provisioned concurrency",
         )
 
-        ## ********* Pinpoint Job *********
+        # ********* Pinpoint Job *********
         self.pinpoint_job_lambda = _lambda.Function(
             self,
             f"{stack_name}-pinpoint-job-lambda",
@@ -393,7 +391,7 @@ class CDSAIAPIConstructs(Construct):
             description="Alias used for Lambda provisioned concurrency",
         )
 
-        ## ********* Pinpoint Message *********
+        # ********* Pinpoint Message *********
         self.pinpoint_message_lambda = _lambda.Function(
             self,
             f"{stack_name}-pinpoint-message-lambda",
@@ -410,7 +408,7 @@ class CDSAIAPIConstructs(Construct):
                 "SMS_IDENTITY": self.sms_identity,
                 "EMAIL_ENABLED": self.email_enabled,
                 "SMS_ENABLED": self.sms_enabled,
-                "CUSTOM_ENABLED": self.custom_enabled
+                "CUSTOM_ENABLED": self.custom_enabled,
             },
             role=self.lambda_pinpoint_message_role,
             # FAS Attached the Layer - because of need for the requests_toolbelt module.
@@ -438,11 +436,15 @@ class CDSAIAPIConstructs(Construct):
                 "SMS_IDENTITY": self.sms_identity,
                 "EMAIL_ENABLED": self.email_enabled,
                 "SMS_ENABLED": self.sms_enabled,
-                "CUSTOM_ENABLED": self.custom_enabled
+                "CUSTOM_ENABLED": self.custom_enabled,
             },
             role=self.lambda_pinpoint_message_role,
             # FAS Attached the Layer - because of need for the requests_toolbelt module.
-            layers=[self.layer_langchain, self.layer_factory_module, self.layer_shared_module, ],
+            layers=[
+                self.layer_langchain,
+                self.layer_factory_module,
+                self.layer_shared_module,
+            ],
         )
 
         self.pinpoint_message_email_lambda.add_alias(
@@ -467,11 +469,15 @@ class CDSAIAPIConstructs(Construct):
                 "SMS_IDENTITY": self.sms_identity,
                 "EMAIL_ENABLED": self.email_enabled,
                 "SMS_ENABLED": self.sms_enabled,
-                "CUSTOM_ENABLED": self.custom_enabled
+                "CUSTOM_ENABLED": self.custom_enabled,
             },
             role=self.lambda_pinpoint_message_role,
             # FAS Attached the Layer - because of need for the requests_toolbelt module.
-            layers=[self.layer_langchain, self.layer_factory_module, self.layer_shared_module, ],
+            layers=[
+                self.layer_langchain,
+                self.layer_factory_module,
+                self.layer_shared_module,
+            ],
         )
         self.pinpoint_message_sms_lambda.add_alias(
             "Warm",
@@ -495,21 +501,24 @@ class CDSAIAPIConstructs(Construct):
                 "SMS_IDENTITY": self.sms_identity,
                 "EMAIL_ENABLED": self.email_enabled,
                 "SMS_ENABLED": self.sms_enabled,
-                "CUSTOM_ENABLED": self.custom_enabled
+                "CUSTOM_ENABLED": self.custom_enabled,
             },
             role=self.lambda_pinpoint_message_role,
             # FAS Attached the Layer - because of need for the requests_toolbelt module.
-            layers=[self.layer_langchain, self.layer_factory_module, self.layer_shared_module, ],
+            layers=[
+                self.layer_langchain,
+                self.layer_factory_module,
+                self.layer_shared_module,
+            ],
         )
-        
+
         self.pinpoint_message_custom_lambda.add_alias(
             "Warm",
             provisioned_concurrent_executions=0,
             description="Alias used for Lambda provisioned concurrency",
         )
 
-
-        ## ********* S3 Fetch *********
+        # ********* S3 Fetch *********
         self.s3_fetch_lambda = _lambda.Function(
             self,
             f"{stack_name}-s3-fetch-lambda",
@@ -530,9 +539,9 @@ class CDSAIAPIConstructs(Construct):
             description="Alias used for Lambda provisioned concurrency",
         )
 
-        ## ********* Personalize *********
+        # ********* Personalize *********
 
-        ### ********* Personalize Batch Segment Job *********
+        # ********* Personalize Batch Segment Job *********
         self.personalize_batch_segment_job_lambda = _lambda.Function(
             self,
             f"{stack_name}-personalize-batch-segment-job-lambda",
@@ -555,7 +564,7 @@ class CDSAIAPIConstructs(Construct):
             description="Alias used for Lambda provisioned concurrency",
         )
 
-        ### ********* Personalize Batch Segment Jobs *********
+        # ********* Personalize Batch Segment Jobs *********
         self.personalize_batch_segment_jobs_lambda = _lambda.Function(
             self,
             f"{stack_name}-personalize-batch-segment-jobs-lambda",
@@ -574,9 +583,9 @@ class CDSAIAPIConstructs(Construct):
         )
 
     # TODO: Separate roles for 3 message lambdas.
-    ## **************** IAM Permissions ****************
+    # **************** IAM Permissions ****************
     def create_roles(self, stack_name: str):
-        ## ********* IAM Roles *********
+        # ********* IAM Roles *********
         self.bedrock_content_generation_role = iam.Role(
             self,
             f"{stack_name}-bedrock-content-generation-role",
@@ -627,7 +636,7 @@ class CDSAIAPIConstructs(Construct):
             ),
         )
 
-        # ## ********* Lambda Basic Execution Role *********
+        # ********* Lambda Basic Execution Role *********
         cloudwatch_access_docpolicy = iam.PolicyDocument(
             statements=[
                 iam.PolicyStatement(
@@ -639,7 +648,7 @@ class CDSAIAPIConstructs(Construct):
             ]
         )
 
-        cloudwatch_access_policy = iam.Policy(
+        iam.Policy(
             self,
             f"{stack_name}-cloudwatch-access-policy",
             policy_name=f"{stack_name}-cloudwatch-access-policy",
@@ -665,7 +674,7 @@ class CDSAIAPIConstructs(Construct):
             iam.ManagedPolicy.from_aws_managed_policy_name("service-role/AWSLambdaBasicExecutionRole")
         )
 
-        ## ********* Bedrock *********
+        # ********* Bedrock *********
         if self.bedrock_role_arn is None:
             bedrock_access_docpolicy = iam.PolicyDocument(
                 statements=[
@@ -717,7 +726,7 @@ class CDSAIAPIConstructs(Construct):
 
         self.bedrock_content_generation_role.attach_inline_policy(bedrock_access_policy)
 
-        ## ********* S3 Access *********
+        # ********* S3 Access *********
         self.s3_data_bucket.grant_read_write(self.lambda_pinpoint_segment_role)
         self.s3_data_bucket.grant_read_write(self.lambda_pinpoint_message_role)
         self.s3_data_bucket.grant_read_write(self.personalize_role)
@@ -725,7 +734,7 @@ class CDSAIAPIConstructs(Construct):
         # Grant Amazon Personalize the required permissions on the bucket
         self.s3_data_bucket.grant_read_write(iam.ServicePrincipal("personalize.amazonaws.com"))
 
-        ## ********* Pinpoint Access *********
+        # ********* Pinpoint Access *********
         # Inline Statement to allow get-segments on a specific Pinpoint project
         pinpoint_segment_policy_statement = iam.PolicyStatement(
             actions=["mobiletargeting:GetSegments"],
@@ -768,7 +777,7 @@ class CDSAIAPIConstructs(Construct):
 
         pinpoint_export_job_policy.attach_to_role(self.lambda_pinpoint_job_role)
 
-        ### Allow sending message through Pinpoint
+        # Allow sending message through Pinpoint
         pinpoint_send_message_policy_statement = iam.PolicyStatement(
             actions=["mobiletargeting:SendMessages", "mobiletargeting:SendUsersMessages"],
             resources=[
@@ -782,11 +791,11 @@ class CDSAIAPIConstructs(Construct):
             effect=iam.Effect.ALLOW,
         )
 
-        ## FAS: Needed to define a policy statement that gives the Lambda
-        ## permission to access the SES Identity.
+        # FAS: Needed to define a policy statement that gives the Lambda
+        # permission to access the SES Identity.
 
         # Create a policy statement for SES email sending with a specific ARN
-        ##
+        #
         pinpoint_ses_send_email_policy_statement = iam.PolicyStatement(
             actions=["ses:SendEmail", "ses:SendRawEmail"],
             resources=[f"arn:aws:ses:{Aws.REGION}:{Aws.ACCOUNT_ID}:identity/{self.email_identity}"],
@@ -797,19 +806,23 @@ class CDSAIAPIConstructs(Construct):
             self,
             id=f"{stack_name}-pinpoint-send-message-policy",
             policy_name=f"{stack_name}-pinpoint-send-message-policy",
-            statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement, pinpoint_ses_send_email_policy_statement],
-        ##    statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement],
+            statements=[
+                pinpoint_send_message_policy_statement,
+                pinpoint_send_sms_voice_policy_statement,
+                pinpoint_ses_send_email_policy_statement,
+            ],
+            #    statements=[pinpoint_send_message_policy_statement, pinpoint_send_sms_voice_policy_statement],
         )
 
         pinpoint_send_message_policy.attach_to_role(self.lambda_pinpoint_message_role)
 
-        ## ********* Personalize Access *********
+        # ********* Personalize Access *********
         # Add Personalize Full Access to the Lambda function
         self.personalize_role.add_managed_policy(
             iam.ManagedPolicy.from_aws_managed_policy_name("service-role/AmazonPersonalizeFullAccess")
         )
 
-        ## ********* CDK Nag Suppressions *********
+        # ********* CDK Nag Suppressions *********
 
         NagSuppressions.add_resource_suppressions(
             bedrock_access_policy,

@@ -1,6 +1,5 @@
-"""
-Utilities for Cognito authentication
-"""
+"""Utilities for Cognito authentication."""
+
 import base64
 import json
 import os
@@ -29,8 +28,8 @@ CLIENT_ID = os.environ.get("CLIENT_ID")
 
 
 def initialise_st_state_vars():
-    """
-    Initialise Streamlit state variables.
+    """Initialise Streamlit state variables.
+
     Returns:
         Nothing.
     """
@@ -65,9 +64,7 @@ def verify_access_token(token: str):
 
 
 def update_access_token():
-    """
-    Get new access token using the refresh token
-    """
+    """Get new access token using the refresh token."""
     try:
         response = client.initiate_auth(
             AuthFlow="REFRESH_TOKEN_AUTH",
@@ -95,8 +92,8 @@ def update_access_token():
 
 
 def pad_base64(data):
-    """
-    Decode access token to JWT to get user's cognito groups
+    """Decode access token to JWT to get user's cognito groups.
+
     Ref - https://gist.github.com/GuillaumeDerval/b300af6d4f906f38a051351afab3b95c
     Args:
         data: base64 token string.
@@ -110,8 +107,8 @@ def pad_base64(data):
 
 
 def get_user_attributes(id_token):
-    """
-    Decode id token to get user cognito groups.
+    """Decode id token to get user cognito groups.
+
     Args:
         id_token: id token of a successfully authenticated user.
     Returns:
@@ -133,8 +130,8 @@ def get_user_attributes(id_token):
 
 
 def set_st_state_vars():
-    """
-    Sets the streamlit state variables after user authentication.
+    """Sets the streamlit state variables after user authentication.
+
     Returns:
         Nothing.
     """
@@ -259,9 +256,8 @@ def verify_token(token):
 
 
 def setup_mfa():
-    """
-    Reply to MFA setup challenge
-    The current session has to be updated by verify token function
+    """Reply to MFA setup challenge The current session has to be updated by
+    verify token function.
 
     Returns:
         success: True if succeded, False otherwise
@@ -372,9 +368,7 @@ def reset_password(password):
 
 
 def sign_out():
-    """
-    Sign out user by updating all relevant state parameters
-    """
+    """Sign out user by updating all relevant state parameters."""
     if st.session_state["refresh_token"] != "":
         client.revoke_token(
             Token=st.session_state["refresh_token"],

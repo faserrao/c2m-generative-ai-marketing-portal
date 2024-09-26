@@ -1,24 +1,22 @@
 import os
 from pathlib import Path
 
-from aws_cdk import aws_iam as iam
 from aws_cdk import CfnOutput as output
-from aws_cdk import NestedStack, Tags
+from aws_cdk import Duration, NestedStack, RemovalPolicy, Tags
+from aws_cdk import aws_cloudfront as cloudfront
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_ecs as ecs
 from aws_cdk import aws_elasticloadbalancingv2 as elbv2
-from aws_cdk import aws_s3 as _s3
+from aws_cdk import aws_iam as iam
 from aws_cdk import aws_logs as logs
-from aws_cdk.aws_ecr_assets import DockerImageAsset
-from constructs import Construct
-from aws_cdk import aws_cloudfront as cloudfront
+from aws_cdk import aws_s3 as _s3
 from aws_cdk.aws_cloudfront_origins import LoadBalancerV2Origin
-from constructs import Construct
-from aws_cdk import RemovalPolicy
+from aws_cdk.aws_ecr_assets import DockerImageAsset
 from cdk_nag import NagSuppressions
-from aws_cdk import Duration
+from constructs import Construct
 
-#TODO: Need to modify desired tasks to 3 to get UPDATE not to hang
+# TODO: Need to modify desired tasks to 3 to get UPDATE not to hang
+
 
 class StreamlitStack(NestedStack):
     def __init__(
@@ -27,11 +25,9 @@ class StreamlitStack(NestedStack):
         id: str,
         stack_name: str,
         s3_data_bucket: _s3.Bucket,
-
         # Doubled next 2 to try to fix UPDATE hang
         ecs_cpu: int = 2048,
         ecs_memory: int = 4096,
-
         client_id: str = None,
         api_uri: str = None,
         cover_image_url: str = None,
@@ -79,7 +75,7 @@ class StreamlitStack(NestedStack):
             self, id="cloudfront_distribution_name", value=self.cloudfront.domain_name
         )
 
-        ## **************** Tags ****************
+        # **************** Tags ****************
         Tags.of(self).add("StackName", id)
         Tags.of(self).add("Team", "CDS")
 
@@ -199,7 +195,7 @@ class StreamlitStack(NestedStack):
             vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
         )
 
-        ## FAS: Trying to fix access logs prefix problem.
+        # FAS: Trying to fix access logs prefix problem.
 
         # alb.log_access_logs(log_bucket, "")
 
@@ -219,13 +215,15 @@ class StreamlitStack(NestedStack):
 
         # Create a log group
         log_group = logs.LogGroup(
-            self, "WebappTaskDefLogGroup",
+            self,
+            "WebappTaskDefLogGroup",
             log_group_name="/aws/ecs/genai-marketer/web-container",
-            removal_policy=RemovalPolicy.DESTROY  # Destroy log group on stack deletion
+            removal_policy=RemovalPolicy.DESTROY,  # Destroy log group on stack deletion
         )
-        
+
         # Assume you have obtained the image URI and DIGEST through your earlier steps
-        # ecr_repository_uri = "562860900886.dkr.ecr.us-east-1.amazonaws.com/cdk-hnb659fds-container-assets-562860900886-us-east-1"
+        # ecr_repository_uri = "562860900886.dkr.ecr.us-east-1.amazonaws.com/"
+        # ecr_repository_uri += "cdk-hnb659fds-container-assets-562860900886-us-east-1"
         # image_digest = "sha256:bb35b839431fed8d378ba37d0496d9bcd5deb99e348b87bdc86a437273df40d9"
 
         fargate_task_definition = ecs.FargateTaskDefinition(
@@ -272,12 +270,11 @@ class StreamlitStack(NestedStack):
                 "COVER_IMAGE_LOGIN_URL": self.cover_image_login_url,
                 "EMAIL_ENABLED": self.email_enabled,
                 "SMS_ENABLED": self.sms_enabled,
-                "CUSTOM_ENABLED": self.custom_enabled
+                "CUSTOM_ENABLED": self.custom_enabled,
             },
             logging=ecs.LogDrivers.aws_logs(
-                stream_prefix="WebContainerLogs",
-                log_group=log_group  # Associate the log group
-            )
+                stream_prefix="WebContainerLogs", log_group=log_group  # Associate the log group
+            ),
         )
 
         # TODO: May not need the 3 changes I made to try to fix the UPDATE hang.  At some point deleete and test.
@@ -295,7 +292,9 @@ class StreamlitStack(NestedStack):
             # Added to try to fix UPDATE hang
             # circuit_breaker=ecs.DeploymentCircuitBreaker(rollback=True),  # Enable rollback on failure
             # Added to try to fix UPDATE hang
-            # deployment_controller=ecs.DeploymentController(type=ecs.DeploymentControllerType.ECS),  # Set deployment type
+            deployment_controller=ecs.DeploymentController(
+                type=ecs.DeploymentControllerType.ECS
+            ),  # Set deployment type
         )
 
         NagSuppressions.add_resource_suppressions(

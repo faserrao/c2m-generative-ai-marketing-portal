@@ -4,6 +4,7 @@
 # ----------------------------------------------------------------------
 # File content:
 #       Docker image of the streamlit container
+#
 FROM --platform=linux/amd64 python:3.9.19-slim
 WORKDIR /app
 

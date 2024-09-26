@@ -51,14 +51,16 @@ class ModelArtifactsAccessGrantor(Construct):
         "s3:GetObject",
     ]
 
-    def __init__(self, scope: Construct, construct_id: str, *, bucket_name: str, prefix: str, resource_prefix: str) -> None:
+    def __init__(
+        self, scope: Construct, construct_id: str, *, bucket_name: str, prefix: str, resource_prefix: str
+    ) -> None:
         super().__init__(scope=scope, id=construct_id)
         prefix = Path(prefix)
         if prefix.suffixes:
-            objects = prefix.as_posix() 
+            objects = prefix.as_posix()
         else:
             objects = f"{prefix.parent.as_posix()}/*"
-            
+
         self._artifacts_policy = iam.Policy(
             scope=self,
             id="ReadPolicy",
@@ -78,15 +80,17 @@ class ModelArtifactsAccessGrantor(Construct):
         )
 
     @classmethod
-    def from_uri(cls, scope: Construct, construct_id: str, uri: str, resource_prefix: str) -> ModelArtifactsAccessGrantor:
+    def from_uri(
+        cls, scope: Construct, construct_id: str, uri: str, resource_prefix: str
+    ) -> ModelArtifactsAccessGrantor:
         bucket_name, prefix = re.search(r"^s3://(.+)", uri).group(1).split("/", 1)
         return cls(
-            scope=scope, 
-            construct_id=construct_id, 
-            bucket_name=bucket_name, 
-            prefix=prefix, 
+            scope=scope,
+            construct_id=construct_id,
+            bucket_name=bucket_name,
+            prefix=prefix,
             resource_prefix=resource_prefix,
-            )
+        )
 
     def grant_read(self, role: iam.IRole) -> None:
         role.attach_inline_policy(policy=self._artifacts_policy)
@@ -118,11 +122,13 @@ class ImageRepositoryAccessGrantor(Construct):
         )
 
     @classmethod
-    def from_uri(cls, scope: Construct, construct_id: str, uri: str, resource_prefix: str) -> ImageRepositoryAccessGrantor:
+    def from_uri(
+        cls, scope: Construct, construct_id: str, uri: str, resource_prefix: str
+    ) -> ImageRepositoryAccessGrantor:
         account, region_name, repo_name = re.search(r"^([0-9]+).dkr.ecr.([a-z0-9-]+).amazonaws.com/(.+):", uri).groups()
         return cls(
-            scope=scope, 
-            construct_id=construct_id, 
+            scope=scope,
+            construct_id=construct_id,
             arn=f"arn:aws:ecr:{region_name}:{account}:repository/{repo_name}",
             resource_prefix=resource_prefix,
         )

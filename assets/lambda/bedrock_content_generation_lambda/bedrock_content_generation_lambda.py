@@ -1,6 +1,4 @@
-"""
-Lambda that performs summarization with Bedrock
-"""
+"""Lambda that performs summarization with Bedrock."""
 
 #########################
 #   LIBRARIES & LOGGER
@@ -11,13 +9,9 @@ import logging
 import os
 import sys
 from datetime import datetime, timezone
-import random
-import ast
 
 import boto3
 from botocore.config import Config
-from langchain.chains import LLMChain
-from langchain.llms.bedrock import Bedrock
 
 LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
@@ -43,11 +37,13 @@ MODELS_MAPPING = {
 
 
 def create_bedrock_client():
+    """Create and return a Bedrock client, optionally using cross-account
+    access."""
     if BEDROCK_ROLE_ARN != "None":
         LOGGER.info("Using cross-account bedrock client.")
         role_arn = None
 
-        LOGGER.info(f"BEDROCK_ROLE_ARN: {BEDROCK_ROLE_ARN}")
+        LOGGER.info("BEDROCK_ROLE_ARN: %s", BEDROCK_ROLE_ARN)
 
         # Check if it's a non-empty string and not "None"
         if isinstance(role_arn, str) and role_arn != "None":
@@ -55,7 +51,7 @@ def create_bedrock_client():
         else:
             raise ValueError("Cross-account arn is not empty but not a string!'")
 
-        LOGGER.info(f"Using ARN: {role_arn}")
+        LOGGER.info("Using ARN: %s", role_arn)
 
         sts_connection = boto3.client("sts")
         acct_bedrock = sts_connection.assume_role(RoleArn=role_arn, RoleSessionName="cross_account_bedrock")
@@ -65,13 +61,13 @@ def create_bedrock_client():
         session_token = acct_bedrock["Credentials"]["SessionToken"]
         expiration = acct_bedrock["Credentials"]["Expiration"]
 
-        REGION = os.environ["BEDROCK_REGION"]
+        region = os.environ["BEDROCK_REGION"]
 
         # create service client using the assumed role credentials
         bedrock_client = boto3.client(
             service_name="bedrock-runtime",
-            region_name=REGION,
-            endpoint_url=f"https://bedrock.{REGION}.amazonaws.com",
+            region_name=region,
+            endpoint_url=f"https://bedrock.{region}.amazonaws.com",
             config=BEDROCK_CONFIG,
             aws_access_key_id=access_key,
             aws_secret_access_key=secret_key,
@@ -95,15 +91,17 @@ BEDROCK_CLIENT, EXPIRATION = create_bedrock_client()
 
 
 def verify_bedrock_client():
+    """Check if the Bedrock client token is still valid."""
     if EXPIRATION is not None:
         now = datetime.now(timezone.utc)
-        LOGGER.info(f"Bedrock token expires in {(EXPIRATION - now).total_seconds()}s")
+        LOGGER.info("Bedrock token expires in %s seconds", (EXPIRATION - now).total_seconds())
         if (EXPIRATION - now).total_seconds() < 60:
             return False
     return True
 
 
 def generate_message(bedrock_runtime, model_id, system_prompt, messages, max_tokens):
+    """Generate a message using the Bedrock runtime."""
     body = json.dumps(
         {
             "anthropic_version": "bedrock-2023-05-31",
@@ -113,9 +111,7 @@ def generate_message(bedrock_runtime, model_id, system_prompt, messages, max_tok
         }
     )
 
-    response = bedrock_runtime.invoke_model(body=body, modelId=model_id)
-
-    return response
+    return bedrock_runtime.invoke_model(body=body, modelId=model_id)
 
 
 #########################
@@ -124,12 +120,10 @@ def generate_message(bedrock_runtime, model_id, system_prompt, messages, max_tok
 
 
 def lambda_handler(event, context):
-    """
-    Lambda handler
-    """
+    """Lambda handler."""
     LOGGER.info("Starting execution of lambda_handler()")
 
-    ### PREPARATIONS
+    # PREPARATIONS
     # Convert the 'body' string to a dictionary
     body_data = json.loads(event["body"])
 
@@ -140,17 +134,17 @@ def lambda_handler(event, context):
     model_params_value = body_data["model_params"]
 
     # get fixed model params
-    MODEL_ID = MODELS_MAPPING[model_params_value["model_id"]]
-    LOGGER.info(f"MODEL_ID: {MODEL_ID}")
+    model_id = MODELS_MAPPING[model_params_value["model_id"]]
+    LOGGER.info("model_id: %s", model_id)
 
-    with open(f"model_configs/{MODEL_ID}.json") as f:
+    with open(f"model_configs/{model_id}.json", encoding="utf-8") as f:
         fixed_params = json.load(f)
 
     # load variable model params
     amazon_flag = False
     claude3_flag = False
     model_params = {}
-    if MODEL_ID.startswith("amazon"):
+    if model_id.startswith("amazon"):
         model_params = {
             "maxTokenCount": model_params_value["answer_length"],
             "stopSequences": fixed_params["STOP_WORDS"],
@@ -158,7 +152,7 @@ def lambda_handler(event, context):
             "topP": fixed_params["TOP_P"],
         }
         amazon_flag = True
-    elif MODEL_ID.startswith("anthropic.claude-3"):
+    elif model_id.startswith("anthropic.claude-3"):
         model_params = {
             "max_tokens_to_sample": model_params_value["answer_length"],
             "temperature": model_params_value["temperature"],
@@ -166,7 +160,7 @@ def lambda_handler(event, context):
             "stop_sequences": fixed_params["STOP_WORDS"],
         }
         claude3_flag = True
-    elif MODEL_ID.startswith("anthropic"):
+    elif model_id.startswith("anthropic"):
         model_params = {
             "max_tokens_to_sample": model_params_value["answer_length"],
             "temperature": model_params_value["temperature"],
@@ -174,14 +168,14 @@ def lambda_handler(event, context):
             "stop_sequences": fixed_params["STOP_WORDS"],
         }
         query_value = f"\n\nHuman:{query_value}\n\nAssistant:"
-    elif MODEL_ID.startswith("ai21"):
+    elif model_id.startswith("ai21"):
         model_params = {
             "maxTokens": model_params_value["answer_length"],
             "stopSequences": fixed_params["STOP_WORDS"],
             "temperature": model_params_value["temperature"],
             "topP": fixed_params["TOP_P"],
         }
-    LOGGER.info(f"MODEL_PARAMS: {model_params}")
+    LOGGER.info("MODEL_PARAMS: %s", model_params)
 
     if not verify_bedrock_client():
         LOGGER.info("Bedrock client expired, will refresh token.")
@@ -189,9 +183,9 @@ def lambda_handler(event, context):
         BEDROCK_CLIENT, EXPIRATION = create_bedrock_client()
 
     accept = "application/json"
-    contentType = "application/json"
+    content_type = "application/json"
 
-    if amazon_flag == True:
+    if amazon_flag:
         input_data = json.dumps(
             {
                 "inputText": query_value,
@@ -199,29 +193,29 @@ def lambda_handler(event, context):
             }
         )
         response = BEDROCK_CLIENT.invoke_model(
-            body=input_data, modelId=MODEL_ID, accept=accept, contentType=contentType
+            body=input_data, modelId=model_id, accept=accept, contentType=content_type
         )
-    elif claude3_flag == True:
+    elif claude3_flag:
         system_prompt = "Please respond directly to user request. Do not add any extra comments"
         # Prompt with user turn only.
         user_message = {"role": "user", "content": query_value}
         messages = [user_message]
         max_tokens = 4096
-        response = generate_message(BEDROCK_CLIENT, MODEL_ID, system_prompt, messages, max_tokens)
+        response = generate_message(BEDROCK_CLIENT, model_id, system_prompt, messages, max_tokens)
 
     else:
         body = json.dumps({"prompt": query_value, **model_params})
-        response = BEDROCK_CLIENT.invoke_model(body=body, modelId=MODEL_ID, accept=accept, contentType=contentType)
+        response = BEDROCK_CLIENT.invoke_model(body=body, modelId=model_id, accept=accept, contentType=content_type)
 
     response_body = json.loads(response.get("body").read())
 
-    if "amazon" in MODEL_ID:
+    if "amazon" in model_id:
         response = response_body.get("results")[0].get("outputText")
-    elif "claude-3" in MODEL_ID:
+    elif "claude-3" in model_id:
         response = response_body["content"][0]["text"]
-    elif "anthropic" in MODEL_ID:
+    elif "anthropic" in model_id:
         response = response_body.get("completion")
-    elif "ai21" in MODEL_ID:
+    elif "ai21" in model_id:
         response = response_body.get("completions")[0].get("data").get("text")
 
     return json.dumps(response)

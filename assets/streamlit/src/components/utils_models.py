@@ -15,8 +15,8 @@ FILTER_BEDROCK_MODELS = ["ALL"] + BEDROCK_MODELS
 
 
 def get_models_specs(sm_endpoints: Dict[str, Dict[str, str]], path: Path) -> Tuple[List[str], Dict[str, Any]]:
-    """
-    Get list of models displayed in the UI and their specs (i.e. their default parameters)
+    """Get list of models displayed in the UI and their specs (i.e. their
+    default parameters)
 
     Parameters
     ----------
@@ -35,9 +35,9 @@ def get_models_specs(sm_endpoints: Dict[str, Dict[str, str]], path: Path) -> Tup
     """
 
     # default model specs
-    with open(f"{path.parent.absolute()}/components/bedrock_model_specs.json") as f:
+    with open(f"{path.parent.absolute()}/components/bedrock_model_specs.json", encoding="utf-8") as f:
         model_specs = json.load(f)
-    with open(f"{path.parent.absolute()}/components/sm_endpoints_model_specs.json") as f:
+    with open(f"{path.parent.absolute()}/components/sm_endpoints_model_specs.json", encoding="utf-8") as f:
         sm_endpoints_model_specs = json.load(f)
 
     sm_endpoints_friendly_names = list(sm_endpoints.keys())

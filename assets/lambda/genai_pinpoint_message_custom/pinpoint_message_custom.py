@@ -9,7 +9,15 @@ HANDLER = logging.StreamHandler(sys.stdout)
 HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
 LOGGER.addHandler(HANDLER)
 
+
 def lambda_handler(event, context):
+    """Handle Lambda function invocation for custom Pinpoint message
+    generation.
+
+    :param event: AWS Lambda event object
+    :param context: AWS Lambda context object
+    :return: Dict with statusCode, body, and headers
+    """
 
     event_body = json.loads(event["body"])
     print(f"pinpoint_message() event: {event}")

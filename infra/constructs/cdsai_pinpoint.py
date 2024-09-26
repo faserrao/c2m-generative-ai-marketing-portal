@@ -1,20 +1,13 @@
-"""
-CDSGenAI Pinpoint Construct
-"""
+"""CDSGenAI Pinpoint Construct."""
 
-from typing import Any, Dict
-
-from aws_cdk import (
-    aws_pinpoint as pinpoint,
-    aws_s3 as s3,
-    aws_s3_deployment as s3_deploy,
-    aws_iam as iam,
-    aws_ses as ses,
-    Aws,
-)
-from constructs import Construct
-
+from aws_cdk import Aws
+from aws_cdk import aws_iam as iam
+from aws_cdk import aws_pinpoint as pinpoint
+from aws_cdk import aws_s3 as s3
+from aws_cdk import aws_s3_deployment as s3_deploy
+from aws_cdk import aws_ses as ses
 from cdk_nag import NagSuppressions
+from constructs import Construct
 
 
 class PinpointConstructs(Construct):
@@ -43,8 +36,7 @@ class PinpointConstructs(Construct):
         if create_project:
             pinpoint_project = pinpoint.CfnApp(self, id="cds-ai-pinpoint", name="cds-ai-pinpoint")
             return pinpoint_project.ref
-        else:
-            return project_id
+        return project_id
 
     def grant_pinpoint_s3_export(self, bucket, project_id):
         # Define the IAM policy
@@ -115,7 +107,7 @@ class PinpointConstructs(Construct):
 
         # Enable Amazon Pinpoint Email Channel
 
-        cfn_email_channel = pinpoint.CfnEmailChannel(
+        return pinpoint.CfnEmailChannel(
             self,
             "pinpoint_email_channel",
             application_id=self.pinpoint_project_id,
@@ -124,14 +116,11 @@ class PinpointConstructs(Construct):
             enabled=True,
         )
 
-        return cfn_email_channel
-
     def setup_sms_channel(self):
         # Enable Amazon Pinpoint SMS Channel
-        cfn_sms_channel = pinpoint.CfnSMSChannel(
+        return pinpoint.CfnSMSChannel(
             self,
             "pinpoint_sms_channel",
             application_id=self.pinpoint_project_id,
             enabled=True,
         )
-        return cfn_sms_channel

@@ -17,9 +17,11 @@ if [ ! -d "$TARGET_DIR" ]; then
 fi
 
 # Run the formatting tools
-echo "Formatting directory: $TARGET_DIR"
+echo "isort: Formatting directory: $TARGET_DIR"
 isort "$TARGET_DIR"
+echo "black: Formatting directory: $TARGET_DIR"
 black "$TARGET_DIR"
+echo "ruff: Formatting directory: $TARGET_DIR"
 ruff check "$TARGET_DIR" --fix
 
 echo "Formatting complete!"

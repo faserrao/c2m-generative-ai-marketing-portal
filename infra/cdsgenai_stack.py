@@ -1,6 +1,4 @@
-"""
-Marketing Agent Portal Stack
-"""
+"""Marketing Agent Portal Stack."""
 
 from typing import Any, Dict
 
@@ -8,22 +6,19 @@ from aws_cdk import Aws
 from aws_cdk import CfnOutput as output
 from aws_cdk import RemovalPolicy, Stack, Tags
 from aws_cdk import aws_s3 as _s3
-
 from constructs import Construct
 
 from infra.constructs.cdsai_api import CDSAIAPIConstructs
 from infra.constructs.cdsai_endpoint import CDSAIEndpointConstructs
-from infra.constructs.cdsai_pinpoint import PinpointConstructs
 from infra.constructs.cdsai_personalize import PersonalizeConstruct
+from infra.constructs.cdsai_pinpoint import PinpointConstructs
 from infra.stacks.streamlit import StreamlitStack
 
 sm_endpoints = {}
 
 
 class CDSGenAIStack(Stack):
-    """
-    GenAI Marketing Agent Portal Stack
-    """
+    """GenAI Marketing Agent Portal Stack."""
 
     def __init__(self, scope: Construct, stack_name: str, config: Dict[str, Any], **kwargs) -> None:
         super().__init__(scope, stack_name, **kwargs)

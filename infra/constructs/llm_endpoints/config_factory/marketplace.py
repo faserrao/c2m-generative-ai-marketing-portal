@@ -5,7 +5,6 @@ from infra.constructs.llm_endpoints.constants import NAME_SEPARATOR
 
 
 class MarketplaceModelEndpointConfigurationFactory(BasicEndpointConfigurationFactory):
-
     def __init__(self, model_package_arn: str, user_config: Dict[str, Any], resource_prefix: str) -> None:
         self.model_package_arn = model_package_arn
         resource_prefix = NAME_SEPARATOR.join([resource_prefix, "marketplace"])
@@ -18,7 +17,7 @@ class MarketplaceModelEndpointConfigurationFactory(BasicEndpointConfigurationFac
         config = {"model_package_name": self.model_package_arn}
         config.update(base_config)
         return config
-    
+
     def create_model_config(self) -> Dict[str, Any]:
         base_config = super().create_model_config()
         config = {

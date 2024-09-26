@@ -1,30 +1,24 @@
-import streamlit as st
+import json
+import logging
+import os
+import sys
+from pathlib import Path
+
+import components.authenticate as authenticate  # noqa: E402
+import components.personalize_api as personalize_api
 import pandas as pd
-import langchain as lc
-from langchain import PromptTemplate
+import s3fs
+import streamlit as st
+from components.utils import display_cover_with_title, reset_session_state
+from components.utils_models import BEDROCK_MODELS
 
 # FAS
 # Made changed based on error message received.
-from langchain.llms.bedrock import Bedrock
+from st_pages import show_pages_from_config
+from streamlit_extras.switch_page_button import switch_page
+
 # from langchain_community.llms.bedrock import Bedrock
 
-import os
-import sys
-import time
-import boto3
-from pprint import pprint
-from streamlit_extras.echo_expander import echo_expander
-from streamlit_extras.add_vertical_space import add_vertical_space
-import json
-from pathlib import Path
-from st_pages import show_pages_from_config
-from components.utils import display_cover_with_title, reset_session_state
-import components.authenticate as authenticate  # noqa: E402
-import components.personalize_api as personalize_api
-import s3fs
-from components.utils_models import BEDROCK_MODELS
-import logging
-from streamlit_extras.switch_page_button import switch_page
 
 LOGGER = logging.Logger("AI-Chat", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
@@ -86,7 +80,7 @@ PAGE_NAME = "choose_segment"
 POLL_INTERVAL = 5
 
 # default model specs
-with open(f"{path.parent.absolute()}/components/model_specs.json") as f:
+with open(f"{path.parent.absolute()}/components/model_specs.json", encoding="utf-8") as f:
     MODEL_SPECS = json.load(f)
 
 # Hardcoded lists of available and non available models.
@@ -125,7 +119,7 @@ reset_session_state(page_name=PAGE_NAME)
 st.session_state.setdefault("ai_model", MODELS_DISPLAYED[0])  # default model
 # if "ai_model" not in st.session_state:
 #     st.session_state["ai_model"] = MODELS_DISPLAYED[0]  # default model
-LOGGER.log(logging.DEBUG, (f"ai_model selected: {st.session_state['ai_model']}"))
+LOGGER.log(logging.DEBUG, "ai_model selected: %s", st.session_state["ai_model"])
 
 # Initialize df in session state if it's not already present
 if "df_name" not in st.session_state:
@@ -163,40 +157,35 @@ box_style = {
 
 
 def create_personalize_batch_segment(item_ids, num_results):
-    personalize_batch_segment_response = (
-        personalize_api.invoke_personalize_batch_segment(
-            access_token=st.session_state["access_token"],
-            item_ids=item_ids,
-            num_results=num_results,
-        )
+    return personalize_api.invoke_personalize_batch_segment(
+        access_token=st.session_state["access_token"],
+        item_ids=item_ids,
+        num_results=num_results,
     )
-    return personalize_batch_segment_response
 
 
 def get_personalize_job(job_arn):
-    job_status_response = personalize_api.invoke_personalize_describe_job(
+    return personalize_api.invoke_personalize_describe_job(
         access_token=st.session_state["access_token"], job_arn=job_arn
     )
-    return job_status_response
 
 
 def get_personalize_jobs():
-    job_status_response = personalize_api.invoke_personalize_get_jobs(
+    return personalize_api.invoke_personalize_get_jobs(
         access_token=st.session_state["access_token"],
     )
-    return job_status_response
 
 
 @st.cache_data(ttl=30)
 def cached_get_personalize_jobs():
+    """Cached wrapper for get_personalize_jobs function."""
     return get_personalize_jobs()
 
 
 def read_s3_file(file_path):
     """Read a JSON file from S3 and return its content."""
-    with fs.open(file_path, "rb") as f:
-        file_content = f.read().decode("utf-8")  # Read the content and decode it
-    return file_content
+    with fs.open(file_path, "rb") as s3_file:
+        return s3_file.read().decode("utf-8")
 
 
 def process_json_content(content):
@@ -205,24 +194,25 @@ def process_json_content(content):
     json_strings = content.strip().split("\n")
 
     # Process each JSON string
-    data = []
+    processed_data = []
     for json_str in json_strings:
         item = json.loads(json_str)
         item_id = item["input"]["itemId"]
         for user_id in item["output"]["usersList"]:
-            data.append({"itemId": item_id, "userId": user_id})
+            processed_data.append({"itemId": item_id, "userId": user_id})
 
     # Convert the data to a DataFrame
-    df = pd.DataFrame(data)
-    return df
+    return pd.DataFrame(processed_data)
 
 
 def save_df_session_state(df, df_name):
+    """Save dataframe and its name to session state."""
     st.session_state["df"] = df
     st.session_state["df_name"] = df_name
 
 
 def disable(b):
+    """Set the 'disabled' state in the session state."""
     st.session_state["disabled"] = b
 
 
@@ -288,9 +278,7 @@ for col in item_data.columns:
     if col != "ITEM_ID":
         # For categorical columns, use a selectbox
         if item_data[col].dtype == "object":
-            filters[col] = st.sidebar.selectbox(
-                f"Select {col}", options=["All"] + list(item_data[col].unique())
-            )
+            filters[col] = st.sidebar.selectbox(f"Select {col}", options=["All"] + list(item_data[col].unique()))
         # For numerical columns, use a slider
         else:
             filters[col] = st.sidebar.slider(
@@ -306,9 +294,7 @@ filtered_data = item_data.copy()
 for col, value in filters.items():
     if value != "All":
         if isinstance(value, tuple):  # For numerical columns
-            filtered_data = filtered_data[
-                (filtered_data[col] >= value[0]) & (filtered_data[col] <= value[1])
-            ]
+            filtered_data = filtered_data[(filtered_data[col] >= value[0]) & (filtered_data[col] <= value[1])]
         else:  # For categorical columns
             filtered_data = filtered_data[filtered_data[col] == value]
 
@@ -324,18 +310,10 @@ if st.button("Create Batch Segment"):
     # Join the list into a comma-separated string
     item_ids = ",".join(item_ids)
 
-    personalize_batch_segment_response = create_personalize_batch_segment(
-        item_ids, num_results
-    )
-    personalize_batch_segment_response = json.loads(
-        personalize_batch_segment_response.decode("utf-8")
-    )
-    st.session_state["job_name"] = personalize_batch_segment_response[
-        "batchSegmentJobArn"
-    ].split("/")[-1]
-    st.write(
-        f'Batch Segment:{st.session_state["job_name"]} for items: {str(item_ids)} Created Successfully!'
-    )
+    personalize_batch_segment_response = create_personalize_batch_segment(item_ids, num_results)
+    personalize_batch_segment_response = json.loads(personalize_batch_segment_response.decode("utf-8"))
+    st.session_state["job_name"] = personalize_batch_segment_response["batchSegmentJobArn"].split("/")[-1]
+    st.write(f'Batch Segment:{st.session_state["job_name"]} for items: {str(item_ids)} Created Successfully!')
 
 st.divider()
 
@@ -349,10 +327,8 @@ try:
     # Decode the byte string and parse as JSON
     data = json.loads(personalize_jobs.decode("utf-8"))
     st.session_state.df_personalize_jobs = pd.DataFrame(data["batchSegmentJobs"])
-    st.session_state.df_personalize_jobs = (
-        st.session_state.df_personalize_jobs.sort_values(
-            by="creationDateTime", ascending=False
-        )
+    st.session_state.df_personalize_jobs = st.session_state.df_personalize_jobs.sort_values(
+        by="creationDateTime", ascending=False
     )
     show_segment_info = True  # Flag to control UI display
 except KeyError:
@@ -389,9 +365,7 @@ if show_segment_info:
         job_details = json.loads(personalize_batch_segment_job.decode("utf-8"))
 
         # Extract the S3 path for the jobOutput
-        s3_path = job_details["batchSegmentJob"]["jobOutput"]["s3DataDestination"][
-            "path"
-        ]
+        s3_path = job_details["batchSegmentJob"]["jobOutput"]["s3DataDestination"]["path"]
 
         # Get the job name
         job_name = job_details["batchSegmentJob"]["jobName"]
@@ -413,20 +387,14 @@ if show_segment_info:
         with fs.open(f"s3://{BUCKET_NAME}/demo-data/df_segment_data.csv", "rb") as f:
             user_data = pd.read_csv(f)
         # Convert both columns to the same data type (e.g., string)
-        df_recommended_segments["userId"] = df_recommended_segments["userId"].astype(
-            str
-        )
+        df_recommended_segments["userId"] = df_recommended_segments["userId"].astype(str)
         user_data["User.UserId"] = user_data["User.UserId"].astype(str)
-        combined_df = df_recommended_segments.merge(
-            user_data, left_on="userId", right_on="User.UserId", how="left"
-        )
+        combined_df = df_recommended_segments.merge(user_data, left_on="userId", right_on="User.UserId", how="left")
         st.write("### Recommended Customers Information")
         st.write(combined_df)
         st.button(
             "Confirm to use this Segment Data",
-            on_click=save_df_session_state(
-                df=combined_df, df_name=f"(Personalize)-{job_name}"
-            ),
+            on_click=save_df_session_state(df=combined_df, df_name=f"(Personalize)-{job_name}"),
         )
 
     #########################
@@ -447,10 +415,8 @@ if show_segment_info:
         # Decode the byte string and parse as JSON
         data = json.loads(personalize_jobs.decode("utf-8"))
         st.session_state.df_personalize_jobs = pd.DataFrame(data["batchSegmentJobs"])
-        st.session_state.df_personalize_jobs = (
-            st.session_state.df_personalize_jobs.sort_values(
-                by="creationDateTime", ascending=False
-            )
+        st.session_state.df_personalize_jobs = st.session_state.df_personalize_jobs.sort_values(
+            by="creationDateTime", ascending=False
         )
         # Update the placeholder on the main page with the new dataframe
         jobs_df_main_placeholder.dataframe(

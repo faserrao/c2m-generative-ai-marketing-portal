@@ -1,14 +1,10 @@
-"""
-Helper functions with StreamLit UI utils
-"""
+"""Helper functions with StreamLit UI utils."""
 
 import streamlit as st
 
 
 def reset_session_state(page_name: str) -> None:
-    """
-    Reset session state variables
-    """
+    """Reset session state variables."""
     st.session_state.setdefault("last_page", "None")
 
     st.session_state["current_page"] = page_name
@@ -35,9 +31,7 @@ def button_with_url(
     url: str,
     text: str,
 ) -> str:
-    """
-    Create button with URL link
-    """
+    """Create button with URL link."""
     return f"""
     <a href={url}><button style="
     fontWeight: 400;
@@ -60,8 +54,7 @@ def display_cover_with_title(
     width: int = 100,
     text_color: str = "#15e85f",
 ) -> None:
-    """
-    Display cover with title
+    """Display cover with title.
 
     Parameters
     ----------

@@ -1,6 +1,4 @@
-"""
-Lambda that prompts Pinpoint to send a message based on channel
-"""
+"""Lambda that prompts Pinpoint to send a message based on channel."""
 
 #########################
 #   LIBRARIES & LOGGER
@@ -11,11 +9,14 @@ import xml.etree.ElementTree as ET
 import requests
 from print_response import print_response
 
-create_job_url = "https://stage-rest.click2mail.com/molpro/jobs"
+CREATE_JOB_URL = "https://stage-rest.click2mail.com/molpro/jobs"
+
+# Define constants
+CONTENT_TYPE_JSON = "application/json"
 
 # Define credentials
-myusername = "stellario"
-mypassword = "Babushka1!"
+MY_USERNAME = "stellario"
+MY_PASSWORD = "Babushka1!"
 
 #########################
 #        HANDLER
@@ -33,7 +34,7 @@ def c2m_create_job(
     document_id: str = None,
     address_list_id: str = None,
 ):
-
+    """Create a job for Click2Mail service."""
     headers = {"user-agent": "my-app/0.0.1"}
     values = {
         "documentClass": document_class,
@@ -48,7 +49,7 @@ def c2m_create_job(
     }
 
     try:
-        response = requests.post(create_job_url, data=values, headers=headers, auth=(myusername, mypassword))
+        response = requests.post(CREATE_JOB_URL, data=values, headers=headers, auth=(MY_USERNAME, MY_PASSWORD))
         response.raise_for_status()
         if response.status_code == 201:
             print_response("Add create job successful", response)
@@ -59,10 +60,10 @@ def c2m_create_job(
 
             if id_element is not None:
                 job_id = id_element.text
-                return {"statusCode": 200, "body": job_id, "headers": {"Content-Type": "application/json"}}
+                return {"statusCode": 200, "body": job_id, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
             print_response("Add create job failed", response)
-            return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": "application/json"}}
+            return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
     except requests.exceptions.RequestException as e:
         exception_string = f"Create jobhttp request failed: {e}, {str(e)}"
         print_response(exception_string)
-        return {"statusCode": 400, "body": str(e), "headers": {"Content-Type": "application/json"}}
+        return {"statusCode": 400, "body": str(e), "headers": {"Content-Type": CONTENT_TYPE_JSON}}

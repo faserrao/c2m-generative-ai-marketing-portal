@@ -1,20 +1,12 @@
-"""
-CDSGenAI Personalize constructs
-"""
-
-from typing import Any, Dict
-
-from aws_cdk import (
-    aws_s3 as s3,
-    aws_iam as iam,
-    aws_personalize as personalize,
-    CfnOutput as output,
-)
-from constructs import Construct
-
-from cdk_nag import NagSuppressions
+"""CDSGenAI Personalize constructs."""
 
 import json
+
+from aws_cdk import aws_iam as iam
+from aws_cdk import aws_personalize as personalize
+from aws_cdk import aws_s3 as s3
+from cdk_nag import NagSuppressions
+from constructs import Construct
 
 interactions_schema_json = {
     "type": "record",
@@ -112,9 +104,7 @@ class PersonalizeConstruct(Construct):
         return personalize_role.role_arn
 
     def import_datasets(self, bucket):
-        """
-        Create dataset import jobs for Personalize
-        """
+        """Create dataset import jobs for Personalize."""
 
         # Create the dataset group first
         dataset_group = personalize.CfnDatasetGroup(
@@ -124,14 +114,14 @@ class PersonalizeConstruct(Construct):
         )
 
         # Create the datasets
-        ## Interactions Dataset
+        # Interactions Dataset
         interactions_schema = personalize.CfnSchema(
             self,
             id="InteractionsSchema",
             name="InteractionsSchema",
             schema=json.dumps(interactions_schema_json),
         )
-        interactions_dataset = personalize.CfnDataset(
+        personalize.CfnDataset(
             self,
             id="InteractionsDataset",
             dataset_group_arn=dataset_group.attr_dataset_group_arn,
@@ -140,14 +130,14 @@ class PersonalizeConstruct(Construct):
             schema_arn=interactions_schema.attr_schema_arn,
         )
 
-        ## Users Dataset
+        # Users Dataset
         users_schema = personalize.CfnSchema(
             self,
             id="UsersSchema",
             name="UsersSchema",
             schema=json.dumps(users_schema_json),
         )
-        users_dataset = personalize.CfnDataset(
+        personalize.CfnDataset(
             self,
             id="UsersDataset",
             dataset_group_arn=dataset_group.attr_dataset_group_arn,
@@ -156,14 +146,14 @@ class PersonalizeConstruct(Construct):
             schema_arn=users_schema.attr_schema_arn,
         )
 
-        ## Items Dataset
+        # Items Dataset
         items_schema = personalize.CfnSchema(
             self,
             id="ItemsSchema",
             name="ItemsSchema",
             schema=json.dumps(items_schema_json),
         )
-        items_dataset = personalize.CfnDataset(
+        personalize.CfnDataset(
             self,
             id="ItemsDataset",
             dataset_group_arn=dataset_group.attr_dataset_group_arn,

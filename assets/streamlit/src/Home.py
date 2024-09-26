@@ -1,6 +1,4 @@
-"""
-StreamLit app with the search engine UI: landing page
-"""
+"""StreamLit app with the search engine UI: landing page."""
 
 #########################
 #       IMPORTS
@@ -11,6 +9,7 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
+
 import qrcode
 import streamlit as st
 from components.utils import display_cover_with_title
@@ -64,9 +63,9 @@ st.set_page_config(
     page_title=PAGE_TITLE,
     page_icon=PAGE_ICON,
     layout="centered",
-    initial_sidebar_state="expanded"
-    if "authenticated" in st.session_state and st.session_state["authenticated"]
-    else "collapsed",
+    initial_sidebar_state=(
+        "expanded" if "authenticated" in st.session_state and st.session_state["authenticated"] else "collapsed"
+    ),
 )
 
 # display cover immediately so that it does not pop in and out on every page refresh
@@ -133,15 +132,13 @@ st.session_state.setdefault("new_password_repeat", "")
 #   HELPER FUNCTIONS
 #########################
 
-generated_qrcodes_path = "temp/"
-if not os.path.exists(generated_qrcodes_path):
-    os.mkdir(generated_qrcodes_path)
+GENERATED_QRCODES_PATH = "temp/"
+if not os.path.exists(GENERATED_QRCODES_PATH):
+    os.mkdir(GENERATED_QRCODES_PATH)
 
 
-def generate_qrcode(url: str) -> str:
-    """
-    Generate QR code for MFA
-    """
+def generate_qrcode(qr_url: str) -> str:
+    """Generate QR code for MFA."""
 
     # generate image
     qr = qrcode.QRCode(
@@ -150,62 +147,51 @@ def generate_qrcode(url: str) -> str:
         box_size=10,
         border=2,
     )
-    qr.add_data(url)
+    qr.add_data(qr_url)
     qr.make(fit=True)
     img = qr.make_image(image_factory=StyledPilImage)
 
     # save locally
     current_ts = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
-    qrcode_path = generated_qrcodes_path + "qrcode_" + str(current_ts) + ".png"
-    img.save(qrcode_path)
-    return qrcode_path
+    generated_qrcode_path = GENERATED_QRCODES_PATH + "qrcode_" + str(current_ts) + ".png"
+    img.save(generated_qrcode_path)
+    return generated_qrcode_path
 
 
 def run_login() -> None:
-    """
-    Perform login
-    """
+    """Perform login."""
     LOGGER.log(logging.DEBUG, ("Inside run_login()"))
 
     # authenticate
     if (st.session_state["username"] != "") & (st.session_state["password"] != ""):
         response = authenticate.sign_in(st.session_state["username"], st.session_state["password"])
-        LOGGER.log(logging.DEBUG, ("Response: " + str(response)))
+        LOGGER.debug("Response: %s", str(response))
         # check authentication
-        if not st.session_state["authenticated"] and st.session_state[
-            "challenge"
-        ] not in ["NEW_PASSWORD_REQUIRED", "MFA_SETUP", "SOFTWARE_TOKEN_MFA"]:
-            st.session_state[
-                "error_message"
-            ] = "Username or password are wrong. Please try again."
+        if not st.session_state["authenticated"] and st.session_state["challenge"] not in [
+            "NEW_PASSWORD_REQUIRED",
+            "MFA_SETUP",
+            "SOFTWARE_TOKEN_MFA",
+        ]:
+            st.session_state["error_message"] = "Username or password are wrong. Please try again."
         else:
             st.session_state.pop("error_message", None)
             # st.experimental_rerun()
 
     # ask to enter credentials
     else:
-        st.session_state[
-            "error_message"
-        ] = "Please enter a username and a password first."
+        st.session_state["error_message"] = "Please enter a username and a password first."
 
 
 def reset_password() -> None:
-    """
-    Reset password
-    """
+    """Reset password."""
     LOGGER.log(logging.DEBUG, ("Inside reset_password()"))
 
     if st.session_state["challenge"] == "NEW_PASSWORD_REQUIRED":
-
         # reset password
-        if (st.session_state["new_password"] != "") & (
-            st.session_state["new_password_repeat"] != ""
-        ):
+        if (st.session_state["new_password"] != "") & (st.session_state["new_password_repeat"] != ""):
             # reset password
             if st.session_state["new_password"] == st.session_state["new_password_repeat"]:
-                reset_success, message = authenticate.reset_password(
-                    st.session_state["new_password"]
-                )
+                reset_success, message = authenticate.reset_password(st.session_state["new_password"])
                 if not reset_success:
                     st.session_state["error_message"] = message
                 else:
@@ -222,9 +208,7 @@ def reset_password() -> None:
 
 
 def setup_mfa() -> None:
-    """
-    Setup MFA
-    """
+    """Setup MFA."""
     LOGGER.log(logging.DEBUG, ("Inside setup_mfa()"))
 
     if st.session_state["challenge"] == "MFA_SETUP":
@@ -242,15 +226,11 @@ def setup_mfa() -> None:
                 st.session_state["error_message"] = message
 
         else:
-            st.session_state[
-                "error_message"
-            ] = "Please enter a code from your MFA app first."
+            st.session_state["error_message"] = "Please enter a code from your MFA app first."
 
 
 def sign_in_with_token() -> None:
-    """
-    Verify MFA Code
-    """
+    """Verify MFA Code."""
     LOGGER.log(logging.DEBUG, ("Inside sign_in_with_token()"))
     if st.session_state["challenge"] == "SOFTWARE_TOKEN_MFA":
         if st.session_state["mfa_token"] != "":
@@ -262,9 +242,7 @@ def sign_in_with_token() -> None:
                 # st.experimental_rerun()
 
         else:
-            st.session_state[
-                "error_message"
-            ] = "Please enter a code from your MFA App first."
+            st.session_state["error_message"] = "Please enter a code from your MFA App first."
 
 
 #########################
@@ -330,14 +308,14 @@ elif st.session_state["challenge"] == "MFA_SETUP":
     # generate QR code
     with st.spinner("Generating QR Code..."):
         url = st.session_state["mfa_setup_link"]
-        qrcode_path = generate_qrcode(str(url))
+        QRCODE_PATH = generate_qrcode(str(url))
 
     # display QR code
     col1, col2, col3 = st.columns(3)
     with col1:
         st.write(" ")
     with col2:
-        image = Image.open(qrcode_path)
+        image = Image.open(QRCODE_PATH)
         st.image(image, caption="MFA Setup QR Code")
     with col3:
         st.write(" ")
@@ -367,7 +345,7 @@ elif st.session_state["challenge"] == "SOFTWARE_TOKEN_MFA":
     )
 
     # perform verification
-    st.button("Verify Token", on_click = sign_in_with_token)
+    st.button("Verify Token", on_click=sign_in_with_token)
 
 # page if a user is logged out
 else:
@@ -391,7 +369,7 @@ else:
     )
 
     # perform login
-    st.button("Login", on_click = run_login)
+    st.button("Login", on_click=run_login)
 
 # show error message
 if "error_message" in st.session_state:

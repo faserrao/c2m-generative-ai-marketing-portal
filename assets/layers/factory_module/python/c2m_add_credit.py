@@ -1,6 +1,4 @@
-"""
-Lambda that prompts Pinpoint to send a message based on channel
-"""
+"""Lambda that prompts Pinpoint to send a message based on channel."""
 
 #########################
 #   LIBRARIES & LOGGER
@@ -10,11 +8,13 @@ Lambda that prompts Pinpoint to send a message based on channel
 import requests
 from print_response import print_response
 
-purchase_url = "https://stage-rest.click2mail.com/molpro/credit/purchase"
+CONTENT_TYPE_JSON = "application/json"
+
+PURCHASE_URL = "https://stage-rest.click2mail.com/molpro/credit/purchase"
 
 # Define credentials
-myusername = "stellario"
-mypassword = "Babushka1!"
+MY_USERNAME = "stellario"
+MY_PASSWORD = "Babushka1!"
 
 #########################
 #        HANDLER
@@ -34,7 +34,23 @@ def c2m_add_credit(
     billing_cvv: str = None,
     billing_cc_type: str = None,
 ):
-
+    """
+    Add credit to Click2Mail account using provided billing information.
+    Args:
+        :param billing_name: Name on the billing account
+        :param billing_address1: Billing address line 1
+        :param billing_city: Billing city
+        :param billing_state: Billing state
+        :param billing_zip: Billing ZIP code
+        :param billing_amount: Amount to add to the account
+        :param billing_number: Credit card number
+        :param billing_month: Credit card expiration month
+        :param billing_year: Credit card expiration year
+        :param billing_cvv: Credit card CVV
+        :param billing_cc_type: Credit card type
+    Returns:
+        Dict with status code, response body, and headers
+    """
     # Set up parameters foresponse calling the endpoint
     data = {
         "billingName": billing_name,
@@ -51,14 +67,14 @@ def c2m_add_credit(
     }
 
     try:
-        response = requests.post(purchase_url, auth=(myusername, mypassword), data=data)
-        response.raise_for_status()  # Raise an exception foresponse HTTP errors
+        response = requests.post(PURCHASE_URL, auth=(MY_USERNAME, MY_PASSWORD), data=data)
+        response.raise_for_status()  # Raise an exception for HTTP errors
         print_response("Add credit call successful", response)
         if response.status_code == 200:
-            return {"statusCode": 200, "body": response.text, "headers": {"Content-Type": "application/json"}}
+            return {"statusCode": 200, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
         print_response("Add credit call failed", response)
-        return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": "application/json"}}
+        return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
     except requests.exceptions.RequestException as e:
         exception_string = f"Add credit http request failed: {e}, {str(e)}"
         print_response(exception_string)
-        return {"statusCode": 400, "body": str(e), "headers": {"Content-Type": "application/json"}}
+        return {"statusCode": 400, "body": str(e), "headers": {"Content-Type": CONTENT_TYPE_JSON}}

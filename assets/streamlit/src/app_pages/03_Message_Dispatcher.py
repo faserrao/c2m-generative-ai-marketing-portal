@@ -1,33 +1,31 @@
-import streamlit as st
+import json
+import logging
+import os
+import sys
+from pathlib import Path
+
+import boto3
+import components.authenticate as authenticate  # noqa: E402
+import components.genai_api as genai_api  # noqa: E402
+import components.pinpoint_api as pinpoint_api
 import pandas as pd
-import langchain as lc
+import s3fs
+import streamlit as st
+from components.utils import display_cover_with_title, reset_session_state
+from components.utils_models import BEDROCK_MODELS
 from langchain import PromptTemplate
 
 # FAS
 # Made changed based on error message received.
 from langchain.llms.bedrock import Bedrock
+
+from shared_module.python.channel_states import get_channel_states
+
+from st_pages import show_pages_from_config
+from streamlit_extras.switch_page_button import switch_page
+
 # from langchain_community.llms.bedrock import Bedrock
 
-import datetime
-import os
-import sys
-import boto3
-from pprint import pprint
-from streamlit_extras.echo_expander import echo_expander
-from streamlit_extras.add_vertical_space import add_vertical_space
-import json
-from pathlib import Path
-from st_pages import show_pages_from_config
-from components.utils import display_cover_with_title, reset_session_state
-import components.authenticate as authenticate  # noqa: E402
-import components.genai_api as genai_api  # noqa: E402
-import components.pinpoint_api as pinpoint_api
-import logging
-from streamlit_extras.switch_page_button import switch_page
-import s3fs
-from components.utils_models import BEDROCK_MODELS
-
-from shared_module.channel_states import get_channel_states
 
 LOGGER = logging.Logger("AI-Chat", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
@@ -93,7 +91,7 @@ HELLO_MESSAGE = "Hi! I am an AI assistant. How can I help you?"
 PAGE_NAME = "ai_chat"
 
 # default model specs
-with open(f"{path.parent.absolute()}/components/model_specs.json") as f:
+with open(f"{path.parent.absolute()}/components/model_specs.json", "r", encoding="utf-8") as f:
     MODEL_SPECS = json.load(f)
 
 # Hardcoded lists of available and non available models.
@@ -117,13 +115,9 @@ fs = s3fs.S3FileSystem(anon=False)
 
 reset_session_state(page_name=PAGE_NAME)
 st.session_state.setdefault("ai_model", MODELS_DISPLAYED[0])  # default model
-# if "ai_model" not in st.session_state:
-#     st.session_state["ai_model"] = MODELS_DISPLAYED[0]  # default model
-LOGGER.log(logging.DEBUG, (f"ai_model selected: {st.session_state['ai_model']}"))
+LOGGER.debug("ai_model selected: %s", st.session_state["ai_model"])
 
-########################################################################################################################################################################
-######################################################## Session States and CSS      ###################################################################################
-########################################################################################################################################################################
+# Session States and CSS
 
 if "df" not in st.session_state or st.session_state["df"] is None:
     st.session_state["df"] = None
@@ -151,31 +145,44 @@ box_style = {
     "margin": "10px",
 }
 
-########################################################################################################################################################################
-######################################################## NavBar      ###################################################################################################
-########################################################################################################################################################################
+# NavBar
+# Functions
 
-########################################################################################################################################################################
-######################################################## Functions    ##################################################################################################
-########################################################################################################################################################################
 
 def get_product_info(product_id, return_dict=True):
-    with fs.open(f"s3://{BUCKET_NAME}/demo-data/products.json", "rb") as f:
-        data = json.load(f)
+    """Retrieve product information from a JSON file in S3.
+
+    Args:
+        product_id (str): The ID of the product to retrieve.
+        return_dict (bool): If True, return a single product dict; otherwise, return all data.
+
+    Returns:
+        dict or list: Product information or all data, depending on return_dict.
+    """
+    with fs.open(f"s3://{BUCKET_NAME}/demo-data/products.json", "rb") as file:
+        data = json.load(file)
 
         if return_dict:
             for product in data["products"]:
                 if product["id"] == product_id:
                     return product
-        else:
-            return data
+            return None  # Return None if no matching product is found
+        return data
 
 
-def get_llm(ai_model="anthropic.claude-v2"):
+def get_llm(model_name="anthropic.claude-v2"):
+    """Get a Bedrock LLM client based on the specified model name.
+
+    Args:
+        model_name (str): Name of the model to use. Default is "anthropic.claude-v2".
+
+    Returns:
+        Bedrock: Configured Bedrock LLM client.
+    """
     session = boto3.session.Session(profile_name="bedrock-team-account")
     bedrock = session.client("bedrock", region_name="us-east-1")
 
-    if ai_model == "Anthropic Claude v1.3 Instant":
+    if model_name == "Anthropic Claude v1.3 Instant":
         llm = Bedrock(
             model_id="anthropic.claude-instant-v1",
             client=bedrock,
@@ -185,7 +192,7 @@ def get_llm(ai_model="anthropic.claude-v2"):
                 "top_p": 0.9,
             },
         )
-    elif ai_model == "Anthropic Claude v1.3":
+    elif model_name == "Anthropic Claude v1.3":
         llm = Bedrock(
             model_id="anthropic.claude-v1",
             client=bedrock,
@@ -195,7 +202,7 @@ def get_llm(ai_model="anthropic.claude-v2"):
                 "top_p": 0.9,
             },
         )
-    elif ai_model == "Anthropic Claude v2":
+    elif model_name == "Anthropic Claude v2":
         llm = Bedrock(
             model_id="anthropic.claude-v2",
             client=bedrock,
@@ -205,19 +212,19 @@ def get_llm(ai_model="anthropic.claude-v2"):
                 "top_p": 0.9,
             },
         )
-    elif ai_model == "AI21 J2 Grande Instruct":
+    elif model_name == "AI21 J2 Grande Instruct":
         llm = Bedrock(
             model_id="ai21.j2-grande-instruct",
             client=bedrock,
             model_kwargs={"maxTokens": 2000, "temperature": 0.0, "topP": 0.9},
         )
-    elif ai_model == "AI21 J2 Jumbo Instruct":
+    elif model_name == "AI21 J2 Jumbo Instruct":
         llm = Bedrock(
             model_id="ai21.j2-jumbo-instruct",
             client=bedrock,
             model_kwargs={"maxTokens": 2000, "temperature": 0.0, "topP": 0.9},
         )
-    elif ai_model == "Amazon Titan":
+    elif model_name == "Amazon Titan":
         llm = Bedrock(
             model_id="amazon.titan-tg1-large",
             client=bedrock,
@@ -229,23 +236,33 @@ def get_llm(ai_model="anthropic.claude-v2"):
     return llm
 
 
-def marketingBaseTemplate(channel, product_data, lang, template):
+def marketing_base_template(channel, product_details, lang, base_template):
+    """Generate a marketing template based on channel, product data, language,
+    and template.
+
+    Args:
+        channel (str): The communication channel.
+        product_details (str): Product information.
+        lang (str): Language code.
+        base_template (str): Base template.
+
+    Returns:
+        str: Formatted marketing template.
+    """
     if lang == "de":
         language_instruction = "Die {channel} soll in Deutsch geschrieben sein!\n\nDie {channel} ist für John Smith. Gib nur den Text aus, nicht die Anweisungen.\n\nAssistent: {channel} Nachricht:"
     else:
         language_instruction = "The {channel} is written for John Smith. Only output the text not any instructions. \n\nAssistant: {channel} message:"
 
     # Add a prompt to list product detail
-    product_data = (
-        "The detail of the product to be promoted is as followed:" + product_data
-    )
+    product_details_prompt = "The detail of the product to be promoted is as followed:" + product_details
 
     if channel == "EMAIL":
         message_format = (
             """
         Given the above details, generate 3 email parts in the specified format:
 
-        Subject: Subject of the email 
+        Subject: Subject of the email
         HTML Body: Content of the email but formatted nicely in HTML
         Text Body: Same content of the email formatted in plaintext
 
@@ -284,7 +301,7 @@ def marketingBaseTemplate(channel, product_data, lang, template):
             """
         Given the above details, generate 3 email parts in the specified format:
 
-        Subject: Subject of the email 
+        Subject: Subject of the email
         HTML Body: Content of the email but formatted nicely in HTML
         Text Body: Same content of the email formatted in plaintext
 
@@ -303,28 +320,44 @@ def marketingBaseTemplate(channel, product_data, lang, template):
     # TODO Implement for other channels (push)
     else:
         raise ValueError("Channel not found")
-    return "\n\nHuman:" + template + "\n" + product_data + "\n" + message_format
+    return "\n\nHuman:" + base_template + "\n" + product_details_prompt + "\n" + message_format
 
 
-def generateMarketingContent(
-    ai_model, prompt_template, channel, product_data, name, age, lang
-):
-    template = marketingBaseTemplate(channel, product_data, lang, prompt_template)
+def generate_marketing_content(model_name, prompt_template, channel, product_details, name, age, lang):
+    """Generate marketing content based on given parameters.
+
+    Args:
+        model_name (str): The AI model to use.
+        prompt_template (str): The template for the prompt.
+        channel (str): The marketing channel.
+        product_details (str): Data about the product.
+        name (str): Customer's name.
+        age (int): Customer's age.
+        lang (str): Preferred language.
+
+    Returns:
+        str: Generated marketing content.
+    """
+    formatted_template = marketing_base_template(channel, product_details, lang, prompt_template)
     input_vars = ["channel", "name", "age", "lang"]
-    prompt_template = PromptTemplate(input_variables=input_vars, template=template)
+    prompt_template = PromptTemplate(input_variables=input_vars, template=formatted_template)
 
     prompt = prompt_template.format(channel=channel, name=name, age=age, lang=lang)
 
     with st.spinner("Generating content..."):
-        content = genai_api.invoke_content_creation(
+        return genai_api.invoke_content_creation(
             prompt=prompt,
-            model_id=ai_model,
+            model_id=model_name,
             access_token=st.session_state["access_token"],
         )
-        return content
 
 
 def display_product_info(card_info):
+    """Display product information in a formatted manner.
+
+    Args:
+        card_info (dict): Dictionary containing product details.
+    """
     # Extract the product name, title, and description
     product_name = card_info["Name"]
     product_title = card_info["Title"]
@@ -334,21 +367,21 @@ def display_product_info(card_info):
     key_features = card_info["Key Features"]
     great_for = card_info["Great For"]
 
-    col1, col2 = st.columns([1, 1])
+    product_col1, product_col2 = st.columns([1, 1])
     # Display the product name, title, and description
-    with col1:
+    with product_col1:
         st.write(f"**Product**:\n\n{product_name}")
         st.write(f"**Campaign Phrase**:\n\n{product_title}")
         # Display the key features and great for sections as lists
-    with col2:
+    with product_col2:
         st.write(f"**Description**:\n\n{product_description}")
 
-    col1, col2 = st.columns([1, 1])
-    with col1:
+    product_col1, product_col2 = st.columns([1, 1])
+    with product_col1:
         st.write("**Key Features**:")
         for feature in key_features:
             st.write("- " + feature)
-    with col2:
+    with product_col2:
         st.write("**Great For**:")
         for use_case in great_for:
             st.write("- " + use_case)
@@ -356,6 +389,14 @@ def display_product_info(card_info):
 
 # Convert attributes that are lists based on their content
 def convert_value(val):
+    """Convert list values to appropriate types.
+
+    Args:
+        val: The value to convert.
+
+    Returns:
+        Converted value or original value if not a list.
+    """
     if isinstance(val, list) and val:  # Check if it's a non-empty list
         item = val[0]
         try:
@@ -373,128 +414,117 @@ def convert_value(val):
         # If none of the above, return as string
         return str(item)
 
-    elif isinstance(val, list) and not val:  # Handle empty lists
+    if isinstance(val, list) and not val:  # Handle empty lists
         return None
 
     return val
 
 
-def process_df(df):
-    """
-    Process the received df
-    """
-    # Sort by probability of buy first
-    df = df.sort_values(by="User.UserAttributes.Probability", ascending=False)
-
-    # Convert attributes that are lists to strings
-    df = df.applymap(convert_value)
+def process_df(dataframe):
+    """Process the received dataframe."""
+    # Use 'dataframe' instead of 'df' throughout the function
+    dataframe = dataframe.sort_values(by="User.UserAttributes.Probability", ascending=False)
+    dataframe = dataframe.applymap(convert_value)
     # Group the user attributes, attributes and metrics columns
-    user_attribute_columns = [
-        col for col in df.columns if col.startswith("User.UserAttributes.")
-    ]
-    attribute_columns = [col for col in df.columns if col.startswith("Attributes.")]
-    metric_columns = [col for col in df.columns if col.startswith("Metrics.")]
-    other_columns = [
-        col
-        for col in df.columns
-        if col not in user_attribute_columns + attribute_columns + metric_columns
+    df_user_attribute_cols = [col for col in dataframe.columns if col.startswith("User.UserAttributes.")]
+    df_attribute_cols = [col for col in dataframe.columns if col.startswith("Attributes.")]
+    df_metric_cols = [col for col in dataframe.columns if col.startswith("Metrics.")]
+    df_other_cols = [
+        col for col in dataframe.columns if col not in df_user_attribute_cols + df_attribute_cols + df_metric_cols
     ]
     # Start with an empty list for the ordered columns
     ordered_columns = []
 
     # Check if 'FirstName' and 'LastName' columns are present and add them first
-    if "User.UserAttributes.FirstName" in df.columns:
+    if "User.UserAttributes.FirstName" in dataframe.columns:
         ordered_columns.append("User.UserAttributes.FirstName")
-        user_attribute_columns.remove("User.UserAttributes.FirstName")
+        df_user_attribute_cols.remove("User.UserAttributes.FirstName")
 
-    if "User.UserAttributes.LastName" in df.columns:
+    if "User.UserAttributes.LastName" in dataframe.columns:
         ordered_columns.append("User.UserAttributes.LastName")
-        user_attribute_columns.remove("User.UserAttributes.LastName")
+        df_user_attribute_cols.remove("User.UserAttributes.LastName")
 
     # Concatenate the lists in the desired order
-    ordered_columns += (
-        user_attribute_columns + attribute_columns + metric_columns + other_columns
-    )
+    ordered_columns += df_user_attribute_cols + df_attribute_cols + df_metric_cols + df_other_cols
 
     # Reorder the DataFrame columns
-    df = df[ordered_columns]
+    dataframe = dataframe[ordered_columns]
 
-    return df, user_attribute_columns, attribute_columns, metric_columns, other_columns
+    return dataframe, df_user_attribute_cols, df_attribute_cols, df_metric_cols, df_other_cols
 
 
-def send_message_pinpoint(address,
-                          channel,
-                          message_body_text,
-                          message_subject=None,
-                          message_body_html=None,
-                          first_name=None,
-                          last_name=None,
-                         ):
+def send_message_pinpoint(
+    address,
+    channel,
+    message_text,
+    subject=None,
+    html_body=None,  # Changed from message_body_html
+    first_name=None,
+    last_name=None,
+):
+    """Send a message using Amazon Pinpoint.
 
-    job_response = pinpoint_api.invoke_pinpoint_send_message(
+    Args:
+        address (str): Recipient's address.
+        channel (str): Type of communication channel.
+        message_text (str): Text content of the message.
+        subject (str, optional): Subject of the message.
+        html_body (str, optional): HTML content of the message.
+        first_name (str, optional): Recipient's first name.
+        last_name (str, optional): Recipient's last name.
+
+    Returns:
+        dict: Response from the Pinpoint API.
+    """
+    return pinpoint_api.invoke_pinpoint_send_message(
         access_token=st.session_state["access_token"],
         address=address,
         channel=channel,
-        message_body_text=message_body_text,
-        message_subject=message_subject,
-        message_body_html=message_body_html,
+        message_body_text=message_text,
+        message_subject=subject,
+        message_body_html=html_body,
     )
-    return job_response
 
 
-def extract_content(text_area):
-    """
-    Extract content generated by AI
-    """
+def extract_content(generated_text):
+    """Extract content generated by AI."""
     try:
         # Extracting the content for each part
-        message_subject = None
-        message_body_html = None
-        if "###SUBJECT###" in text_area:
-            message_subject = (
-                text_area.split("###SUBJECT###")[1].split("###END###")[0].strip()
-            )
-        if "###HTMLBODY###" in text_area:
-            message_body_html = (
-                text_area.split("###HTMLBODY###")[1].split("###END###")[0].strip()
-            )
+        if "###SUBJECT###" in generated_text:
+            subject = generated_text.split("###SUBJECT###")[1].split("###END###")[0].strip()
+        else:
+            subject = None
 
-        message_body_text = (
-            text_area.split("###TEXTBODY###")[1].split("###END###")[0].strip()
-        )
+        if "###HTMLBODY###" in generated_text:
+            html_body = generated_text.split("###HTMLBODY###")[1].split("###END###")[0].strip()
+        else:
+            html_body = None
 
-        return message_subject, message_body_html, message_body_text
+        text_body = generated_text.split("###TEXTBODY###")[1].split("###END###")[0].strip()
+
+        return subject, html_body, text_body
 
     except IndexError:
-        # If the format is not properly parsed, raise an error in Streamlit
-        st.error(
-            "The provided content does not follow the expected format. Please check and try again."
-        )
+        st.error("The provided content does not follow the expected format. Please check and try again.")
         return None, None, None
 
 
 def increment_counter():
-    """
-    Increment Customer Counter
-    """
-    st.session_state["customer_counter"] = min(
-        len(df) - 1, st.session_state["customer_counter"] + 1
-    )
+    """Increment Customer Counter."""
+    st.session_state["customer_counter"] = min(len(df) - 1, st.session_state["customer_counter"] + 1)
 
 
 def set_button_clicked():
-    """
-    Set button as clicked and send out content
-    """
+    """Set button as clicked and send out content."""
 
-    first_name=customer_details["User.UserAttributes.FirstName"],
-    last_name=customer_details["User.UserAttributes.LastName"],
+    first_name = (customer_details["User.UserAttributes.FirstName"],)
+    last_name = (customer_details["User.UserAttributes.LastName"],)
     send_message_pinpoint(
         address=customer_details.loc["Address"],
         channel=customer_details.loc["ChannelType"],
-        message_body_text=message_body_text,
-        message_subject=message_subject,
-        message_body_html=message_body_html,
+        message_text=message_body_text,
+        subject=message_subject,
+        html_body=message_body_html,
         first_name=first_name,
         last_name=last_name,
     )
@@ -560,34 +590,22 @@ else:
     col1, col2, col3, col4, col5 = st.columns([1, 1, 1, 1, 1], gap="small")
 
     with col1:
-        if st.button(
-            "First customer", key="first_customer", help="Go to the first customer"
-        ):
+        if st.button("First customer", key="first_customer", help="Go to the first customer"):
             st.session_state["customer_counter"] = 0
             st.session_state.button_clicked = False
 
     with col2:
-        if st.button(
-            ":arrow_backward:", key="prev_customer", help="Go to the previous customer"
-        ):
-            st.session_state["customer_counter"] = max(
-                0, st.session_state["customer_counter"] - 1
-            )
+        if st.button(":arrow_backward:", key="prev_customer", help="Go to the previous customer"):
+            st.session_state["customer_counter"] = max(0, st.session_state["customer_counter"] - 1)
             st.session_state.button_clicked = False
 
     with col4:
-        if st.button(
-            ":arrow_forward:", key="next_customer", help="Go to the next customer"
-        ):
-            st.session_state["customer_counter"] = min(
-                len(df) - 1, st.session_state["customer_counter"] + 1
-            )
+        if st.button(":arrow_forward:", key="next_customer", help="Go to the next customer"):
+            st.session_state["customer_counter"] = min(len(df) - 1, st.session_state["customer_counter"] + 1)
             st.session_state.button_clicked = False
 
     with col5:
-        if st.button(
-            "Last customer", key="last_customer", help="Go to the last customer"
-        ):
+        if st.button("Last customer", key="last_customer", help="Go to the last customer"):
             st.session_state["customer_counter"] = len(df) - 1
             st.session_state.button_clicked = False
 
@@ -627,9 +645,7 @@ else:
     # If there's item ID found in customer database (meaning using Personalize Segment)
     if "itemId" in customer_details.index:
         # Get Item Metadata (Airline)
-        with fs.open(
-            f"s3://{BUCKET_NAME}/demo-data/df_item_deduplicated.csv", "rb"
-        ) as f:
+        with fs.open(f"s3://{BUCKET_NAME}/demo-data/df_item_deduplicated.csv", "rb") as f:
             item_data = pd.read_csv(f)
         item_data = item_data[item_data["ITEM_ID"] == customer_details.loc["itemId"]]
 
@@ -637,9 +653,7 @@ else:
         # Get Item Metadata (Banking) since using Pinpoint Segment
         with fs.open(f"s3://{BUCKET_NAME}/demo-data/df_item_banking.csv", "rb") as f:
             item_data = pd.read_csv(f)
-        item_data = item_data[
-            item_data["itemId"] == customer_details["User.UserAttributes.Product"]
-        ]
+        item_data = item_data[item_data["itemId"] == customer_details["User.UserAttributes.Product"]]
 
     # Extract the single row as a Series
     row = item_data.iloc[0]
@@ -648,33 +662,29 @@ else:
         product_data += f"{col}: {value}; "
 
     channel_states = get_channel_states()
-    channel        = customer_details.loc["ChannelType"]
-    channel_state  = channel_states.get(channel)
+    channel = customer_details.loc["ChannelType"]
+    channel_state = channel_states.get(channel)
 
     # create a button that will generate the channel content
-    content = generateMarketingContent(
-        ai_model,
-        st.session_state.prompt,
-        channel,
-        product_data=product_data,
+    content = generate_marketing_content(
+        model_name=ai_model,
+        prompt_template=st.session_state.prompt,
+        channel=channel,
+        product_details=product_data,
         name=customer_details["User.UserAttributes.FirstName"],
         age=customer_details["User.UserAttributes.Age"],
         lang=customer_details["User.UserAttributes.PreferredLanguage"],
     )
 
     # Show the generated text in a text box (not editable yet)
-    text_area = st.text_area(
-        f"#### Generated {channel}", content, key="generated_content", height=400
-    )
+    text_area = st.text_area(f"#### Generated {channel}", content, key="generated_content", height=400)
 
     # Check if there is any adjusted text, if not use the generated text
     text_to_show = st.session_state.get("adjusted_text", content)
     del content
 
     # Extract content from text_area
-    message_subject, message_body_html, message_body_text = extract_content(
-        text_to_show
-    )
+    message_subject, message_body_html, message_body_text = extract_content(text_to_show)
     # override the theme, else it will use the Streamlit applied theme
     over_theme = {
         "txc_inactive": "white",
@@ -693,14 +703,14 @@ else:
     # channel        = customer_details.loc["ChannelType"]
     # channel_state  = channel_states.get(channel)
 
-    if (channel_state == "false"):
+    if channel_state == "false":
         with col1:
             st.button(
-                channel + " Chanel Is Disabled",
+                channel + " Channel Is Disabled",
                 key="accept",
                 help="Move to the next customer",
-    #           on_click=set_button_clicked,
-                disabled=True
+                #           on_click=set_button_clicked,
+                disabled=True,
             )
     else:
         with col1:
@@ -721,9 +731,7 @@ else:
     with st.expander("#### Recommended Product Details", expanded=False):
         # If there's item ID found in customer database
         if "itemId" in customer_details.index:
-            item_data = item_data[
-                item_data["ITEM_ID"] == customer_details.loc["itemId"]
-            ]
+            item_data = item_data[item_data["ITEM_ID"] == customer_details.loc["itemId"]]
             # Extract the single row as a Series
             row = item_data.iloc[0]
 
@@ -738,18 +746,14 @@ else:
                     )
         else:
             # Else show the default product detail
-            product_info = get_product_info(
-                customer_details["User.UserAttributes.Product"]
-            )
+            product_info = get_product_info(customer_details["User.UserAttributes.Product"])
             display_product_info(product_info)
 
     # Customer Details Expander
     with st.expander("#### Customer Details", expanded=False):
         st.dataframe(customer_details_df, use_container_width=True)
 
-    template = marketingBaseTemplate(
-        channel, product_data, lang="en", template=st.session_state.prompt
-    )
+    template = marketing_base_template(channel, product_data, lang="en", base_template=st.session_state.prompt)
 
     with st.expander("#### Prompt Details", expanded=False):
         st.code(template, language="text")

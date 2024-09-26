@@ -1,6 +1,4 @@
-"""
-Helper classes for LLM inference
-"""
+"""Helper classes for LLM inference."""
 
 #########################
 #    IMPORTS & LOGGER
@@ -32,9 +30,7 @@ def invoke_content_creation(
     answer_length: int = 4096,
     temperature: float = 0.0,
 ) -> str:
-    """
-    Run LLM to generate content via API
-    """
+    """Run LLM to generate content via API."""
 
     params = {
         "query": prompt,
@@ -52,5 +48,4 @@ def invoke_content_creation(
         headers={"Authorization": access_token},
     )
     print(response.text)
-    response = json.loads(response.text)
-    return response
+    return json.loads(response.text)

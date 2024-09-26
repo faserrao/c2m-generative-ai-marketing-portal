@@ -1,31 +1,22 @@
+# Modififcation to force CloudFormation ECS update
+import json
+import logging
+import os
+import sys
+from pathlib import Path
+
+import components.authenticate as authenticate  # noqa: E402
+import s3fs
 import streamlit as st
-import pandas as pd
-import langchain as lc
-from langchain import PromptTemplate
+from components.utils import display_cover_with_title, reset_session_state
+from components.utils_models import BEDROCK_MODELS
 
 # FAS
 # Made changed based on error message received.
-from langchain.llms.bedrock import Bedrock
-# from langchain_community.llms.bedrock import Bedrock
-
-import datetime
-import os
-import sys
-import boto3
-from pprint import pprint
-from streamlit_extras.echo_expander import echo_expander
-from streamlit_extras.add_vertical_space import add_vertical_space
-import json
-from pathlib import Path
 from st_pages import show_pages_from_config
-from components.utils import display_cover_with_title, reset_session_state
-import components.authenticate as authenticate  # noqa: E402
-import components.genai_api as genai_api  # noqa: E402
-import components.pinpoint_api as pinpoint_api
-import logging
 from streamlit_extras.switch_page_button import switch_page
-import s3fs
-from components.utils_models import BEDROCK_MODELS
+
+# from langchain_community.llms.bedrock import Bedrock
 
 LOGGER = logging.Logger("AI-Chat", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
@@ -35,9 +26,7 @@ LOGGER.addHandler(HANDLER)
 path = Path(os.path.dirname(__file__))
 sys.path.append(str(path.parent.parent.absolute()))
 
-#########################
-#     COVER & CONFIG
-#########################
+# COVER & CONFIG
 
 # titles
 COVER_IMAGE = os.environ.get("COVER_IMAGE_URL")
@@ -66,23 +55,20 @@ with cover_placeholder:
 # custom page names in the sidebar
 show_pages_from_config()
 
-
-#########################
-#  CHECK LOGIN (do not delete)
-#########################
+# CHECK LOGIN (do not delete)
 
 # switch to home page if not authenticated
 authenticate.set_st_state_vars()
 if not st.session_state["authenticated"]:
     switch_page("Home")
 
-
-#########################
-#       CONSTANTS
-#########################
+# CONSTANTS
 
 # answer to display then there are no references
-DEFAULT_NEGATIVE_ANSWER = "Could not answer based on the provided documents. Please rephrase your question, reduce the relevance threshold, or ask another question."  # noqa: E501
+DEFAULT_NEGATIVE_ANSWER = (
+    "Could not answer based on the provided documents. Please rephrase your question, "
+    "reduce the relevance threshold, or ask another question."
+)
 
 # default hello message
 HELLO_MESSAGE = "Hi! I am an AI assistant. How can I help you?"
@@ -91,7 +77,7 @@ HELLO_MESSAGE = "Hi! I am an AI assistant. How can I help you?"
 PAGE_NAME = "ai_chat"
 
 # default model specs
-with open(f"{path.parent.absolute()}/components/model_specs.json") as f:
+with open(f"{path.parent.absolute()}/components/model_specs.json", encoding="utf-8") as f:
     MODEL_SPECS = json.load(f)
 
 # Hardcoded lists of available and non available models.
@@ -117,18 +103,17 @@ reset_session_state(page_name=PAGE_NAME)
 st.session_state.setdefault("ai_model", MODELS_DISPLAYED[0])  # default model
 # if "ai_model" not in st.session_state:
 #     st.session_state["ai_model"] = MODELS_DISPLAYED[0]  # default model
-LOGGER.log(logging.DEBUG, (f"ai_model selected: {st.session_state['ai_model']}"))
+LOGGER.log(logging.DEBUG, "ai_model selected: %s", st.session_state["ai_model"])
 
 # Initialize session state
 if "prompt" not in st.session_state:
     st.session_state.prompt = ""
 
-########################################################################################################################################################################
-######################################################## Session States and CSS      ###################################################################################
-########################################################################################################################################################################
+# Session States and CSS #
 
-
+# Split into multiple lines
 # define what option labels and icons to display
+
 option_data = [
     {"icon": "bi bi-hand-thumbs-up", "label": "Agree", "color": "green"},
     {"icon": "fa fa-question-circle", "label": "Unsure"},
@@ -143,24 +128,8 @@ box_style = {
     "margin": "10px",
 }
 
+# SIDEBAR MODEL SELECTION
 
-########################################################################################################################################################################
-######################################################## NavBar      ###################################################################################################
-########################################################################################################################################################################
-
-
-########################################################################################################################################################################
-######################################################## Functions    ##################################################################################################
-########################################################################################################################################################################
-
-########################################################################################################################################################################
-######################################################## PAGE CODE    ##################################################################################################
-########################################################################################################################################################################
-
-
-#########################
-#       SIDEBAR MODEL SELECTION
-#########################
 with st.sidebar:
     st.markdown("")
 
@@ -180,21 +149,18 @@ with st.sidebar:
         st.error(f'{st.session_state["ai_model"]} has been shut down', icon="⚠️")
         st.stop()
 
+# PAGE CONTENT
 
-#########################
-#       PAGE CONTENT
-#########################
 # Link to auto-prompting blog
 st.markdown(
     """
-    *For more details on prompt engineering and auto-prompting, visit [our blog](https://medium.com/@philippkai/from-prompt-engineering-to-auto-prompt-optimisation-d2de596d87e1). 
+    *For more details on prompt engineering and auto-prompting, visit
+    [our blog](https://medium.com/@philippkai/from-prompt-engineering-to-auto-prompt-optimisation-d2de596d87e1).
     """
 )
 
 # Create a large text box for prompt input
-user_input = st.text_area(
-    "Enter your prompt here:", value=st.session_state.prompt, height=300
-)
+user_input = st.text_area("Enter your prompt here:", value=st.session_state.prompt, height=300)
 
 # Confirm prompt button
 if st.button("Confirm Prompt"):
@@ -204,7 +170,6 @@ if st.button("Confirm Prompt"):
 # Display saved prompt
 if st.session_state.prompt:
     st.sidebar.write(f"Saved Prompt: {st.session_state.prompt}")
-
 
 # Sample Prompt for Airlines
 st.write("## Sample Airlines Prompt")
