@@ -1,3 +1,10 @@
+#
+# try:
+#    from shared_module.python.channel_states import get_channel_states
+# except ModuleNotFoundError:
+#    from shared_module.channel_states import get_channel_states
+#
+
 import json
 import logging
 import os
@@ -19,13 +26,15 @@ from langchain import PromptTemplate
 # Made changed based on error message received.
 from langchain.llms.bedrock import Bedrock
 
-from shared_module.python.channel_states import get_channel_states
-
 from st_pages import show_pages_from_config
 from streamlit_extras.switch_page_button import switch_page
 
-# from langchain_community.llms.bedrock import Bedrock
-
+# For local testing only
+if "LOCAL_EXECUTION" in os.environ:
+    print("Local Environment.")
+    from shared_module.python.channel_states import get_channel_states
+else:
+    from shared_module.channel_states import get_channel_states
 
 LOGGER = logging.Logger("AI-Chat", level=logging.DEBUG)
 HANDLER = logging.StreamHandler(sys.stdout)
@@ -53,6 +62,7 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="expanded",
 )
+
 
 # display cover immediately so that it does not pop in and out on every page refresh
 cover_placeholder = st.empty()
