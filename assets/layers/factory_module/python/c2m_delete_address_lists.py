@@ -20,7 +20,14 @@ MY_PASSWORD = "Babushka1!"
 
 
 def c2m_delete_address_lists(address_list_ids: list):
-    """Delete address lists from Click2Mail using provided IDs."""
+    """Delete address lists from Click2Mail using provided IDs.
+
+    Args:
+        address_list_ids (list): List of IDs of address lists to delete
+
+    Returns:
+        dict: Response containing status code, body, and headers
+    """
     headers = {"accept": JSON_CONTENT_TYPE}
 
     for address_list_id in address_list_ids:
@@ -31,11 +38,17 @@ def c2m_delete_address_lists(address_list_ids: list):
         try:
             response = requests.delete(url, headers=headers, auth=(MY_USERNAME, MY_PASSWORD))
 
+            # Check if the address list belongs to the user
             if response.status_code == 400:
                 error_message = f"Base address list with id {address_list_id} does not belong to this user."
                 print(error_message)
                 LOGGER.error(error_message)
-                return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": JSON_CONTENT_TYPE}}
+                return {
+                    "statusCode": 400,
+                    "body": response.text,
+                    "headers": {"Content-Type": JSON_CONTENT_TYPE},
+                }
+            # Check if the address list was successfully deleted
             if response.status_code == 200:
                 info_message = (
                     f"Successfully deleted address list {address_list_id} with status code: {response.status_code}"
@@ -43,18 +56,31 @@ def c2m_delete_address_lists(address_list_ids: list):
                 LOGGER.info(info_message)
                 print(info_message)
                 continue
+            # Catch any other unexpected status codes
             warning_message = f"Unexpected status code {response.status_code} for address list {address_list_id}"
             LOGGER.warning(warning_message)
             print(warning_message)
-            return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": JSON_CONTENT_TYPE}}
+            return {
+                "statusCode": 400,
+                "body": response.text,
+                "headers": {"Content-Type": JSON_CONTENT_TYPE},
+            }
 
         except requests.exceptions.RequestException as e:
             error_message = f"Failed to delete address list {address_list_id}: {e}"
             LOGGER.error(error_message)
             print(error_message)
-            return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": JSON_CONTENT_TYPE}}
+            return {
+                "statusCode": 400,
+                "body": response.text,
+                "headers": {"Content-Type": JSON_CONTENT_TYPE},
+            }
 
     info_message = "Successfully deleted all address lists"
     LOGGER.info(info_message)
     print(info_message)
-    return {"statusCode": 200, "body": response.text, "headers": {"Content-Type": JSON_CONTENT_TYPE}}
+    return {
+        "statusCode": 200,
+        "body": response.text,
+        "headers": {"Content-Type": JSON_CONTENT_TYPE},
+    }

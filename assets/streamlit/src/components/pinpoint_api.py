@@ -26,7 +26,17 @@ API_URI = os.environ.get("API_URI")
 def invoke_pinpoint_segment(
     access_token: str,
 ) -> list:
-    """Get Segments From Pinpoint Project."""
+    """Get Segments From Pinpoint Project.
+
+    This function sends a GET request to the Pinpoint API to retrieve all the
+    segments in the Pinpoint project.
+
+    Args:
+        access_token (str): The access token for the Pinpoint API.
+
+    Returns:
+        list: The response content from the Pinpoint API.
+    """
     response = requests.get(
         url=API_URI + "/pinpoint/segment",
         stream=False,
@@ -35,27 +45,56 @@ def invoke_pinpoint_segment(
     return response.content
 
 
-def invoke_pinpoint_create_export_job(access_token: str, segment_id: str) -> list:
-    """Create Export Job For A Pinpoint Segment."""
+def invoke_pinpoint_create_export_job(
+    access_token: str,
+    segment_id: str,
+) -> list:
+    """Create Export Job For A Pinpoint Segment.
+
+    Args:
+        access_token (str): The access token for the Pinpoint API.
+        segment_id (str): The ID of the Pinpoint segment for which the export job is to be created.
+
+    Returns:
+        list: The response content from the Pinpoint API.
+    """
+    # Construct the request parameters
     params = {"segment-id": segment_id}
+
+    # Send the POST request to the Pinpoint API
     response = requests.post(
         url=API_URI + "/pinpoint/job",
         json=params,
         stream=False,
         headers={"Authorization": access_token},
     )
+
+    # Return the response content
     return response.content
 
 
 def invoke_pinpoint_export_job_status(access_token: str, job_id: str) -> list:
-    """Get Export Job Status From Pinpoint."""
+    """Get Export Job Status From Pinpoint.
+
+    Args:
+        access_token (str): The access token for the Pinpoint API.
+        job_id (str): The ID of the export job whose status is to be retrieved.
+
+    Returns:
+        list: The response content from the Pinpoint API.
+    """
+    # Construct the request parameters
     params = {"job-id": job_id}
+
+    # Send the GET request to the Pinpoint API
     response = requests.get(
         url=API_URI + "/pinpoint/job",
         json=params,
         stream=False,
         headers={"Authorization": access_token},
     )
+
+    # Return the response content
     return response.content
 
 
@@ -111,15 +150,30 @@ def invoke_s3_fetch_files(
     s3_url_prefix: str,
     total_pieces: int,
 ) -> list:
-    """Get Files URI from S3 which were exported by Pinpoint."""
+    """Get Files URI from S3 which were exported by Pinpoint.
+
+    Args:
+        access_token (str): Authentication token to access API.
+        s3_url_prefix (str): The prefix of the bucket path in S3.
+        total_pieces (int): The number of files to fetch from S3.
+
+    Returns:
+        list: Response content from the API.
+    """
     params = {
+        # The prefix of the bucket path in S3
         "s3-url-prefix": s3_url_prefix,
+        # The number of files to fetch from S3
         "total-pieces": total_pieces,
     }
+
+    # Use the API endpoint to fetch the files
     response = requests.get(
         url=API_URI + "/s3",
         json=params,
         stream=False,
         headers={"Authorization": access_token},
     )
+
+    # Return the response content
     return response.content

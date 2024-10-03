@@ -27,14 +27,28 @@ JSON_CONTENT_TYPE = "application/json"
 #########################
 
 
-def string_to_odt_in_memory(content: str):
-    """Convert a string to an in-memory ODT document."""
+def string_to_odt_in_memory(content: str) -> BytesIO:
+    """Convert a string to an in-memory ODT document.
+
+    Args:
+        content (str): The string to convert to an ODT document.
+
+    Returns:
+        BytesIO: An in-memory ODT document.
+    """
+    # Create an OpenDocumentText object
     doc = OpenDocumentText()
+
+    # Add the content to the document as a paragraph
     paragraph = P(text=content)
     doc.text.addElement(paragraph)
+
+    # Save the document to an in-memory stream
     odt_stream = BytesIO()
     doc.save(odt_stream)
-    odt_stream.seek(0)  # Reset stream position to the beginning
+
+    # Reset the stream position to the beginning
+    odt_stream.seek(0)
 
     return odt_stream
 

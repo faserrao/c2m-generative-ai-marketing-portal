@@ -100,23 +100,23 @@ google-api-core==2.20.0
 google-api-python-client==2.147.0
 google-auth==2.35.0
 google-auth-httplib2==0.2.0
-# google-cloud-appengine-logging==1.4.5
-# google-cloud-audit-log==0.3.0
-# google-cloud-container==2.51.0
+google-cloud-appengine-logging==1.4.5
+google-cloud-audit-log==0.3.0
+google-cloud-container==2.51.0
 google-cloud-core==2.4.1
-# google-cloud-iam==2.15.2
-# google-cloud-kms==3.0.0
-# google-cloud-logging==3.11.2
-# google-cloud-monitoring==2.22.2
-# google-cloud-resource-manager==1.12.5
+google-cloud-iam==2.15.2
+google-cloud-kms==3.0.0
+google-cloud-logging==3.11.2
+google-cloud-monitoring==2.22.2
+google-cloud-resource-manager==1.12.5
 google-cloud-storage==2.18.2
 google-crc32c==1.6.0
 google-pasta==0.2.0
 google-resumable-media==2.7.2
-# googleapis-common-protos==1.65.0
-# grpc-google-iam-v1==0.13.1
+googleapis-common-protos==1.65.0
+grpc-google-iam-v1==0.13.1
 grpcio==1.66.2
-# grpcio-status==1.66.2
+grpcio-status==1.66.2
 h11==0.14.0
 htbuilder==0.6.2
 httpagentparser==1.9.5

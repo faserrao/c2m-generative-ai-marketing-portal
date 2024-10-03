@@ -37,33 +37,48 @@ MODELS_MAPPING = {
 
 
 def create_bedrock_client():
-    """Create and return a Bedrock client, optionally using cross-account
-    access."""
+    """Create and return a Bedrock client. If the BEDROCK_ROLE_ARN environment
+    variable is set, use cross-account access. Otherwise, use the same AWS
+    account.
+
+    Returns:
+        tuple: A tuple where the first element is the Bedrock client and the
+        second element is the expiration datetime of the assumed role
+        credentials (if cross-account access is used).
+    """
     if BEDROCK_ROLE_ARN != "None":
         LOGGER.info("Using cross-account bedrock client.")
         role_arn = None
 
-        LOGGER.info("BEDROCK_ROLE_ARN: %s", BEDROCK_ROLE_ARN)
-
-        # Check if it's a non-empty string and not "None"
+        # Check if the BEDROCK_ROLE_ARN environment variable is a non-empty
+        # string and not "None".
         if isinstance(role_arn, str) and role_arn != "None":
             role_arn = os.environ["BEDROCK_ROLE_ARN"]
         else:
-            raise ValueError("Cross-account arn is not empty but not a string!'")
+            raise ValueError(
+                "Cross-account arn is not empty but not a string! Please check "
+                "the BEDROCK_ROLE_ARN environment variable."
+            )
 
         LOGGER.info("Using ARN: %s", role_arn)
 
+        # Assume the role using the STS client.
         sts_connection = boto3.client("sts")
         acct_bedrock = sts_connection.assume_role(RoleArn=role_arn, RoleSessionName="cross_account_bedrock")
 
+        # Extract the temporary access key ID, secret key, and session token
+        # from the assumed role.
         access_key = acct_bedrock["Credentials"]["AccessKeyId"]
         secret_key = acct_bedrock["Credentials"]["SecretAccessKey"]
         session_token = acct_bedrock["Credentials"]["SessionToken"]
+
+        # Extract the expiration datetime of the assumed role credentials.
         expiration = acct_bedrock["Credentials"]["Expiration"]
 
+        # Get the region from the environment variable.
         region = os.environ["BEDROCK_REGION"]
 
-        # create service client using the assumed role credentials
+        # Create the Bedrock client using the assumed role credentials.
         bedrock_client = boto3.client(
             service_name="bedrock-runtime",
             region_name=region,
@@ -91,26 +106,51 @@ BEDROCK_CLIENT, EXPIRATION = create_bedrock_client()
 
 
 def verify_bedrock_client():
-    """Check if the Bedrock client token is still valid."""
+    """Check if the Bedrock client token is still valid. This function should
+    be called before every invocation of the Bedrock client to ensure that the
+    token is not expired.
+
+    Returns:
+        bool: True if the token is not expired, False otherwise.
+    """
+    # Check if the expiration time is set and the token is not expired.
     if EXPIRATION is not None:
         now = datetime.now(timezone.utc)
         LOGGER.info("Bedrock token expires in %s seconds", (EXPIRATION - now).total_seconds())
+        # If the token is about to expire (less than 1 minute), return False.
         if (EXPIRATION - now).total_seconds() < 60:
             return False
+    # If the token is not expired, return True.
     return True
 
 
 def generate_message(bedrock_runtime, model_id, system_prompt, messages, max_tokens):
-    """Generate a message using the Bedrock runtime."""
+    """Generate a message using the Bedrock runtime.
+
+    Args:
+        bedrock_runtime (Bedrock): The Bedrock runtime client.
+        model_id (str): The ID of the model to use.
+        system_prompt (str): The system prompt to pass to the model.
+        messages (list[dict]): The chat history to pass to the model.
+        max_tokens (int): The maximum number of tokens to generate.
+
+    Returns:
+        dict: The response from the Bedrock runtime.
+    """
     body = json.dumps(
         {
+            # Use the latest version of the Bedrock API.
             "anthropic_version": "bedrock-2023-05-31",
+            # Set the maximum number of tokens to generate.
             "max_tokens": max_tokens,
+            # Pass the system prompt to the model.
             "system": system_prompt,
+            # Pass the chat history to the model.
             "messages": messages,
         }
     )
 
+    # Invoke the model using the Bedrock runtime.
     return bedrock_runtime.invoke_model(body=body, modelId=model_id)
 
 
@@ -120,7 +160,16 @@ def generate_message(bedrock_runtime, model_id, system_prompt, messages, max_tok
 
 
 def lambda_handler(event, context):
-    """Lambda handler."""
+    """Lambda handler that takes the event and context and uses the Bedrock
+    runtime to generate text based on the given query and model parameters.
+
+    Args:
+        event (dict): The event object containing the query and model parameters.
+        context (object): The context object.
+
+    Returns:
+        str: The generated text.
+    """
     LOGGER.info("Starting execution of lambda_handler()")
 
     # PREPARATIONS
@@ -177,6 +226,7 @@ def lambda_handler(event, context):
         }
     LOGGER.info("MODEL_PARAMS: %s", model_params)
 
+    # Check if the Bedrock client token is expired and refresh if necessary
     if not verify_bedrock_client():
         LOGGER.info("Bedrock client expired, will refresh token.")
         global BEDROCK_CLIENT, EXPIRATION
@@ -185,6 +235,7 @@ def lambda_handler(event, context):
     accept = "application/json"
     content_type = "application/json"
 
+    # Based on the model_id, construct the input and invoke the model
     if amazon_flag:
         input_data = json.dumps(
             {

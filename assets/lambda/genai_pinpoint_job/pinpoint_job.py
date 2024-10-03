@@ -36,6 +36,12 @@ S3_BUCKET_NAME = os.environ["BUCKET_NAME"]
 def lambda_handler(event, context):
     """Handle GET and POST requests for Pinpoint export jobs.
 
+    GET /pinpoint/export-jobs/{job-id}:
+        Fetch the export job with the given job ID from Pinpoint.
+
+    POST /pinpoint/export-jobs:
+        Create a new export job for the given segment ID in Pinpoint.
+
     :param event: AWS Lambda event object
     :param context: AWS Lambda context object
     :return: API Gateway response
@@ -56,7 +62,7 @@ def lambda_handler(event, context):
         client = boto3.client("pinpoint")
 
         try:
-            # Perform the get-segments operation
+            # Perform the get-export-job operation
             response = client.get_export_job(ApplicationId=pinpoint_project_id, JobId=export_job_id)
 
             # Extract the job status
@@ -113,9 +119,13 @@ def lambda_handler(event, context):
             print(e)
             return {
                 "statusCode": 500,
-                "body": "An error occurred while fetching the export job",
+                "body": "An error occurred while creating the export job",
                 "headers": {"Content-Type": CONTENT_TYPE_JSON},
             }
     else:
         # Return an error response for unsupported HTTP methods
-        return {"statusCode": 400, "body": "Unsupported HTTP method", "headers": {"Content-Type": CONTENT_TYPE_JSON}}
+        return {
+            "statusCode": 400,
+            "body": "Unsupported HTTP method",
+            "headers": {"Content-Type": CONTENT_TYPE_JSON},
+        }

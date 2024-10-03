@@ -21,7 +21,7 @@ PASSWORD = "Babushka1!"
 #########################
 
 
-def c2m_submit_job(billing_type: str = "User Credit", job_id: str = ""):
+def c2m_submit_job(billing_type: str = "User Credit", job_id: str = "") -> dict:
     """Submit a job to Click2Mail.
 
     Args:
@@ -31,20 +31,25 @@ def c2m_submit_job(billing_type: str = "User Credit", job_id: str = ""):
     Returns:
         dict: Response containing status code, body, and headers.
     """
-
     url = SUBMIT_JOB_URL + job_id + "/submit"
     headers = {"user-agent": "my-app/0.0.1"}
     values = {"billingType": billing_type}
 
     try:
+        # Make POST request to submit the job
         response = requests.post(url, data=values, headers=headers, auth=(USERNAME, PASSWORD))
-        response.raise_for_status()  # Raise an exception for HTTP errors
-        print_response("Submit job successful", response)
+        # Raise an exception if request fails
+        response.raise_for_status()
         if response.status_code == 200:
+            # Return success response
+            print_response("Submit job successful", response)
             return {"statusCode": 200, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
-        print_response("Submit job failed:", response)
-        return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
+        else:
+            # Return failure response
+            print_response("Submit job failed:", response)
+            return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
     except requests.exceptions.RequestException as e:
+        # Handle any exceptions that occur
         exception_string = f"Submit job http request failed:: {e}, {str(e)}"
         print_response(exception_string)
         return {"statusCode": 400, "body": str(e), "headers": {"Content-Type": CONTENT_TYPE_JSON}}

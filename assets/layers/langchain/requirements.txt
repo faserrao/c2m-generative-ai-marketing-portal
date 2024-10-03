@@ -1,7 +1,7 @@
 ## Langchain Requirements
-boto3
-langchain
-langchain-community
-requests_toolbelt
-requests
-odfpy
+boto3==1.35.19
+langchain==0.3.0
+langchain-community==0.3.0
+requests_toolbelt==1.0.0
+requests==2.32.3
+odfpy==1.4.1

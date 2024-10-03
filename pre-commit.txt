@@ -1,0 +1,2100 @@
+black....................................................................[41mFailed[m
+[2m- hook id: black[m
+[2m- files were modified by this hook[m
+
+[1mreformatted assets/layers/factory_module/python/factory_module.py[0m
+
+[1mAll done! ✨ 🍰 ✨[0m
+[34m[1m1 file [0m[1mreformatted[0m, [34m57 files [0mleft unchanged.
+
+ruff.....................................................................[41mFailed[m
+[2m- hook id: ruff[m
+[2m- exit code: 1[m
+
+[1massets/lambda/bedrock_content_generation_lambda/bedrock_content_generation_lambda.py[0m[36m:[0m162[36m:[0m5[36m:[0m [1;31mC901[0m `lambda_handler` is too complex (12 > 10)
+[1massets/layers/factory_module/python/c2m_submit_job.py[0m[36m:[0m47[36m:[0m9[36m:[0m [1;31mRET505[0m Unnecessary `else` after `return` statement
+[1massets/layers/factory_module/python/factory_module.py[0m[36m:[0m272[36m:[0m13[36m:[0m [1;31mRET505[0m Unnecessary `elif` after `return` statement
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[0m[36m:[0m177[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (644 > 120 characters)
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[0m[36m:[0m183[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (354 > 120 characters)
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[0m[36m:[0m189[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (145 > 120 characters)
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[0m[36m:[0m194[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (125 > 120 characters)
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[0m[36m:[0m196[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (384 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[0m[36m:[0m128[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[0m[36m:[0m140[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[0m[36m:[0m145[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[0m[36m:[0m228[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (171 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[0m[36m:[0m138[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[0m[36m:[0m150[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[0m[36m:[0m155[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[0m[36m:[0m310[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (171 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[0m[36m:[0m404[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (122 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m263[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (197 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m265[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (150 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m282[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (194 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m283[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (127 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m321[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (194 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m322[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (127 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m526[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (190 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m527[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (123 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m580[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[0m[36m:[0m786[36m:[0m121[36m:[0m [1;31mE501[0m Line too long (174 > 120 characters)
+Found 27 errors.
+
+pylint...................................................................[41mFailed[m
+[2m- hook id: pylint[m
+[2m- exit code: 30[m
+
+************* Module app
+app.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+app.py:4:0: E0401: Unable to import 'aws_cdk' (import-error)
+app.py:5:0: E0401: Unable to import 'yaml' (import-error)
+app.py:6:0: E0401: Unable to import 'cdk_nag' (import-error)
+app.py:7:0: E0401: Unable to import 'yaml.loader' (import-error)
+************* Module assets.lambda.bedrock_content_generation_lambda.bedrock_content_generation_lambda
+assets/lambda/bedrock_content_generation_lambda/bedrock_content_generation_lambda.py:13:0: E0401: Unable to import 'boto3' (import-error)
+assets/lambda/bedrock_content_generation_lambda/bedrock_content_generation_lambda.py:14:0: E0401: Unable to import 'botocore.config' (import-error)
+assets/lambda/bedrock_content_generation_lambda/bedrock_content_generation_lambda.py:162:0: R0914: Too many local variables (21/15) (too-many-locals)
+assets/lambda/bedrock_content_generation_lambda/bedrock_content_generation_lambda.py:189:69: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/bedrock_content_generation_lambda/bedrock_content_generation_lambda.py:232:8: W0603: Using the global statement (global-statement)
+assets/lambda/bedrock_content_generation_lambda/bedrock_content_generation_lambda.py:162:0: R0915: Too many statements (51/50) (too-many-statements)
+assets/lambda/bedrock_content_generation_lambda/bedrock_content_generation_lambda.py:162:26: W0613: Unused argument 'context' (unused-argument)
+************* Module assets.lambda.genai_personalize_batch_segment_job.personalize_batch_segment_job
+assets/lambda/genai_personalize_batch_segment_job/personalize_batch_segment_job.py:15:0: E0401: Unable to import 'boto3' (import-error)
+assets/lambda/genai_personalize_batch_segment_job/personalize_batch_segment_job.py:16:0: E0401: Unable to import 'botocore.exceptions' (import-error)
+assets/lambda/genai_personalize_batch_segment_job/personalize_batch_segment_job.py:36:0: R0914: Too many local variables (17/15) (too-many-locals)
+assets/lambda/genai_personalize_batch_segment_job/personalize_batch_segment_job.py:73:12: C0103: Variable name "s3" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_personalize_batch_segment_job/personalize_batch_segment_job.py:97:8: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_personalize_batch_segment_job/personalize_batch_segment_job.py:126:8: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_personalize_batch_segment_job/personalize_batch_segment_job.py:36:26: W0613: Unused argument 'context' (unused-argument)
+assets/lambda/genai_personalize_batch_segment_job/personalize_batch_segment_job.py:140:21: C0103: Argument name "x" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.lambda.genai_personalize_batch_segment_jobs.personalize_batch_segment_jobs
+assets/lambda/genai_personalize_batch_segment_jobs/personalize_batch_segment_jobs.py:13:0: E0401: Unable to import 'boto3' (import-error)
+assets/lambda/genai_personalize_batch_segment_jobs/personalize_batch_segment_jobs.py:14:0: E0401: Unable to import 'botocore.exceptions' (import-error)
+assets/lambda/genai_personalize_batch_segment_jobs/personalize_batch_segment_jobs.py:28:26: W0613: Unused argument 'context' (unused-argument)
+assets/lambda/genai_personalize_batch_segment_jobs/personalize_batch_segment_jobs.py:77:21: C0103: Argument name "x" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.lambda.genai_pinpoint_job.pinpoint_job
+assets/lambda/genai_pinpoint_job/pinpoint_job.py:12:0: E0401: Unable to import 'boto3' (import-error)
+assets/lambda/genai_pinpoint_job/pinpoint_job.py:13:0: E0401: Unable to import 'botocore.exceptions' (import-error)
+assets/lambda/genai_pinpoint_job/pinpoint_job.py:78:8: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_pinpoint_job/pinpoint_job.py:117:8: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_pinpoint_job/pinpoint_job.py:36:26: W0613: Unused argument 'context' (unused-argument)
+************* Module assets.lambda.genai_pinpoint_message.pinpoint_message
+assets/lambda/genai_pinpoint_message/pinpoint_message.py:12:0: E0401: Unable to import 'boto3' (import-error)
+assets/lambda/genai_pinpoint_message/pinpoint_message.py:19:0: E0401: Unable to import 'botocore.exceptions' (import-error)
+assets/lambda/genai_pinpoint_message/pinpoint_message.py:22:0: C0103: Constant name "myusername" doesn't conform to UPPER_CASE naming style (invalid-name)
+assets/lambda/genai_pinpoint_message/pinpoint_message.py:23:0: C0103: Constant name "mypassword" doesn't conform to UPPER_CASE naming style (invalid-name)
+assets/lambda/genai_pinpoint_message/pinpoint_message.py:68:0: R0914: Too many local variables (21/15) (too-many-locals)
+assets/lambda/genai_pinpoint_message/pinpoint_message.py:201:12: W0105: String statement has no effect (pointless-string-statement)
+assets/lambda/genai_pinpoint_message/pinpoint_message.py:227:8: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_pinpoint_message/pinpoint_message.py:68:0: R0915: Too many statements (55/50) (too-many-statements)
+assets/lambda/genai_pinpoint_message/pinpoint_message.py:68:26: W0613: Unused argument 'context' (unused-argument)
+************* Module assets.lambda.genai_pinpoint_message_custom.pinpoint_message_custom
+assets/lambda/genai_pinpoint_message_custom/pinpoint_message_custom.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/lambda/genai_pinpoint_message_custom/pinpoint_message_custom.py:33:13: W1510: 'subprocess.run' used without explicitly defining the value for 'check'. (subprocess-run-check)
+assets/lambda/genai_pinpoint_message_custom/pinpoint_message_custom.py:48:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_pinpoint_message_custom/pinpoint_message_custom.py:16:32: W0613: Unused argument 'context' (unused-argument)
+************* Module assets.lambda.genai_pinpoint_message_email.pinpoint_message_email
+assets/lambda/genai_pinpoint_message_email/pinpoint_message_email.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/lambda/genai_pinpoint_message_email/pinpoint_message_email.py:4:0: E0401: Unable to import 'boto3' (import-error)
+assets/lambda/genai_pinpoint_message_email/pinpoint_message_email.py:43:11: W0718: Catching too general exception Exception (broad-exception-caught)
+assets/lambda/genai_pinpoint_message_email/pinpoint_message_email.py:40:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_pinpoint_message_email/pinpoint_message_email.py:43:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_pinpoint_message_email/pinpoint_message_email.py:10:26: W0613: Unused argument 'context' (unused-argument)
+************* Module assets.lambda.genai_pinpoint_message_sms.pinpoint_message_sms
+assets/lambda/genai_pinpoint_message_sms/pinpoint_message_sms.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/lambda/genai_pinpoint_message_sms/pinpoint_message_sms.py:4:0: E0401: Unable to import 'boto3' (import-error)
+assets/lambda/genai_pinpoint_message_sms/pinpoint_message_sms.py:46:11: W0718: Catching too general exception Exception (broad-exception-caught)
+assets/lambda/genai_pinpoint_message_sms/pinpoint_message_sms.py:34:8: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_pinpoint_message_sms/pinpoint_message_sms.py:46:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_pinpoint_message_sms/pinpoint_message_sms.py:10:26: W0613: Unused argument 'context' (unused-argument)
+************* Module assets.lambda.genai_pinpoint_segment.pinpoint_segment
+assets/lambda/genai_pinpoint_segment/pinpoint_segment.py:12:0: E0401: Unable to import 'boto3' (import-error)
+assets/lambda/genai_pinpoint_segment/pinpoint_segment.py:13:0: E0401: Unable to import 'botocore.exceptions' (import-error)
+assets/lambda/genai_pinpoint_segment/pinpoint_segment.py:67:8: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_pinpoint_segment/pinpoint_segment.py:33:26: W0613: Unused argument 'context' (unused-argument)
+************* Module assets.lambda.genai_s3.s3_fetch
+assets/lambda/genai_s3/s3_fetch.py:12:0: E0401: Unable to import 'boto3' (import-error)
+assets/lambda/genai_s3/s3_fetch.py:13:0: E0401: Unable to import 'botocore.exceptions' (import-error)
+assets/lambda/genai_s3/s3_fetch.py:90:12: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_s3/s3_fetch.py:127:12: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/lambda/genai_s3/s3_fetch.py:33:26: W0613: Unused argument 'context' (unused-argument)
+************* Module assets.layers.factory_module.python.c2m_add_credit
+assets/layers/factory_module/python/c2m_add_credit.py:8:0: E0401: Unable to import 'requests' (import-error)
+assets/layers/factory_module/python/c2m_add_credit.py:24:0: R0913: Too many arguments (11/5) (too-many-arguments)
+assets/layers/factory_module/python/c2m_add_credit.py:77:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.layers.factory_module.python.c2m_check_job_status
+assets/layers/factory_module/python/c2m_check_job_status.py:8:0: E0401: Unable to import 'requests' (import-error)
+assets/layers/factory_module/python/c2m_check_job_status.py:48:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.layers.factory_module.python.c2m_check_tracking
+assets/layers/factory_module/python/c2m_check_tracking.py:7:0: E0401: Unable to import 'requests' (import-error)
+assets/layers/factory_module/python/c2m_check_tracking.py:45:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.layers.factory_module.python.c2m_create_job
+assets/layers/factory_module/python/c2m_create_job.py:9:0: E0401: Unable to import 'requests' (import-error)
+assets/layers/factory_module/python/c2m_create_job.py:26:0: R0913: Too many arguments (9/5) (too-many-arguments)
+assets/layers/factory_module/python/c2m_create_job.py:26:0: R0914: Too many local variables (18/15) (too-many-locals)
+assets/layers/factory_module/python/c2m_create_job.py:89:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.layers.factory_module.python.c2m_delete_address_lists
+assets/layers/factory_module/python/c2m_delete_address_lists.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/layers/factory_module/python/c2m_delete_address_lists.py:4:0: E0401: Unable to import 'requests' (import-error)
+assets/layers/factory_module/python/c2m_delete_address_lists.py:69:8: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.layers.factory_module.python.c2m_submit_job
+assets/layers/factory_module/python/c2m_submit_job.py:8:0: E0401: Unable to import 'requests' (import-error)
+assets/layers/factory_module/python/c2m_submit_job.py:43:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+assets/layers/factory_module/python/c2m_submit_job.py:51:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.layers.factory_module.python.c2m_upload_address_list
+assets/layers/factory_module/python/c2m_upload_address_list.py:10:0: E0401: Unable to import 'requests' (import-error)
+assets/layers/factory_module/python/c2m_upload_address_list.py:11:0: E0401: Unable to import 'odf.opendocument' (import-error)
+assets/layers/factory_module/python/c2m_upload_address_list.py:12:0: E0401: Unable to import 'odf.text' (import-error)
+assets/layers/factory_module/python/c2m_upload_address_list.py:56:0: R0913: Too many arguments (12/5) (too-many-arguments)
+assets/layers/factory_module/python/c2m_upload_address_list.py:56:0: R0914: Too many local variables (21/15) (too-many-locals)
+assets/layers/factory_module/python/c2m_upload_address_list.py:139:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.layers.factory_module.python.c2m_upload_document
+assets/layers/factory_module/python/c2m_upload_document.py:10:0: E0401: Unable to import 'requests' (import-error)
+assets/layers/factory_module/python/c2m_upload_document.py:11:0: E0401: Unable to import 'odf.opendocument' (import-error)
+assets/layers/factory_module/python/c2m_upload_document.py:12:0: E0401: Unable to import 'odf.text' (import-error)
+assets/layers/factory_module/python/c2m_upload_document.py:14:0: E0401: Unable to import 'requests_toolbelt.multipart.encoder' (import-error)
+assets/layers/factory_module/python/c2m_upload_document.py:109:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.layers.factory_module.python.factory_module
+assets/layers/factory_module/python/factory_module.py:134:1: W0511: TODO: Check that all status codes being checked are correct (fixme)
+assets/layers/factory_module/python/factory_module.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/layers/factory_module/python/factory_module.py:77:8: W0107: Unnecessary pass statement (unnecessary-pass)
+assets/layers/factory_module/python/factory_module.py:61:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+assets/layers/factory_module/python/factory_module.py:80:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+assets/layers/factory_module/python/factory_module.py:112:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+assets/layers/factory_module/python/factory_module.py:135:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+assets/layers/factory_module/python/factory_module.py:269:12: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+assets/layers/factory_module/python/factory_module.py:250:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+************* Module assets.layers.utilities.python.aws_helper
+assets/layers/utilities/python/aws_helper.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/layers/utilities/python/aws_helper.py:6:0: E0401: Unable to import 'boto3' (import-error)
+assets/layers/utilities/python/aws_helper.py:7:0: E0401: Unable to import 'boto3.dynamodb.conditions' (import-error)
+assets/layers/utilities/python/aws_helper.py:8:0: E0401: Unable to import 'botocore.client' (import-error)
+assets/layers/utilities/python/aws_helper.py:11:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+assets/layers/utilities/python/aws_helper.py:76:45: C0103: Argument name "sk" doesn't conform to snake_case naming style (invalid-name)
+assets/layers/utilities/python/aws_helper.py:205:8: C0103: Variable name "s3" doesn't conform to snake_case naming style (invalid-name)
+assets/layers/utilities/python/aws_helper.py:221:8: C0103: Variable name "s3" doesn't conform to snake_case naming style (invalid-name)
+assets/layers/utilities/python/aws_helper.py:281:8: C0103: Variable name "dn" doesn't conform to snake_case naming style (invalid-name)
+assets/layers/utilities/python/aws_helper.py:295:8: C0103: Variable name "dn" doesn't conform to snake_case naming style (invalid-name)
+assets/layers/utilities/python/aws_helper.py:309:8: C0103: Variable name "dn" doesn't conform to snake_case naming style (invalid-name)
+assets/layers/utilities/python/aws_helper.py:309:8: W0612: Unused variable 'dn' (unused-variable)
+************* Module assets.shared_module.python.channel_states
+assets/shared_module/python/channel_states.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module assets.shared_module.python.print_response
+assets/shared_module/python/print_response.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module assets.streamlit.src.Home
+assets/streamlit/src/Home.py:293:17: W0511: st.experimental_rerun() # TODO: remove this line (fixme)
+assets/streamlit/src/Home.py:1:0: C0103: Module name "Home" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/Home.py:13:0: E0401: Unable to import 'qrcode' (import-error)
+assets/streamlit/src/Home.py:14:0: E0401: Unable to import 'streamlit' (import-error)
+assets/streamlit/src/Home.py:16:0: E0401: Unable to import 'dotenv' (import-error)
+assets/streamlit/src/Home.py:17:0: E0401: Unable to import 'PIL' (import-error)
+assets/streamlit/src/Home.py:18:0: E0401: Unable to import 'qrcode.image.styledpil' (import-error)
+assets/streamlit/src/Home.py:19:0: E0401: Unable to import 'st_pages' (import-error)
+assets/streamlit/src/Home.py:26:0: R0402: Use 'from components import authenticate' instead (consider-using-from-import)
+assets/streamlit/src/Home.py:26:0: C0413: Import "import components.authenticate as authenticate" should be placed at the top of the module (wrong-import-position)
+assets/streamlit/src/Home.py:152:4: C0103: Variable name "qr" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/Home.py:184:8: E1111: Assigning result of a function call, where the function has no return (assignment-from-no-return)
+************* Module assets.streamlit.src.app_pages.00_Prompt_Smith
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:177:0: C0301: Line too long (644/120) (line-too-long)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:183:0: C0301: Line too long (354/120) (line-too-long)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:189:0: C0301: Line too long (145/120) (line-too-long)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:194:0: C0301: Line too long (125/120) (line-too-long)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:196:0: C0301: Line too long (384/120) (line-too-long)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:1:0: C0103: Module name "00_Prompt_Smith" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:8:0: R0402: Use 'from components import authenticate' instead (consider-using-from-import)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:9:0: E0401: Unable to import 's3fs' (import-error)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:10:0: E0401: Unable to import 'streamlit' (import-error)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:16:0: E0401: Unable to import 'st_pages' (import-error)
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:17:0: E0401: Unable to import 'streamlit_extras.switch_page_button' (import-error)
+************* Module assets.streamlit.src.app_pages.01_Segment_Architect
+assets/streamlit/src/app_pages/01_Segment_Architect.py:127:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:128:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:129:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:139:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:140:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:141:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:144:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:145:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:146:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:227:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:228:0: C0301: Line too long (171/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:229:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:1:0: C0103: Module name "01_Segment_Architect" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:8:0: R0402: Use 'from components import authenticate' instead (consider-using-from-import)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:9:0: R0402: Use 'from components import pinpoint_api' instead (consider-using-from-import)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:10:0: E0401: Unable to import 'pandas' (import-error)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:11:0: E0401: Unable to import 's3fs' (import-error)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:12:0: E0401: Unable to import 'streamlit' (import-error)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:18:0: E0401: Unable to import 'st_pages' (import-error)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:19:0: E0401: Unable to import 'streamlit_extras.switch_page_button' (import-error)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:193:12: C0103: Argument name "b" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:290:0: C0103: Constant name "job_status" doesn't conform to UPPER_CASE naming style (invalid-name)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:292:0: C0103: Constant name "exported_files" doesn't conform to UPPER_CASE naming style (invalid-name)
+assets/streamlit/src/app_pages/01_Segment_Architect.py:309:8: R1723: Unnecessary "elif" after "break", remove the leading "el" from "elif" (no-else-break)
+************* Module assets.streamlit.src.app_pages.02_Content_Personalizer
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:137:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:138:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:139:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:149:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:150:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:151:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:154:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:155:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:156:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:309:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:310:0: C0301: Line too long (171/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:311:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:404:0: C0301: Line too long (122/120) (line-too-long)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:1:0: C0103: Module name "02_Content_Personalizer" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:7:0: R0402: Use 'from components import authenticate' instead (consider-using-from-import)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:8:0: R0402: Use 'from components import personalize_api' instead (consider-using-from-import)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:9:0: E0401: Unable to import 'pandas' (import-error)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:10:0: E0401: Unable to import 's3fs' (import-error)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:11:0: E0401: Unable to import 'streamlit' (import-error)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:17:0: E0401: Unable to import 'st_pages' (import-error)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:18:0: E0401: Unable to import 'streamlit_extras.switch_page_button' (import-error)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:159:37: W0621: Redefining name 'item_ids' from outer scope (line 369) (redefined-outer-name)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:159:47: W0621: Redefining name 'num_results' from outer scope (line 325) (redefined-outer-name)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:257:26: C0103: Argument name "df" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:372:4: C0103: Constant name "item_ids" doesn't conform to UPPER_CASE naming style (invalid-name)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:394:4: C0103: Constant name "show_segment_info" doesn't conform to UPPER_CASE naming style (invalid-name)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:397:4: C0103: Constant name "show_segment_info" doesn't conform to UPPER_CASE naming style (invalid-name)
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:443:15: W0718: Catching too general exception Exception (broad-exception-caught)
+************* Module assets.streamlit.src.app_pages.03_Message_Dispatcher
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:95:0: C0301: Line too long (179/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:263:0: C0301: Line too long (197/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:265:0: C0301: Line too long (150/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:282:0: C0301: Line too long (194/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:283:0: C0301: Line too long (127/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:321:0: C0301: Line too long (194/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:322:0: C0301: Line too long (127/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:526:0: C0301: Line too long (190/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:527:0: C0301: Line too long (123/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:579:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:580:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:581:0: C0301: Line too long (168/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:786:0: C0301: Line too long (174/120) (line-too-long)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:330:5: W0511: TODO Implement for other channels (push) (fixme)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:668:5: W0511: TODO: Display something different if NOT button_clicked? (fixme)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:1:0: C0103: Module name "03_Message_Dispatcher" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:14:0: E0401: Unable to import 'boto3' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:15:0: R0402: Use 'from components import authenticate' instead (consider-using-from-import)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:16:0: R0402: Use 'from components import genai_api' instead (consider-using-from-import)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:17:0: R0402: Use 'from components import pinpoint_api' instead (consider-using-from-import)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:18:0: E0401: Unable to import 'pandas' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:19:0: E0401: Unable to import 's3fs' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:20:0: E0401: Unable to import 'streamlit' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:23:0: E0401: Unable to import 'langchain' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:27:0: E0401: Unable to import 'langchain.llms.bedrock' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:29:0: E0401: Unable to import 'st_pages' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:30:0: E0401: Unable to import 'streamlit_extras.switch_page_button' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:35:4: E0401: Unable to import 'shared_module.python.channel_states' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:37:4: E0401: Unable to import 'shared_module.channel_states' (import-error)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:249:28: W0621: Redefining name 'channel' from outer scope (line 709) (redefined-outer-name)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:336:0: R0913: Too many arguments (7/5) (too-many-arguments)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:336:60: W0621: Redefining name 'channel' from outer scope (line 709) (redefined-outer-name)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:487:0: R0913: Too many arguments (7/5) (too-many-arguments)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:489:4: W0621: Redefining name 'channel' from outer scope (line 709) (redefined-outer-name)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:493:4: W0613: Unused argument 'first_name' (unused-argument)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:494:4: W0613: Unused argument 'last_name' (unused-argument)
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:688:4: C0103: Constant name "product_data" doesn't conform to UPPER_CASE naming style (invalid-name)
+************* Module assets.streamlit.src.components.authenticate
+assets/streamlit/src/components/authenticate.py:8:0: E0401: Unable to import 'boto3' (import-error)
+assets/streamlit/src/components/authenticate.py:9:0: E0401: Unable to import 'jwt' (import-error)
+assets/streamlit/src/components/authenticate.py:10:0: E0401: Unable to import 'streamlit' (import-error)
+assets/streamlit/src/components/authenticate.py:11:0: E0401: Unable to import 'botocore.exceptions' (import-error)
+assets/streamlit/src/components/authenticate.py:205:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/components/authenticate.py:243:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/components/authenticate.py:346:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module assets.streamlit.src.components.genai_api
+assets/streamlit/src/components/genai_api.py:12:0: E0401: Unable to import 'requests' (import-error)
+************* Module assets.streamlit.src.components.personalize_api
+assets/streamlit/src/components/personalize_api.py:11:0: E0401: Unable to import 'requests' (import-error)
+************* Module assets.streamlit.src.components.pinpoint_api
+assets/streamlit/src/components/pinpoint_api.py:137:5: W0511: TODO: Use APU_URI (fixme)
+assets/streamlit/src/components/pinpoint_api.py:11:0: E0401: Unable to import 'requests' (import-error)
+assets/streamlit/src/components/pinpoint_api.py:101:0: R0913: Too many arguments (6/5) (too-many-arguments)
+************* Module assets.streamlit.src.components.utils
+assets/streamlit/src/components/utils.py:3:0: E0401: Unable to import 'streamlit' (import-error)
+************* Module assets.streamlit.src.components.utils_models
+assets/streamlit/src/components/utils_models.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+assets/streamlit/src/components/utils_models.py:38:100: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+assets/streamlit/src/components/utils_models.py:40:105: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+************* Module infra.cdsgenai_stack
+infra/cdsgenai_stack.py:5:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/cdsgenai_stack.py:6:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/cdsgenai_stack.py:7:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/cdsgenai_stack.py:8:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/cdsgenai_stack.py:9:0: E0401: Unable to import 'constructs' (import-error)
+infra/cdsgenai_stack.py:20:0: R0902: Too many instance attributes (8/7) (too-many-instance-attributes)
+infra/cdsgenai_stack.py:20:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module infra.constructs.cdsai_api
+infra/constructs/cdsai_api.py:321:5: W0511: TODO: Replace python version in code with variable. (fixme)
+infra/constructs/cdsai_api.py:702:5: W0511: TODO: Separate roles for 3 message lambdas. (fixme)
+infra/constructs/cdsai_api.py:5:0: E0401: Unable to import 'aws_cdk.aws_apigatewayv2_alpha' (import-error)
+infra/constructs/cdsai_api.py:6:0: E0401: Unable to import 'aws_cdk.aws_apigatewayv2_integrations_alpha' (import-error)
+infra/constructs/cdsai_api.py:7:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_api.py:8:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_api.py:9:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_api.py:10:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_api.py:11:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_api.py:12:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_api.py:13:0: E0401: Unable to import 'aws_cdk.aws_apigatewayv2_authorizers_alpha' (import-error)
+infra/constructs/cdsai_api.py:14:0: E0401: Unable to import 'cdk_nag' (import-error)
+infra/constructs/cdsai_api.py:15:0: E0401: Unable to import 'constructs' (import-error)
+infra/constructs/cdsai_api.py:25:0: C0115: Missing class docstring (missing-class-docstring)
+infra/constructs/cdsai_api.py:25:0: R0902: Too many instance attributes (38/7) (too-many-instance-attributes)
+infra/constructs/cdsai_api.py:26:4: R0913: Too many arguments (18/5) (too-many-arguments)
+infra/constructs/cdsai_api.py:26:4: R0914: Too many local variables (21/15) (too-many-locals)
+infra/constructs/cdsai_api.py:156:8: W0105: String statement has no effect (pointless-string-statement)
+infra/constructs/cdsai_api.py:306:4: W0105: String statement has no effect (pointless-string-statement)
+infra/constructs/cdsai_api.py:354:8: W0105: String statement has no effect (pointless-string-statement)
+************* Module infra.constructs.cdsai_endpoint
+infra/constructs/cdsai_endpoint.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+infra/constructs/cdsai_endpoint.py:3:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_endpoint.py:4:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_endpoint.py:5:0: E0401: Unable to import 'constructs' (import-error)
+infra/constructs/cdsai_endpoint.py:7:0: E0611: No name 'BaseEndpointConfigurationFactory' in module 'infra.constructs.llm_endpoints.config_factory' (no-name-in-module)
+infra/constructs/cdsai_endpoint.py:7:0: E0611: No name 'HuggingFaceTGIEndpointConfigurationFactory' in module 'infra.constructs.llm_endpoints.config_factory' (no-name-in-module)
+infra/constructs/cdsai_endpoint.py:7:0: E0611: No name 'JumpStartEndpointConfigurationFactory' in module 'infra.constructs.llm_endpoints.config_factory' (no-name-in-module)
+infra/constructs/cdsai_endpoint.py:7:0: E0611: No name 'MarketplaceModelEndpointConfigurationFactory' in module 'infra.constructs.llm_endpoints.config_factory' (no-name-in-module)
+infra/constructs/cdsai_endpoint.py:21:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module infra.constructs.cdsai_personalize
+infra/constructs/cdsai_personalize.py:5:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_personalize.py:6:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_personalize.py:7:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_personalize.py:8:0: E0401: Unable to import 'cdk_nag' (import-error)
+infra/constructs/cdsai_personalize.py:9:0: E0401: Unable to import 'constructs' (import-error)
+infra/constructs/cdsai_personalize.py:58:0: C0115: Missing class docstring (missing-class-docstring)
+infra/constructs/cdsai_personalize.py:80:8: C0103: Attribute name "personalize_role_ARN" doesn't conform to snake_case naming style (invalid-name)
+infra/constructs/cdsai_personalize.py:59:4: R0913: Too many arguments (7/5) (too-many-arguments)
+infra/constructs/cdsai_personalize.py:63:8: W0613: Unused argument 'stack_name' (unused-argument)
+infra/constructs/cdsai_personalize.py:66:8: W0613: Unused argument 'personalize_solution_version_arn' (unused-argument)
+infra/constructs/cdsai_personalize.py:122:30: W0613: Unused argument 'bucket' (unused-argument)
+************* Module infra.constructs.cdsai_pinpoint
+infra/constructs/cdsai_pinpoint.py:3:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_pinpoint.py:4:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_pinpoint.py:5:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_pinpoint.py:6:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_pinpoint.py:7:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_pinpoint.py:8:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/cdsai_pinpoint.py:9:0: E0401: Unable to import 'cdk_nag' (import-error)
+infra/constructs/cdsai_pinpoint.py:10:0: E0401: Unable to import 'constructs' (import-error)
+infra/constructs/cdsai_pinpoint.py:13:0: C0115: Missing class docstring (missing-class-docstring)
+infra/constructs/cdsai_pinpoint.py:54:8: C0103: Attribute name "pinpoint_role_ARN" doesn't conform to snake_case naming style (invalid-name)
+infra/constructs/cdsai_pinpoint.py:14:4: R0913: Too many arguments (9/5) (too-many-arguments)
+infra/constructs/cdsai_pinpoint.py:18:8: W0613: Unused argument 'stack_name' (unused-argument)
+infra/constructs/cdsai_pinpoint.py:22:8: W0613: Unused argument 'sms_identity' (unused-argument)
+************* Module infra.constructs.llm_endpoints.config_factory.base
+infra/constructs/llm_endpoints/config_factory/base.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+infra/constructs/llm_endpoints/config_factory/base.py:25:4: C0116: Missing function or method docstring (missing-function-docstring)
+infra/constructs/llm_endpoints/config_factory/base.py:29:4: C0116: Missing function or method docstring (missing-function-docstring)
+infra/constructs/llm_endpoints/config_factory/base.py:33:4: C0116: Missing function or method docstring (missing-function-docstring)
+infra/constructs/llm_endpoints/config_factory/base.py:37:4: C0116: Missing function or method docstring (missing-function-docstring)
+infra/constructs/llm_endpoints/config_factory/base.py:41:4: C0116: Missing function or method docstring (missing-function-docstring)
+infra/constructs/llm_endpoints/config_factory/base.py:45:0: C0115: Missing class docstring (missing-class-docstring)
+infra/constructs/llm_endpoints/config_factory/base.py:128:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module infra.constructs.llm_endpoints.config_factory.jumpstart
+infra/constructs/llm_endpoints/config_factory/jumpstart.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+infra/constructs/llm_endpoints/config_factory/jumpstart.py:3:0: E0401: Unable to import 'sagemaker' (import-error)
+infra/constructs/llm_endpoints/config_factory/jumpstart.py:4:0: E0401: Unable to import 'sagemaker.jumpstart.utils' (import-error)
+infra/constructs/llm_endpoints/config_factory/jumpstart.py:5:0: E0401: Unable to import 'sagemaker.utils' (import-error)
+infra/constructs/llm_endpoints/config_factory/jumpstart.py:11:0: C0115: Missing class docstring (missing-class-docstring)
+infra/constructs/llm_endpoints/config_factory/jumpstart.py:127:0: C0115: Missing class docstring (missing-class-docstring)
+infra/constructs/llm_endpoints/config_factory/jumpstart.py:128:4: R0913: Too many arguments (6/5) (too-many-arguments)
+************* Module infra.constructs.llm_endpoints.config_factory.marketplace
+infra/constructs/llm_endpoints/config_factory/marketplace.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+infra/constructs/llm_endpoints/config_factory/marketplace.py:7:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module infra.constructs.llm_endpoints.config_factory.tgi
+infra/constructs/llm_endpoints/config_factory/tgi.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+infra/constructs/llm_endpoints/config_factory/tgi.py:3:0: E0401: Unable to import 'sagemaker.session' (import-error)
+infra/constructs/llm_endpoints/config_factory/tgi.py:4:0: E0401: Unable to import 'sagemaker.huggingface' (import-error)
+infra/constructs/llm_endpoints/config_factory/tgi.py:14:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module infra.constructs.llm_endpoints.constants
+infra/constructs/llm_endpoints/constants.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module infra.constructs.llm_endpoints.iam
+infra/constructs/llm_endpoints/iam.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+infra/constructs/llm_endpoints/iam.py:6:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/constructs/llm_endpoints/iam.py:7:0: E0401: Unable to import 'constructs' (import-error)
+infra/constructs/llm_endpoints/iam.py:12:0: C0115: Missing class docstring (missing-class-docstring)
+infra/constructs/llm_endpoints/iam.py:55:4: C0116: Missing function or method docstring (missing-function-docstring)
+infra/constructs/llm_endpoints/iam.py:12:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+infra/constructs/llm_endpoints/iam.py:59:0: C0115: Missing class docstring (missing-class-docstring)
+infra/constructs/llm_endpoints/iam.py:146:0: C0115: Missing class docstring (missing-class-docstring)
+************* Module infra.constructs.llm_endpoints.utils
+infra/constructs/llm_endpoints/utils.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+infra/constructs/llm_endpoints/utils.py:1:0: E0401: Unable to import 'sagemaker.utils' (import-error)
+infra/constructs/llm_endpoints/utils.py:26:4: C0103: Variable name "ts" doesn't conform to snake_case naming style (invalid-name)
+************* Module infra.stacks.streamlit
+infra/stacks/streamlit.py:18:1: W0511: TODO: Need to modify desired tasks to 3 to get UPDATE not to hang (fixme)
+infra/stacks/streamlit.py:280:9: W0511: TODO: May not need the 3 changes I made to try to fix the UPDATE hang.  At some point deleete and test. (fixme)
+infra/stacks/streamlit.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+infra/stacks/streamlit.py:4:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/stacks/streamlit.py:5:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/stacks/streamlit.py:6:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/stacks/streamlit.py:7:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/stacks/streamlit.py:8:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/stacks/streamlit.py:9:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/stacks/streamlit.py:10:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/stacks/streamlit.py:11:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/stacks/streamlit.py:12:0: E0401: Unable to import 'aws_cdk' (import-error)
+infra/stacks/streamlit.py:13:0: E0401: Unable to import 'aws_cdk.aws_cloudfront_origins' (import-error)
+infra/stacks/streamlit.py:14:0: E0401: Unable to import 'aws_cdk.aws_ecr_assets' (import-error)
+infra/stacks/streamlit.py:15:0: E0401: Unable to import 'cdk_nag' (import-error)
+infra/stacks/streamlit.py:16:0: E0401: Unable to import 'constructs' (import-error)
+infra/stacks/streamlit.py:21:0: C0115: Missing class docstring (missing-class-docstring)
+infra/stacks/streamlit.py:21:0: R0902: Too many instance attributes (24/7) (too-many-instance-attributes)
+infra/stacks/streamlit.py:25:8: C0103: Argument name "id" doesn't conform to snake_case naming style (invalid-name)
+infra/stacks/streamlit.py:22:4: R0913: Too many arguments (20/5) (too-many-arguments)
+infra/stacks/streamlit.py:22:4: R0914: Too many local variables (21/15) (too-many-locals)
+infra/stacks/streamlit.py:25:8: W0622: Redefining built-in 'id' (redefined-builtin)
+infra/stacks/streamlit.py:38:8: W0613: Unused argument 'sm_endpoints' (unused-argument)
+infra/stacks/streamlit.py:82:4: C0116: Missing function or method docstring (missing-function-docstring)
+infra/stacks/streamlit.py:91:4: C0116: Missing function or method docstring (missing-function-docstring)
+infra/stacks/streamlit.py:142:16: C0103: Variable name "ip" doesn't conform to snake_case naming style (invalid-name)
+infra/stacks/streamlit.py:91:32: W0613: Unused argument 'open_to_public_internet' (unused-argument)
+infra/stacks/streamlit.py:166:4: C0116: Missing function or method docstring (missing-function-docstring)
+infra/stacks/streamlit.py:235:8: W0105: String statement has no effect (pointless-string-statement)
+infra/stacks/streamlit.py:316:8: W0105: String statement has no effect (pointless-string-statement)
+************* Module scripts.add_docstrings
+scripts/add_docstrings.py:78:0: C0301: Line too long (135/120) (line-too-long)
+scripts/add_docstrings.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+scripts/add_docstrings.py:2:0: E0401: Unable to import 'astor' (import-error)
+scripts/add_docstrings.py:9:4: C0103: Method name "visit_FunctionDef" doesn't conform to snake_case naming style (invalid-name)
+scripts/add_docstrings.py:36:4: C0103: Method name "visit_ClassDef" doesn't conform to snake_case naming style (invalid-name)
+scripts/add_docstrings.py:40:0: W1404: Implicit string concatenation found in assignment (implicit-str-concat)
+scripts/add_docstrings.py:53:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+scripts/add_docstrings.py:70:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+************* Module scripts.camel_to_snake
+scripts/camel_to_snake.py:38:0: C0301: Line too long (135/120) (line-too-long)
+scripts/camel_to_snake.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+scripts/camel_to_snake.py:7:4: C0103: Variable name "s1" doesn't conform to snake_case naming style (invalid-name)
+scripts/camel_to_snake.py:14:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+scripts/camel_to_snake.py:30:9: W1514: Using open without explicitly specifying an encoding (unspecified-encoding)
+************* Module tests.unit.__init__
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.01_Segment_Architect:[83:110]
+==assets.streamlit.src.app_pages.02_Content_Personalizer:[82:108]
+with open(f"{path.parent.absolute()}/components/model_specs.json", encoding="utf-8") as f:
+    MODEL_SPECS = json.load(f)
+
+# Hardcoded lists of available and non available models.
+# If you want to add new available models make sure to update those lists as well as model_specs dict
+MODELS_DISPLAYED = BEDROCK_MODELS
+MODELS_UNAVAILABLE = [
+    "LLAMA 2",
+    "Falcon",
+    "Flan T5",
+]  # Models that are not available for deployment
+MODELS_NOT_DEPLOYED = []  # Remove models from this list after deploying the models
+
+# Map each job status to a progress value (percentage)
+JOB_STATUS_PROGRESS_MAP = {
+    "CREATED": 10,
+    "PREPARING_FOR_INITIALIZATION": 20,
+    "INITIALIZING": 30,
+    "PROCESSING": 40,
+    "PENDING_JOB": 50,
+    "COMPLETING": 60,
+    "COMPLETED": 100,
+    "FAILING": 90,
+    "FAILED": 0,
+}
+
+# Initialize s3fs object (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.01_Segment_Architect:[40:80]
+==assets.streamlit.src.app_pages.02_Content_Personalizer:[39:79]
+PAGE_ICON = "🧙🏻‍♀️"
+
+# page config
+st.set_page_config(
+    page_title=PAGE_TITLE,
+    page_icon=PAGE_ICON,
+    layout="centered",
+    initial_sidebar_state="expanded",
+)
+
+# display cover immediately so that it does not pop in and out on every page refresh
+cover_placeholder = st.empty()
+with cover_placeholder:
+    display_cover_with_title(
+        title=TITLE,
+        description=DESCRIPTION,
+        image_url=COVER_IMAGE,
+    )
+
+# custom page names in the sidebar
+show_pages_from_config()
+
+
+#########################
+#  CHECK LOGIN (do not delete)
+#########################
+
+# switch to home page if not authenticated
+authenticate.set_st_state_vars()
+if not st.session_state["authenticated"]:
+    switch_page("Home")
+
+
+#########################
+#       CONSTANTS
+#########################
+
+# page name for caching
+PAGE_NAME = "choose_segment"
+# Poll interview to get export job status (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.02_Content_Personalizer:[39:77]
+==assets.streamlit.src.app_pages.03_Message_Dispatcher:[55:94]
+PAGE_ICON = "🧙🏻‍♀️"
+
+# page config
+st.set_page_config(
+    page_title=PAGE_TITLE,
+    page_icon=PAGE_ICON,
+    layout="centered",
+    initial_sidebar_state="expanded",
+)
+
+# display cover immediately so that it does not pop in and out on every page refresh
+cover_placeholder = st.empty()
+with cover_placeholder:
+    display_cover_with_title(
+        title=TITLE,
+        description=DESCRIPTION,
+        image_url=COVER_IMAGE,
+    )
+
+# custom page names in the sidebar
+show_pages_from_config()
+
+
+#########################
+#  CHECK LOGIN (do not delete)
+#########################
+
+# switch to home page if not authenticated
+authenticate.set_st_state_vars()
+if not st.session_state["authenticated"]:
+    switch_page("Home")
+
+
+#########################
+#       CONSTANTS
+#########################
+
+# page name for caching (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[35:67]
+==assets.streamlit.src.app_pages.01_Segment_Architect:[40:78]
+PAGE_ICON = "🧙🏻‍♀️"
+
+# page config
+st.set_page_config(
+    page_title=PAGE_TITLE,
+    page_icon=PAGE_ICON,
+    layout="centered",
+    initial_sidebar_state="expanded",
+)
+
+# display cover immediately so that it does not pop in and out on every page refresh
+cover_placeholder = st.empty()
+with cover_placeholder:
+    display_cover_with_title(
+        title=TITLE,
+        description=DESCRIPTION,
+        image_url=COVER_IMAGE,
+    )
+
+# custom page names in the sidebar
+show_pages_from_config()
+
+# CHECK LOGIN (do not delete)
+
+# switch to home page if not authenticated
+authenticate.set_st_state_vars()
+if not st.session_state["authenticated"]:
+    switch_page("Home")
+
+# CONSTANTS
+
+# answer to display then there are no references (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[132:154]
+==assets.streamlit.src.app_pages.03_Message_Dispatcher:[608:630]
+with st.sidebar:
+    st.markdown("")
+
+    # language model
+    st.subheader("Language Model")
+    ai_model = st.selectbox(
+        label="Select a language model:",
+        options=MODELS_DISPLAYED,
+        key="ai_model",
+        # on_change=run_genai_query,
+        help="Choose the LLM model used for content generation",
+    )
+    if st.session_state["ai_model"] in MODELS_UNAVAILABLE:
+        st.error(f'{st.session_state["ai_model"]} not available', icon="⚠️")
+        st.stop()
+    elif st.session_state["ai_model"] in MODELS_NOT_DEPLOYED:
+        st.error(f'{st.session_state["ai_model"]} has been shut down', icon="⚠️")
+        st.stop()
+
+# PAGE CONTENT
+
+# Link to auto-prompting blog (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[80:105]
+==assets.streamlit.src.app_pages.03_Message_Dispatcher:[104:127]
+    MODEL_SPECS = json.load(f)
+
+# Hardcoded lists of available and non available models.
+# If you want to add new available models make sure to update those lists as well as model_specs dict
+MODELS_DISPLAYED = BEDROCK_MODELS
+MODELS_UNAVAILABLE = [
+    "LLAMA 2",
+    "Falcon",
+    "Flan T5",
+]  # Models that are not available for deployment
+MODELS_NOT_DEPLOYED = []  # Remove models from this list after deploying the models
+
+BUCKET_NAME = os.environ.get("BUCKET_NAME")
+
+# Initialize s3fs object
+fs = s3fs.S3FileSystem(anon=False)
+
+#########################
+# SESSION STATE VARIABLES
+#########################
+
+reset_session_state(page_name=PAGE_NAME)
+st.session_state.setdefault("ai_model", MODELS_DISPLAYED[0])  # default model
+# if "ai_model" not in st.session_state:
+#     st.session_state["ai_model"] = MODELS_DISPLAYED[0]  # default model (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.lambda.genai_pinpoint_message.pinpoint_message:[148:161]
+==assets.layers.factory_module.python.factory_module:[156:168]
+                billing_name="Awesome User",
+                billing_address1="221B Baker St",
+                billing_city="Springfield",
+                billing_state="MO",
+                billing_zip="34567",
+                billing_amount="10",
+                billing_number="4111111111111111",
+                billing_month="12",
+                billing_year="2030",
+                billing_cvv="123",
+                billing_cc_type="VI",
+            )
+ (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[116:132]
+==assets.streamlit.src.app_pages.03_Message_Dispatcher:[143:171]
+option_data = [
+    {"icon": "bi bi-hand-thumbs-up", "label": "Agree", "color": "green"},
+    {"icon": "fa fa-question-circle", "label": "Unsure"},
+    {"icon": "bi bi-hand-thumbs-down", "label": "Disagree"},
+]
+
+# Define the style of the box element
+box_style = {
+    "border": "1px solid #ccc",
+    "padding": "10px",
+    "border-radius": "5px",
+    "margin": "10px",
+}
+
+# SIDEBAR MODEL SELECTION
+ (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[79:92]
+==assets.streamlit.src.app_pages.01_Segment_Architect:[83:97]
+with open(f"{path.parent.absolute()}/components/model_specs.json", encoding="utf-8") as f:
+    MODEL_SPECS = json.load(f)
+
+# Hardcoded lists of available and non available models.
+# If you want to add new available models make sure to update those lists as well as model_specs dict
+MODELS_DISPLAYED = BEDROCK_MODELS
+MODELS_UNAVAILABLE = [
+    "LLAMA 2",
+    "Falcon",
+    "Flan T5",
+]  # Models that are not available for deployment
+MODELS_NOT_DEPLOYED = []  # Remove models from this list after deploying the models
+ (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.02_Content_Personalizer:[22:37]
+==assets.streamlit.src.app_pages.03_Message_Dispatcher:[38:53]
+LOGGER = logging.Logger("AI-Chat", level=logging.DEBUG)
+HANDLER = logging.StreamHandler(sys.stdout)
+HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
+LOGGER.addHandler(HANDLER)
+
+path = Path(os.path.dirname(__file__))
+sys.path.append(str(path.parent.parent.absolute()))
+
+#########################
+#     COVER & CONFIG
+#########################
+
+# titles
+COVER_IMAGE = os.environ.get("COVER_IMAGE_URL")
+TITLE = "CLICK2MAIL CAMPAIGN GENIUS" (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.01_Segment_Architect:[84:97]
+==assets.streamlit.src.app_pages.03_Message_Dispatcher:[104:116]
+    MODEL_SPECS = json.load(f)
+
+# Hardcoded lists of available and non available models.
+# If you want to add new available models make sure to update those lists as well as model_specs dict
+MODELS_DISPLAYED = BEDROCK_MODELS
+MODELS_UNAVAILABLE = [
+    "LLAMA 2",
+    "Falcon",
+    "Flan T5",
+]  # Models that are not available for deployment
+MODELS_NOT_DEPLOYED = []  # Remove models from this list after deploying the models
+
+# Map each job status to a progress value (percentage) (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[20:33]
+==assets.streamlit.src.app_pages.01_Segment_Architect:[23:38]
+LOGGER = logging.Logger("AI-Chat", level=logging.DEBUG)
+HANDLER = logging.StreamHandler(sys.stdout)
+HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
+LOGGER.addHandler(HANDLER)
+
+path = Path(os.path.dirname(__file__))
+sys.path.append(str(path.parent.parent.absolute()))
+
+# COVER & CONFIG
+
+# titles
+COVER_IMAGE = os.environ.get("COVER_IMAGE_URL")
+TITLE = "CLICK2MAIL CAMPAIGN GENIUS" (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.Home:[68:80]
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[43:55]
+)
+
+# display cover immediately so that it does not pop in and out on every page refresh
+cover_placeholder = st.empty()
+with cover_placeholder:
+    display_cover_with_title(
+        title=TITLE,
+        description=DESCRIPTION,
+        image_url=COVER_IMAGE,
+    )
+
+# custom page names in the sidebar (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.layers.factory_module.python.c2m_upload_address_list:[21:92]
+==assets.layers.factory_module.python.c2m_upload_document:[22:74]
+JSON_CONTENT_TYPE = "application/json"
+
+#########################
+#        HANDLER
+#########################
+
+
+def string_to_odt_in_memory(content: str) -> BytesIO:
+    """Convert a string to an in-memory ODT document.
+
+    Args:
+        content (str): The string to convert to an ODT document.
+
+    Returns:
+        BytesIO: An in-memory ODT document.
+    """
+    # Create an OpenDocumentText object
+    doc = OpenDocumentText()
+
+    # Add the content to the document as a paragraph
+    paragraph = P(text=content)
+    doc.text.addElement(paragraph)
+
+    # Save the document to an in-memory stream
+    odt_stream = BytesIO()
+    doc.save(odt_stream)
+
+    # Reset the stream position to the beginning
+    odt_stream.seek(0)
+
+    return odt_stream
+
+
+def c2m_upload_document(
+    document_format: str = "ODT",
+    document_name: str = "Test Letter ODT",
+    document_class: str = "Letter 8.5 x 11",
+    document_content: str = None,
+    document_type: str = "application/odt",
+):
+    """Upload a document to Click2Mail.
+
+    Args:
+        document_format (str): Format of the document
+        document_name (str): Name of the document
+        document_class (str): Class of the document
+        document_content (str): Content of the document
+        document_type (str): MIME type of the document
+
+    Returns:
+        dict: Response containing status code, body, and headers
+    """ (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.lambda.genai_pinpoint_message.pinpoint_message:[177:188]
+==assets.layers.factory_module.python.factory_module:[179:187]
+            address_list_mapping_id="1",
+            organization="Justice League",
+            address_1=address_object["address_1"],
+            city=address_object["city"],
+            state=address_object["state"],
+            postal_code=address_object["postal_code"],
+            country="USA",
+        ) (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.lambda.genai_personalize_batch_segment_jobs.personalize_batch_segment_jobs:[64:88]
+==assets.lambda.genai_pinpoint_job.pinpoint_job:[122:131]
+                "headers": {"Content-Type": CONTENT_TYPE_JSON},
+            }
+    else:
+        # Return an error response for unsupported HTTP methods
+        return {
+            "statusCode": 400,
+            "body": "Unsupported HTTP method",
+            "headers": {"Content-Type": CONTENT_TYPE_JSON},
+        } (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.02_Content_Personalizer:[141:168]
+==assets.streamlit.src.app_pages.03_Message_Dispatcher:[150:171]
+box_style = {
+    "border": "1px solid #ccc",
+    "padding": "10px",
+    "border-radius": "5px",
+    "margin": "10px",
+}
+
+# NavBar
+# Functions
+
+
+def get_product_info(product_id, return_dict=True):
+    """Retrieve product information from a JSON file in S3.
+
+    Args:
+        product_id (str): The ID of the product to retrieve.
+        return_dict (bool): If True, return a single product dict; otherwise, return all data.
+
+    Returns:
+        dict or list: Product information or all data, depending on return_dict.
+    """ (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.01_Segment_Architect:[110:131]
+==assets.streamlit.src.app_pages.02_Content_Personalizer:[111:128]
+fs = s3fs.S3FileSystem(anon=False)
+
+#########################
+# SESSION STATE VARIABLES
+#########################
+
+reset_session_state(page_name=PAGE_NAME)
+st.session_state.setdefault("ai_model", MODELS_DISPLAYED[0])  # default model
+# if "ai_model" not in st.session_state:
+#     st.session_state["ai_model"] = MODELS_DISPLAYED[0]  # default model
+LOGGER.log(logging.DEBUG, "ai_model selected: %s", st.session_state["ai_model"])
+
+# Initialize df in session state if it's not already present
+if "df_name" not in st.session_state:
+    st.session_state["df_name"] = None
+
+# Initialize job_name in session state if it's not already present (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[123:132]
+==assets.streamlit.src.app_pages.01_Segment_Architect:[131:150]
+box_style = {
+    "border": "1px solid #ccc",
+    "padding": "10px",
+    "border-radius": "5px",
+    "margin": "10px",
+}
+
+########################################################################################################################################################################
+######################################################## NavBar      ###################################################################################################
+########################################################################################################################################################################
+
+
+########################################################################################################################################################################
+######################################################## Functions    ##################################################################################################
+########################################################################################################################################################################
+
+
+def get_pinpoint_segments():
+    """Fetch Pinpoint segments using the API.""" (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.lambda.genai_pinpoint_job.pinpoint_job:[113:121]
+==assets.lambda.genai_s3.s3_fetch:[123:132]
+                    "headers": {"Content-Type": CONTENT_TYPE_JSON},
+                }
+
+            except ClientError as e:
+                # Handle any errors that occur
+                print(e)
+                # Return an error response
+                return {
+                    "statusCode": 500, (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.lambda.genai_pinpoint_job.pinpoint_job:[74:82]
+==assets.lambda.genai_s3.s3_fetch:[86:95]
+                    "headers": {"Content-Type": CONTENT_TYPE_JSON},
+                }
+
+            except ClientError as e:
+                # Handle any errors that occur
+                print(e)
+                # Return an error response
+                return {
+                    "statusCode": 500, (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.lambda.genai_personalize_batch_segment_jobs.personalize_batch_segment_jobs:[15:41]
+==assets.lambda.genai_s3.s3_fetch:[14:43]
+CONTENT_TYPE_JSON = "application/json"
+
+LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
+HANDLER = logging.StreamHandler(sys.stdout)
+HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
+LOGGER.addHandler(HANDLER)
+
+
+#########################
+#        HELPER
+#########################
+
+
+#########################
+#        HANDLER
+#########################
+
+
+def lambda_handler(event, context):
+    """Handle S3 file fetching requests for Pinpoint and Personalize.
+
+    :param event: AWS Lambda event object
+    :param context: AWS Lambda context object
+    :return: HTTP response with fetched file paths or error message
+    """
+    # Get the HTTP method from the event object
+    http_method = event["requestContext"]["http"]["method"]
+
+    # Check if the request is a GET request (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[92:108]
+==assets.streamlit.src.app_pages.02_Content_Personalizer:[108:124]
+BUCKET_NAME = os.environ.get("BUCKET_NAME")
+
+# Initialize s3fs object
+fs = s3fs.S3FileSystem(anon=False)
+
+#########################
+# SESSION STATE VARIABLES
+#########################
+
+reset_session_state(page_name=PAGE_NAME)
+st.session_state.setdefault("ai_model", MODELS_DISPLAYED[0])  # default model
+# if "ai_model" not in st.session_state:
+#     st.session_state["ai_model"] = MODELS_DISPLAYED[0]  # default model
+LOGGER.log(logging.DEBUG, "ai_model selected: %s", st.session_state["ai_model"])
+
+# Initialize df in session state if it's not already present (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.Home:[58:65]
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[35:42]
+PAGE_ICON = "🧙🏻‍♀️"
+
+# page config
+st.set_page_config(
+    page_title=PAGE_TITLE,
+    page_icon=PAGE_ICON,
+    layout="centered", (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.streamlit.src.Home:[28:40]
+==assets.streamlit.src.app_pages.00_Prompt_Smith:[21:31]
+HANDLER = logging.StreamHandler(sys.stdout)
+HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
+LOGGER.addHandler(HANDLER)
+
+path = Path(os.path.dirname(__file__))
+sys.path.append(str(path.parent.parent.absolute()))
+
+#########################
+#    CHECK LOGIN (do not delete)
+#########################
+
+# check authentication (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.layers.factory_module.python.c2m_delete_address_lists:[12:30]
+==assets.layers.factory_module.python.factory_module:[16:37]
+HANDLER = logging.StreamHandler(sys.stdout)
+HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
+LOGGER.addHandler(HANDLER)
+
+# Define credentials
+MY_USERNAME = "stellario"
+MY_PASSWORD = "Babushka1!"
+
+
+def c2m_delete_address_lists(address_list_ids: list):
+    """Delete address lists from Click2Mail using provided IDs.
+
+    Args:
+        address_list_ids (list): List of IDs of address lists to delete
+
+    Returns:
+        dict: Response containing status code, body, and headers
+    """ (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.lambda.genai_personalize_batch_segment_jobs.personalize_batch_segment_jobs:[15:38]
+==assets.lambda.genai_pinpoint_job.pinpoint_job:[14:26]
+CONTENT_TYPE_JSON = "application/json"
+
+LOGGER = logging.Logger("Content-generation", level=logging.DEBUG)
+HANDLER = logging.StreamHandler(sys.stdout)
+HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s"))
+LOGGER.addHandler(HANDLER)
+
+#########################
+#        HANDLER
+#########################
+
+
+def lambda_handler(event, context):
+    """Handle incoming requests for Personalize batch segment jobs.
+
+    This handler responds to GET requests and returns a list of all batch segment
+    jobs in the specified region.
+
+    :param event: AWS Lambda event object
+    :param context: AWS Lambda context object
+    :return: API Gateway response object
+    """
+    # Get the HTTP method from the event object (duplicate-code)
+tests/unit/__init__.py:1:0: R0801: Similar lines in 2 files
+==assets.lambda.genai_personalize_batch_segment_job.personalize_batch_segment_job:[96:102]
+==assets.lambda.genai_pinpoint_segment.pinpoint_segment:[66:72]
+        except ClientError as e:
+            # Handle any errors that occur
+            print(e)
+            return {
+                "statusCode": 500,
+                "body": "An error occurred while fetching the segments", (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 6.35/10 (previous run: 6.34/10, +0.00)
+
+flake8...................................................................[41mFailed[m
+[2m- hook id: flake8[m
+[2m- exit code: 1[m
+
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[m[36m:[m177[36m:[m121[36m:[m [1m[31mE501[m line too long (644 > 120 characters)
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[m[36m:[m183[36m:[m121[36m:[m [1m[31mE501[m line too long (354 > 120 characters)
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[m[36m:[m189[36m:[m121[36m:[m [1m[31mE501[m line too long (145 > 120 characters)
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[m[36m:[m194[36m:[m121[36m:[m [1m[31mE501[m line too long (125 > 120 characters)
+[1massets/streamlit/src/app_pages/00_Prompt_Smith.py[m[36m:[m196[36m:[m121[36m:[m [1m[31mE501[m line too long (384 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m127[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m128[36m:[m1[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m128[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m129[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m139[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m140[36m:[m1[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m140[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m141[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m144[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m145[36m:[m1[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m145[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m146[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m227[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m228[36m:[m1[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m228[36m:[m121[36m:[m [1m[31mE501[m line too long (171 > 120 characters)
+[1massets/streamlit/src/app_pages/01_Segment_Architect.py[m[36m:[m229[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m137[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m138[36m:[m1[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m138[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m139[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m149[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m150[36m:[m1[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m150[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m151[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m154[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m155[36m:[m1[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m155[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m156[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m309[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m310[36m:[m1[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m310[36m:[m121[36m:[m [1m[31mE501[m line too long (171 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m311[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/02_Content_Personalizer.py[m[36m:[m404[36m:[m121[36m:[m [1m[31mE501[m line too long (122 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m263[36m:[m121[36m:[m [1m[31mE501[m line too long (197 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m265[36m:[m121[36m:[m [1m[31mE501[m line too long (150 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m282[36m:[m121[36m:[m [1m[31mE501[m line too long (194 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m283[36m:[m121[36m:[m [1m[31mE501[m line too long (127 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m321[36m:[m121[36m:[m [1m[31mE501[m line too long (194 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m322[36m:[m121[36m:[m [1m[31mE501[m line too long (127 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m526[36m:[m121[36m:[m [1m[31mE501[m line too long (190 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m527[36m:[m121[36m:[m [1m[31mE501[m line too long (123 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m579[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m580[36m:[m1[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m580[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m581[36m:[m121[36m:[m [1m[31mE501[m line too long (168 > 120 characters)
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m686[36m:[m5[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1massets/streamlit/src/app_pages/03_Message_Dispatcher.py[m[36m:[m786[36m:[m121[36m:[m [1m[31mE501[m line too long (174 > 120 characters)
+[1minfra/cdsgenai_stack.py[m[36m:[m33[36m:[m9[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1minfra/cdsgenai_stack.py[m[36m:[m54[36m:[m9[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1minfra/cdsgenai_stack.py[m[36m:[m63[36m:[m9[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1minfra/cdsgenai_stack.py[m[36m:[m76[36m:[m9[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1minfra/cdsgenai_stack.py[m[36m:[m88[36m:[m9[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1minfra/cdsgenai_stack.py[m[36m:[m106[36m:[m9[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1minfra/cdsgenai_stack.py[m[36m:[m138[36m:[m9[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1minfra/cdsgenai_stack.py[m[36m:[m167[36m:[m9[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1minfra/constructs/cdsai_api.py[m[36m:[m305[36m:[m5[36m:[m [1m[31mE266[m too many leading '#' for block comment
+[1mscripts/add_docstrings.py[m[36m:[m78[36m:[m121[36m:[m [1m[31mE501[m line too long (135 > 120 characters)
+[1mscripts/camel_to_snake.py[m[36m:[m38[36m:[m121[36m:[m [1m[31mE501[m line too long (135 > 120 characters)
+
+mypy.....................................................................[41mFailed[m
+[2m- hook id: mypy[m
+[2m- exit code: 1[m
+
+infra/stacks/streamlit.py:31: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"client_id"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+infra/stacks/streamlit.py:31: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+infra/stacks/streamlit.py:31: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+infra/stacks/streamlit.py:32: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"api_uri"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+infra/stacks/streamlit.py:32: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+infra/stacks/streamlit.py:32: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+infra/stacks/streamlit.py:33: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"cover_image_url"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+infra/stacks/streamlit.py:33: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+infra/stacks/streamlit.py:33: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+infra/stacks/streamlit.py:34: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"cover_image_login_url"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+infra/stacks/streamlit.py:34: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+infra/stacks/streamlit.py:34: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+infra/stacks/streamlit.py:36: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"ip_address_allowed"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"list[Any]"(B[m)  (B[m[33m[assignment](B[m
+infra/stacks/streamlit.py:36: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+infra/stacks/streamlit.py:36: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+infra/stacks/streamlit.py:37: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"retriever_options"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"list[Any]"(B[m)  (B[m[33m[assignment](B[m
+infra/stacks/streamlit.py:37: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+infra/stacks/streamlit.py:37: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+infra/stacks/streamlit.py:38: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"sm_endpoints"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"dict[Any, Any]"(B[m)  (B[m[33m[assignment](B[m
+infra/stacks/streamlit.py:38: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+infra/stacks/streamlit.py:38: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+infra/constructs/cdsai_api.py:41: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"bedrock_role_arn"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+infra/constructs/cdsai_api.py:41: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+infra/constructs/cdsai_api.py:41: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_submit_job.py:8: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/layers/factory_module/python/c2m_check_tracking.py:7: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/layers/factory_module/python/c2m_check_job_status.py:8: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/layers/factory_module/python/c2m_check_job_status.py:24: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"job_id"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_check_job_status.py:24: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_check_job_status.py:24: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:8: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:8: [34mnote:(B[m Hint: (B[m[1m"python3 -m pip install types-requests"(B[m(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:25: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_name"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:25: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:25: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:26: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_address1"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:26: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:26: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:27: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_city"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:27: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:27: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:28: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_state"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:28: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:28: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:29: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_zip"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:29: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:29: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:30: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_amount"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:30: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:30: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:31: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_number"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:31: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:31: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:32: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_month"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:32: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:32: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:33: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_year"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:33: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:33: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:34: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_cvv"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:34: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:34: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:35: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"billing_cc_type"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_add_credit.py:35: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_add_credit.py:35: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+infra/constructs/llm_endpoints/iam.py:80: [1m[31merror:(B[m Incompatible types in assignment (expression has type (B[m[1m"Path"(B[m, variable has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+infra/constructs/llm_endpoints/iam.py:81: [1m[31merror:(B[m (B[m[1m"str"(B[m has no attribute (B[m[1m"suffixes"(B[m  (B[m[33m[attr-defined](B[m
+infra/constructs/llm_endpoints/iam.py:82: [1m[31merror:(B[m (B[m[1m"str"(B[m has no attribute (B[m[1m"as_posix"(B[m  (B[m[33m[attr-defined](B[m
+infra/constructs/llm_endpoints/iam.py:84: [1m[31merror:(B[m (B[m[1m"str"(B[m has no attribute (B[m[1m"parent"(B[m  (B[m[33m[attr-defined](B[m
+infra/constructs/llm_endpoints/iam.py:126: [1m[31merror:(B[m Item (B[m[1m"None"(B[m of (B[m[1m"Optional[Match[str]]"(B[m has no attribute (B[m[1m"group"(B[m  (B[m[33m[union-attr](B[m
+infra/constructs/llm_endpoints/iam.py:207: [1m[31merror:(B[m Item (B[m[1m"None"(B[m of (B[m[1m"Optional[Match[str]]"(B[m has no attribute (B[m[1m"groups"(B[m  (B[m[33m[union-attr](B[m
+assets/streamlit/src/components/pinpoint_api.py:11: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/streamlit/src/components/pinpoint_api.py:41: [1m[31merror:(B[m Unsupported left operand type for + ((B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/pinpoint_api.py:41: [34mnote:(B[m Left operand is of type (B[m[1m"Optional[str]"(B[m(B[m
+assets/streamlit/src/components/pinpoint_api.py:66: [1m[31merror:(B[m Unsupported left operand type for + ((B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/pinpoint_api.py:66: [34mnote:(B[m Left operand is of type (B[m[1m"Optional[str]"(B[m(B[m
+assets/streamlit/src/components/pinpoint_api.py:91: [1m[31merror:(B[m Unsupported left operand type for + ((B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/pinpoint_api.py:91: [34mnote:(B[m Left operand is of type (B[m[1m"Optional[str]"(B[m(B[m
+assets/streamlit/src/components/pinpoint_api.py:106: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"message_subject"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/streamlit/src/components/pinpoint_api.py:106: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/streamlit/src/components/pinpoint_api.py:106: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/streamlit/src/components/pinpoint_api.py:107: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"message_body_html"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/streamlit/src/components/pinpoint_api.py:107: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/streamlit/src/components/pinpoint_api.py:107: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/streamlit/src/components/pinpoint_api.py:133: [1m[31merror:(B[m Unsupported operand types for + ((B[m[1m"str"(B[m and (B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/pinpoint_api.py:133: [1m[31merror:(B[m Unsupported left operand type for + ((B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/pinpoint_api.py:133: [34mnote:(B[m Both left and right operands are unions(B[m
+assets/streamlit/src/components/pinpoint_api.py:172: [1m[31merror:(B[m Unsupported left operand type for + ((B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/pinpoint_api.py:172: [34mnote:(B[m Left operand is of type (B[m[1m"Optional[str]"(B[m(B[m
+assets/streamlit/src/components/personalize_api.py:11: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/streamlit/src/components/personalize_api.py:48: [1m[31merror:(B[m Unsupported left operand type for + ((B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/personalize_api.py:48: [34mnote:(B[m Left operand is of type (B[m[1m"Optional[str]"(B[m(B[m
+assets/streamlit/src/components/personalize_api.py:63: [1m[31merror:(B[m Need type annotation for (B[m[1m"params"(B[m (hint: (B[m[1m"params: Dict[<type>, <type>] = ..."(B[m)  (B[m[33m[var-annotated](B[m
+assets/streamlit/src/components/personalize_api.py:65: [1m[31merror:(B[m Unsupported left operand type for + ((B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/personalize_api.py:65: [34mnote:(B[m Left operand is of type (B[m[1m"Optional[str]"(B[m(B[m
+assets/streamlit/src/components/personalize_api.py:88: [1m[31merror:(B[m Unsupported left operand type for + ((B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/personalize_api.py:88: [34mnote:(B[m Left operand is of type (B[m[1m"Optional[str]"(B[m(B[m
+infra/constructs/cdsai_endpoint.py:7: [1m[31merror:(B[m Module (B[m[1m"infra.constructs.llm_endpoints.config_factory"(B[m has no attribute (B[m[1m"BaseEndpointConfigurationFactory"(B[m  (B[m[33m[attr-defined](B[m
+infra/constructs/cdsai_endpoint.py:7: [1m[31merror:(B[m Module (B[m[1m"infra.constructs.llm_endpoints.config_factory"(B[m has no attribute (B[m[1m"HuggingFaceTGIEndpointConfigurationFactory"(B[m  (B[m[33m[attr-defined](B[m
+infra/constructs/cdsai_endpoint.py:7: [1m[31merror:(B[m Module (B[m[1m"infra.constructs.llm_endpoints.config_factory"(B[m has no attribute (B[m[1m"JumpStartEndpointConfigurationFactory"(B[m  (B[m[33m[attr-defined](B[m
+infra/constructs/cdsai_endpoint.py:7: [1m[31merror:(B[m Module (B[m[1m"infra.constructs.llm_endpoints.config_factory"(B[m has no attribute (B[m[1m"MarketplaceModelEndpointConfigurationFactory"(B[m  (B[m[33m[attr-defined](B[m
+assets/streamlit/src/components/genai_api.py:12: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/streamlit/src/components/genai_api.py:68: [1m[31merror:(B[m Unsupported left operand type for + ((B[m[1m"None"(B[m)  (B[m[33m[operator](B[m
+assets/streamlit/src/components/genai_api.py:68: [34mnote:(B[m Left operand is of type (B[m[1m"Optional[str]"(B[m(B[m
+assets/layers/factory_module/python/c2m_delete_address_lists.py:4: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+infra/cdsgenai_stack.py:17: [1m[31merror:(B[m Need type annotation for (B[m[1m"sm_endpoints"(B[m (hint: (B[m[1m"sm_endpoints: Dict[<type>, <type>] = ..."(B[m)  (B[m[33m[var-annotated](B[m
+infra/cdsgenai_stack.py:113: [1m[31merror:(B[m Argument (B[m[1m"bedrock_role_arn"(B[m to (B[m[1m"CDSAIAPIConstructs"(B[m has incompatible type (B[m[1m"Optional[Any]"(B[m; expected (B[m[1m"str"(B[m  (B[m[33m[arg-type](B[m
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:73: [1m[31merror:(B[m Argument (B[m[1m"image_url"(B[m to (B[m[1m"display_cover_with_title"(B[m has incompatible type (B[m[1m"Optional[str]"(B[m; expected (B[m[1m"str"(B[m  (B[m[33m[arg-type](B[m
+assets/streamlit/src/app_pages/03_Message_Dispatcher.py:115: [1m[31merror:(B[m Need type annotation for (B[m[1m"MODELS_NOT_DEPLOYED"(B[m (hint: (B[m[1m"MODELS_NOT_DEPLOYED: List[<type>] = ..."(B[m)  (B[m[33m[var-annotated](B[m
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:56: [1m[31merror:(B[m Argument (B[m[1m"image_url"(B[m to (B[m[1m"display_cover_with_title"(B[m has incompatible type (B[m[1m"Optional[str]"(B[m; expected (B[m[1m"str"(B[m  (B[m[33m[arg-type](B[m
+assets/streamlit/src/app_pages/02_Content_Personalizer.py:94: [1m[31merror:(B[m Need type annotation for (B[m[1m"MODELS_NOT_DEPLOYED"(B[m (hint: (B[m[1m"MODELS_NOT_DEPLOYED: List[<type>] = ..."(B[m)  (B[m[33m[var-annotated](B[m
+assets/streamlit/src/app_pages/01_Segment_Architect.py:57: [1m[31merror:(B[m Argument (B[m[1m"image_url"(B[m to (B[m[1m"display_cover_with_title"(B[m has incompatible type (B[m[1m"Optional[str]"(B[m; expected (B[m[1m"str"(B[m  (B[m[33m[arg-type](B[m
+assets/streamlit/src/app_pages/01_Segment_Architect.py:95: [1m[31merror:(B[m Need type annotation for (B[m[1m"MODELS_NOT_DEPLOYED"(B[m (hint: (B[m[1m"MODELS_NOT_DEPLOYED: List[<type>] = ..."(B[m)  (B[m[33m[var-annotated](B[m
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:52: [1m[31merror:(B[m Argument (B[m[1m"image_url"(B[m to (B[m[1m"display_cover_with_title"(B[m has incompatible type (B[m[1m"Optional[str]"(B[m; expected (B[m[1m"str"(B[m  (B[m[33m[arg-type](B[m
+assets/streamlit/src/app_pages/00_Prompt_Smith.py:91: [1m[31merror:(B[m Need type annotation for (B[m[1m"MODELS_NOT_DEPLOYED"(B[m (hint: (B[m[1m"MODELS_NOT_DEPLOYED: List[<type>] = ..."(B[m)  (B[m[33m[var-annotated](B[m
+assets/streamlit/src/Home.py:77: [1m[31merror:(B[m Argument (B[m[1m"image_url"(B[m to (B[m[1m"display_cover_with_title"(B[m has incompatible type (B[m[1m"Optional[str]"(B[m; expected (B[m[1m"str"(B[m  (B[m[33m[arg-type](B[m
+app.py:5: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"yaml"(B[m  (B[m[33m[import](B[m
+app.py:7: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"yaml.loader"(B[m  (B[m[33m[import](B[m
+app.py:7: [34mnote:(B[m Hint: (B[m[1m"python3 -m pip install types-PyYAML"(B[m(B[m
+app.py:7: [34mnote:(B[m (or run (B[m[1m"mypy --install-types"(B[m to install all missing stub packages)(B[m
+app.py:7: [34mnote:(B[m See [4mhttps://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports(B[m(B[m
+assets/layers/factory_module/python/c2m_upload_document.py:10: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/layers/factory_module/python/c2m_upload_document.py:60: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"document_content"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_upload_document.py:60: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_upload_document.py:60: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_upload_address_list.py:10: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/layers/factory_module/python/c2m_create_job.py:9: [1m[31merror:(B[m Library stubs not installed for (B[m[1m"requests"(B[m  (B[m[33m[import](B[m
+assets/layers/factory_module/python/c2m_create_job.py:34: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"document_id"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_create_job.py:34: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_create_job.py:34: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+assets/layers/factory_module/python/c2m_create_job.py:35: [1m[31merror:(B[m Incompatible default for argument (B[m[1m"address_list_id"(B[m (default has type (B[m[1m"None"(B[m, argument has type (B[m[1m"str"(B[m)  (B[m[33m[assignment](B[m
+assets/layers/factory_module/python/c2m_create_job.py:35: [34mnote:(B[m PEP 484 prohibits implicit Optional. Accordingly, mypy has changed its default to no_implicit_optional=True(B[m
+assets/layers/factory_module/python/c2m_create_job.py:35: [34mnote:(B[m Use [4mhttps://github.com/hauntsaninja/no_implicit_optional(B[m to automatically upgrade your codebase(B[m
+[1m[31mFound 70 errors in 22 files (checked 58 source files)(B[m
+
+bandit...................................................................[41mFailed[m
+[2m- hook id: bandit[m
+[2m- exit code: 1[m
+
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.382833[0m
+[95m
+Test results:[0m
+[94m>> Issue: [B405:blacklist] Using xml.etree.ElementTree to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree with the equivalent defusedxml package, or make sure defusedxml.defuse_stdlib() is called.
+   Severity: Low   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_imports.html#b405-import-xml-etree
+   Location: assets/layers/factory_module/python/c2m_create_job.py:7:0[0m
+6	
+7	import xml.etree.ElementTree as ET
+8	
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'Babushka1!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/layers/factory_module/python/c2m_create_job.py:19:14[0m
+18	MY_USERNAME = "stellario"
+19	MY_PASSWORD = "Babushka1!"
+20	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/layers/factory_module/python/c2m_create_job.py:70:19[0m
+69	        # Make the POST request
+70	        response = requests.post(CREATE_JOB_URL, data=values, headers=headers, auth=(MY_USERNAME, MY_PASSWORD))
+71	        # Raise an exception if the request fails
+
+--------------------------------------------------
+[93m>> Issue: [B314:blacklist] Using xml.etree.ElementTree.fromstring to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree.fromstring with its defusedxml equivalent function or make sure defusedxml.defuse_stdlib() is called
+   Severity: Medium   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_calls.html#b313-b320-xml-bad-elementtree
+   Location: assets/layers/factory_module/python/c2m_create_job.py:79:19[0m
+78	            xml_data = response.text
+79	            root = ET.fromstring(xml_data)
+80	            id_element = root.find("id")
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 782
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 2
+		Medium: 2
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 2
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.340427[0m
+[95m
+Test results:[0m
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'Babushka1!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/layers/factory_module/python/c2m_check_job_status.py:17:11[0m
+16	USERNAME = "stellario"
+17	PASSWORD = "Babushka1!"
+18	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/layers/factory_module/python/c2m_check_job_status.py:38:19[0m
+37	        # Make a GET request to the Click2Mail API
+38	        response = requests.get(url, headers=headers, auth=(USERNAME, PASSWORD))
+39	        # Raise an exception if the request fails
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'Babushka1!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/layers/factory_module/python/factory_module.py:23:14[0m
+22	MY_USERNAME = "stellario"
+23	MY_PASSWORD = "Babushka1!"
+24	
+
+--------------------------------------------------
+[94m>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+   Severity: Low   Confidence: High
+   CWE: CWE-330 (https://cwe.mitre.org/data/definitions/330.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_calls.html#b311-random
+   Location: assets/layers/factory_module/python/factory_module.py:58:19[0m
+57	    letters = string.ascii_letters + string.digits
+58	    return "".join(random.choice(letters) for _ in range(length))
+59	
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 295
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 3
+		Medium: 1
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 2
+		High: 1
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.341076[0m
+[95m
+Test results:[0m
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/streamlit/src/components/pinpoint_api.py:40:15[0m
+39	    """
+40	    response = requests.get(
+41	        url=API_URI + "/pinpoint/segment",
+42	        stream=False,
+43	        headers={"Authorization": access_token},
+44	    )
+45	    return response.content
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/streamlit/src/components/pinpoint_api.py:65:15[0m
+64	    # Send the POST request to the Pinpoint API
+65	    response = requests.post(
+66	        url=API_URI + "/pinpoint/job",
+67	        json=params,
+68	        stream=False,
+69	        headers={"Authorization": access_token},
+70	    )
+71	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/streamlit/src/components/pinpoint_api.py:90:15[0m
+89	    # Send the GET request to the Pinpoint API
+90	    response = requests.get(
+91	        url=API_URI + "/pinpoint/job",
+92	        json=params,
+93	        stream=False,
+94	        headers={"Authorization": access_token},
+95	    )
+96	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/streamlit/src/components/pinpoint_api.py:138:15[0m
+137	    # TODO: Use APU_URI
+138	    response = requests.post(
+139	        #        url=API_URI + "/pinpoint/message",
+140	        url=url,
+141	        json=params,
+142	        stream=False,
+143	        headers={"Authorization": access_token},
+144	    )
+145	    return response.content
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/streamlit/src/components/pinpoint_api.py:171:15[0m
+170	    # Use the API endpoint to fetch the files
+171	    response = requests.get(
+172	        url=API_URI + "/s3",
+173	        json=params,
+174	        stream=False,
+175	        headers={"Authorization": access_token},
+176	    )
+177	
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 297
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 5
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 5
+		Medium: 0
+		High: 0
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.364653[0m
+[95m
+Test results:[0m
+[94m>> Issue: [B404:blacklist] Consider possible security implications associated with the subprocess module.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_imports.html#b404-import-subprocess
+   Location: assets/lambda/genai_pinpoint_message_custom/pinpoint_message_custom.py:5:0[0m
+4	import pkgutil
+5	import subprocess
+6	
+
+--------------------------------------------------
+[94m>> Issue: [B607:start_process_with_partial_path] Starting a process with a partial executable path
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b607_start_process_with_partial_path.html
+   Location: assets/lambda/genai_pinpoint_message_custom/pinpoint_message_custom.py:33:13[0m
+32	    # Print the current version of the packages
+33	    result = subprocess.run(["pip", "freeze"], stdout=subprocess.PIPE)
+34	    result.stdout.decode("utf-8")
+
+--------------------------------------------------
+[94m>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+   Severity: Low   Confidence: High
+   CWE: CWE-78 (https://cwe.mitre.org/data/definitions/78.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b603_subprocess_without_shell_equals_true.html
+   Location: assets/lambda/genai_pinpoint_message_custom/pinpoint_message_custom.py:33:13[0m
+32	    # Print the current version of the packages
+33	    result = subprocess.run(["pip", "freeze"], stdout=subprocess.PIPE)
+34	    result.stdout.decode("utf-8")
+
+--------------------------------------------------
+[94m>> Issue: [B405:blacklist] Using xml.etree.ElementTree to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree with the equivalent defusedxml package, or make sure defusedxml.defuse_stdlib() is called.
+   Severity: Low   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_imports.html#b405-import-xml-etree
+   Location: assets/layers/factory_module/python/c2m_upload_document.py:7:0[0m
+6	
+7	import xml.etree.ElementTree as ET
+8	from io import BytesIO
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'Babushka1!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/layers/factory_module/python/c2m_upload_document.py:20:14[0m
+19	MY_USERNAME = "stellario"
+20	MY_PASSWORD = "Babushka1!"
+21	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/layers/factory_module/python/c2m_upload_document.py:88:19[0m
+87	    try:
+88	        response = requests.post(UPLOAD_DOC_URL, headers=headers, auth=(MY_USERNAME, MY_PASSWORD), data=mp_encoder)
+89	        response.raise_for_status()  # Raise an exception for HTTP errors
+
+--------------------------------------------------
+[93m>> Issue: [B314:blacklist] Using xml.etree.ElementTree.fromstring to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree.fromstring with its defusedxml equivalent function or make sure defusedxml.defuse_stdlib() is called
+   Severity: Medium   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_calls.html#b313-b320-xml-bad-elementtree
+   Location: assets/layers/factory_module/python/c2m_upload_document.py:95:19[0m
+94	            xml_data = response.text
+95	            root = ET.fromstring(xml_data)
+96	            id_element = root.find("id")
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 416
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 5
+		Medium: 2
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 5
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[node_visitor]	WARNING	Unable to find qualified name for module: app.py
+[95mRun started:2024-10-03 18:44:05.339100[0m
+[95m
+Test results:[0m
+[94m>> Issue: [B405:blacklist] Using xml.etree.ElementTree to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree with the equivalent defusedxml package, or make sure defusedxml.defuse_stdlib() is called.
+   Severity: Low   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_imports.html#b405-import-xml-etree
+   Location: assets/layers/factory_module/python/c2m_upload_address_list.py:7:0[0m
+6	
+7	import xml.etree.ElementTree as ET
+8	from io import BytesIO
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'Babushka1!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/layers/factory_module/python/c2m_upload_address_list.py:19:11[0m
+18	USERNAME = "stellario"
+19	PASSWORD = "Babushka1!"
+20	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/layers/factory_module/python/c2m_upload_address_list.py:119:19[0m
+118	        # Make the POST request
+119	        response = requests.post(UPLOAD_ADDRESS_LIST_URL, data=body, headers=headers, auth=(USERNAME, PASSWORD))
+120	        response.raise_for_status()  # Raise an exception for HTTP errors
+
+--------------------------------------------------
+[93m>> Issue: [B314:blacklist] Using xml.etree.ElementTree.fromstring to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.etree.ElementTree.fromstring with its defusedxml equivalent function or make sure defusedxml.defuse_stdlib() is called
+   Severity: Medium   Confidence: High
+   CWE: CWE-20 (https://cwe.mitre.org/data/definitions/20.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/blacklists/blacklist_calls.html#b313-b320-xml-bad-elementtree
+   Location: assets/layers/factory_module/python/c2m_upload_address_list.py:127:19[0m
+126	            xml_data = response.text
+127	            root = ET.fromstring(xml_data)
+128	            list_element = root.find("id")
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 286
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 2
+		Medium: 2
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 2
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.354677[0m
+[95m
+Test results:[0m
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'Babushka1!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/layers/factory_module/python/c2m_add_credit.py:17:14[0m
+16	MY_USERNAME = "stellario"
+17	MY_PASSWORD = "Babushka1!"
+18	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/layers/factory_module/python/c2m_add_credit.py:70:19[0m
+69	    try:
+70	        response = requests.post(PURCHASE_URL, auth=(MY_USERNAME, MY_PASSWORD), data=data)
+71	        response.raise_for_status()  # Raise an exception for HTTP errors
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 592
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 0
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.363499[0m
+[95m
+Test results:[0m
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/streamlit/src/components/personalize_api.py:47:15[0m
+46	    }
+47	    response = requests.post(
+48	        url=API_URI + "/personalize/batch-segment-job",
+49	        json=params,
+50	        stream=False,
+51	        headers={"Authorization": access_token},
+52	    )
+53	    return response.content
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/streamlit/src/components/personalize_api.py:64:15[0m
+63	    params = {}
+64	    response = requests.get(
+65	        url=API_URI + "/personalize/batch-segment-jobs",
+66	        json=params,
+67	        stream=False,
+68	        headers={"Authorization": access_token},
+69	    )
+70	    return response.content
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/streamlit/src/components/personalize_api.py:87:15[0m
+86	    params = {"job-arn": job_arn}
+87	    response = requests.get(
+88	        url=API_URI + "/personalize/batch-segment-job",
+89	        json=params,
+90	        stream=False,
+91	        headers={"Authorization": access_token},
+92	    )
+93	    return response.content
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 749
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 3
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 3
+		Medium: 0
+		High: 0
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.335210[0m
+[95m
+Test results:[0m
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'Babushka1!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/layers/factory_module/python/c2m_submit_job.py:17:11[0m
+16	USERNAME = "stellario"
+17	PASSWORD = "Babushka1!"
+18	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/layers/factory_module/python/c2m_submit_job.py:40:19[0m
+39	        # Make POST request to submit the job
+40	        response = requests.post(url, data=values, headers=headers, auth=(USERNAME, PASSWORD))
+41	        # Raise an exception if request fails
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 253
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 0
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.374334[0m
+[95m
+Test results:[0m
+	No issues identified.
+[95m
+Code scanned:[0m
+	Total lines of code: 495
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.355762[0m
+[95m
+Test results:[0m
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'Babushka1!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/layers/factory_module/python/c2m_delete_address_lists.py:19:14[0m
+18	MY_USERNAME = "stellario"
+19	MY_PASSWORD = "Babushka1!"
+20	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/layers/factory_module/python/c2m_delete_address_lists.py:39:23[0m
+38	        try:
+39	            response = requests.delete(url, headers=headers, auth=(MY_USERNAME, MY_PASSWORD))
+40	
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 531
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 1
+		Medium: 1
+		High: 0
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.360931[0m
+[95m
+Test results:[0m
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: 'Babushka1!'
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/layers/factory_module/python/c2m_check_tracking.py:16:14[0m
+15	MY_USERNAME = "stellario"
+16	MY_PASSWORD = "Babushka1!"
+17	
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/layers/factory_module/python/c2m_check_tracking.py:38:19[0m
+37	    try:
+38	        response = requests.get(url, headers=headers, auth=(MY_USERNAME, MY_PASSWORD))
+39	        response.raise_for_status()  # Raise an exception for HTTP errors
+
+--------------------------------------------------
+[93m>> Issue: [B113:request_without_timeout] Requests call without timeout
+   Severity: Medium   Confidence: Low
+   CWE: CWE-400 (https://cwe.mitre.org/data/definitions/400.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b113_request_without_timeout.html
+   Location: assets/streamlit/src/components/genai_api.py:67:15[0m
+66	    # Send the POST request to the LLM API
+67	    response = requests.post(
+68	        url=API_URI + "/content/bedrock",
+69	        json=params,
+70	        stream=False,
+71	        headers={"Authorization": access_token},
+72	    )
+73	    # Parse the response as JSON and return it as a string
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 550
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 1
+		Medium: 2
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 2
+		Medium: 1
+		High: 0
+[95mFiles skipped (0):[0m
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.9.6
+[95mRun started:2024-10-03 18:44:05.394867[0m
+[95m
+Test results:[0m
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: ''
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/streamlit/src/components/authenticate.py:43:25[0m
+42	    if "access_token" not in st.session_state:
+43	        st.session_state["access_token"] = ""
+44	    if "refresh_token" not in st.session_state:
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: ''
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/streamlit/src/components/authenticate.py:45:25[0m
+44	    if "refresh_token" not in st.session_state:
+45	        st.session_state["refresh_token"] = ""
+46	    if "challenge" not in st.session_state:
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: ''
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/streamlit/src/components/authenticate.py:77:25[0m
+76	        st.session_state["authenticated"] = False
+77	        st.session_state["access_token"] = ""
+78	        st.session_state["user_cognito_groups"] = []
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: ''
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/streamlit/src/components/authenticate.py:79:25[0m
+78	        st.session_state["user_cognito_groups"] = []
+79	        st.session_state["refresh_token"] = ""
+80	    else:
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: ''
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/streamlit/src/components/authenticate.py:119:19[0m
+118	
+119	    if id_token != "":
+120	        _, payload, _ = id_token.split(".")
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: ''
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/streamlit/src/components/authenticate.py:162:23[0m
+161	
+162	    if access_token != "":
+163	        st.session_state["access_token"] = access_token
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: ''
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/streamlit/src/components/authenticate.py:380:21[0m
+379	    st.session_state["user_cognito_groups"] = []
+380	    st.session_state["access_token"] = ""
+381	    st.session_state["refresh_token"] = ""
+
+--------------------------------------------------
+[94m>> Issue: [B105:hardcoded_password_string] Possible hardcoded password: ''
+   Severity: Low   Confidence: Medium
+   CWE: CWE-259 (https://cwe.mitre.org/data/definitions/259.html)
+   More Info: https://bandit.readthedocs.io/en/0.0.0/plugins/b105_hardcoded_password_string.html
+   Location: assets/streamlit/src/components/authenticate.py:381:21[0m
+380	    st.session_state["access_token"] = ""
+381	    st.session_state["refresh_token"] = ""
+382	    st.session_state["challenge"] = ""
+
+--------------------------------------------------
+[95m
+Code scanned:[0m
+	Total lines of code: 1155
+	Total lines skipped (#nosec): 0
+[95m
+Run metrics:[0m
+	Total issues (by severity):
+		Undefined: 0
+		Low: 8
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 8
+		High: 0
+[95mFiles skipped (0):[0m
+
+docformatter.............................................................[42mPassed[m

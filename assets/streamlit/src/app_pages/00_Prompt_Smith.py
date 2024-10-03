@@ -5,7 +5,8 @@ import os
 import sys
 from pathlib import Path
 
-import components.authenticate as authenticate  # noqa: E402
+# noqa: E402
+import components.authenticate as authenticate
 import s3fs
 import streamlit as st
 from components.utils import display_cover_with_title, reset_session_state

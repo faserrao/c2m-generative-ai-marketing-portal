@@ -138,9 +138,17 @@ if not os.path.exists(GENERATED_QRCODES_PATH):
 
 
 def generate_qrcode(qr_url: str) -> str:
-    """Generate QR code for MFA."""
+    """Generate QR code for MFA.
 
-    # generate image
+    Generate a QR code with the given URL and save it locally.
+
+    Args:
+    - qr_url (str): The URL to generate the QR code with.
+
+    Returns:
+    - str: The path to the generated QR code image.
+    """
+    # Generate QR code
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -151,7 +159,7 @@ def generate_qrcode(qr_url: str) -> str:
     qr.make(fit=True)
     img = qr.make_image(image_factory=StyledPilImage)
 
-    # save locally
+    # Save QR code locally
     current_ts = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
     generated_qrcode_path = GENERATED_QRCODES_PATH + "qrcode_" + str(current_ts) + ".png"
     img.save(generated_qrcode_path)
@@ -159,11 +167,20 @@ def generate_qrcode(qr_url: str) -> str:
 
 
 def run_login() -> None:
-    """Perform login."""
+    """Perform login.
+
+    This function will authenticate the user using the entered username and password. If the
+    authentication is successful, it will continue the login process. If the authentication fails,
+    it will display an error message.
+
+    See Also:
+        - authenticate.sign_in()
+    """
     LOGGER.log(logging.DEBUG, ("Inside run_login()"))
 
     # authenticate
     if (st.session_state["username"] != "") & (st.session_state["password"] != ""):
+        # call the sign_in() function
         response = authenticate.sign_in(st.session_state["username"], st.session_state["password"])
         LOGGER.debug("Response: %s", str(response))
         # check authentication
@@ -172,18 +189,29 @@ def run_login() -> None:
             "MFA_SETUP",
             "SOFTWARE_TOKEN_MFA",
         ]:
+            # if authentication fails, display an error message
             st.session_state["error_message"] = "Username or password are wrong. Please try again."
         else:
+            # clear the error message
             st.session_state.pop("error_message", None)
             # st.experimental_rerun()
 
     # ask to enter credentials
     else:
+        # if the user has not entered a username and a password, display an error message
         st.session_state["error_message"] = "Please enter a username and a password first."
 
 
 def reset_password() -> None:
-    """Reset password."""
+    """Reset password.
+
+    This function will reset the password entered by the user. If the new password is valid,
+    it will continue the login process. If the new password is invalid, it will display an error message.
+
+    See Also:
+        - authenticate.reset_password()
+    """
+
     LOGGER.log(logging.DEBUG, ("Inside reset_password()"))
 
     if st.session_state["challenge"] == "NEW_PASSWORD_REQUIRED":
@@ -208,13 +236,24 @@ def reset_password() -> None:
 
 
 def setup_mfa() -> None:
-    """Setup MFA."""
+    """Setup MFA.
+
+    This function will verify the MFA verification code entered by the user, and if it is valid,
+    it will continue the MFA setup process. If the code is invalid, it will display an error message.
+
+    See Also:
+        - authenticate.verify_token()
+        - authenticate.setup_mfa()
+    """
+
     LOGGER.log(logging.DEBUG, ("Inside setup_mfa()"))
 
     if st.session_state["challenge"] == "MFA_SETUP":
         if st.session_state["mfa_verify_token"] != "":
+            # verify MFA verification code
             token_valid, message = authenticate.verify_token(st.session_state["mfa_verify_token"])
 
+            # if the code is valid, continue the MFA setup process
             if token_valid:
                 mfa_setup_success, message = authenticate.setup_mfa()
                 if not mfa_setup_success:
@@ -222,26 +261,39 @@ def setup_mfa() -> None:
                 else:
                     st.session_state.pop("error_message", None)
                     # st.experimental_rerun()
+            # if the code is invalid, display an error message
             else:
                 st.session_state["error_message"] = message
 
         else:
+            # ask to enter a code from the MFA app
             st.session_state["error_message"] = "Please enter a code from your MFA app first."
 
 
 def sign_in_with_token() -> None:
-    """Verify MFA Code."""
+    """Verify MFA Code.
+
+    This function will verify the MFA code entered by the user, and if it is valid, it will
+    continue the login process. If the code is invalid, it will display an error message.
+
+    See Also:
+        - authenticate.sign_in_with_token()
+    """
     LOGGER.log(logging.DEBUG, ("Inside sign_in_with_token()"))
     if st.session_state["challenge"] == "SOFTWARE_TOKEN_MFA":
         if st.session_state["mfa_token"] != "":
+            # verify the MFA code
             success, message = authenticate.sign_in_with_token(st.session_state["mfa_token"])
             if not success:
+                # display an error message
                 st.session_state["error_message"] = message
             else:
+                # clear the error message
                 st.session_state.pop("error_message", None)
-                # st.experimental_rerun()
+                # st.experimental_rerun() # TODO: remove this line
 
         else:
+            # display an error message
             st.session_state["error_message"] = "Please enter a code from your MFA App first."
 
 

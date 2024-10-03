@@ -34,8 +34,15 @@ solution_version_arn = os.environ["SOLUTION_VERSION_ARN"]
 
 
 def lambda_handler(event, context):
-    """Handle POST and GET requests for Amazon Personalize batch segment
-    jobs."""
+    """Handle POST and GET requests for Amazon Personalize batch segment jobs.
+
+    Args:
+        event (dict): API Gateway event object
+        context (dict): AWS Lambda context object
+
+    Returns:
+        dict: API Gateway response object
+    """
     print(event)
     # Get the HTTP method from the event object
     http_method = event["requestContext"]["http"]["method"]
@@ -133,6 +140,9 @@ def lambda_handler(event, context):
 def datetime_handler(x):
     """Convert datetime objects to ISO format string.
 
+    This function is used as the default parameter for the json.dumps() function
+    to convert datetime objects to ISO format strings.
+
     Args:
         x: Object to be converted.
 
@@ -143,5 +153,7 @@ def datetime_handler(x):
         TypeError: If x is not a datetime object.
     """
     if isinstance(x, datetime):
+        # Convert the datetime object to ISO format string
         return x.isoformat()
+    # Raise TypeError if x is not a datetime object
     raise TypeError("Unknown type")

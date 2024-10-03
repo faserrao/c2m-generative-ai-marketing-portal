@@ -26,8 +26,15 @@ LOGGER.addHandler(HANDLER)
 
 
 def lambda_handler(event, context):
-    """Handle incoming requests for Personalize batch segment jobs."""
+    """Handle incoming requests for Personalize batch segment jobs.
 
+    This handler responds to GET requests and returns a list of all batch segment
+    jobs in the specified region.
+
+    :param event: AWS Lambda event object
+    :param context: AWS Lambda context object
+    :return: API Gateway response object
+    """
     # Get the HTTP method from the event object
     http_method = event["requestContext"]["http"]["method"]
 
@@ -49,7 +56,9 @@ def lambda_handler(event, context):
 
         except ClientError:
             # Handle any errors that occur
-
+            # Log the error
+            LOGGER.exception("An error occurred while fetching the batch segment jobs")
+            # Return an error response
             return {
                 "statusCode": 500,
                 "body": "An error occurred while fetching the batch segment jobs",
@@ -58,11 +67,25 @@ def lambda_handler(event, context):
 
     else:
         # Return an error response for unsupported HTTP methods
-        return {"statusCode": 400, "body": "Unsupported HTTP method", "headers": {"Content-Type": CONTENT_TYPE_JSON}}
+        return {
+            "statusCode": 400,
+            "body": "Unsupported HTTP method",
+            "headers": {"Content-Type": CONTENT_TYPE_JSON},
+        }
 
 
 def datetime_handler(x):
-    """Convert datetime objects to ISO format string."""
+    """Convert datetime objects to ISO format string.
+
+    Args:
+        x: An object to be converted. It must be a datetime object.
+
+    Returns:
+        str: The ISO format string representing the datetime object.
+
+    Raises:
+        TypeError: If the object is not a datetime object.
+    """
     if isinstance(x, datetime.datetime):
         return x.isoformat()
     raise TypeError("Unknown type")

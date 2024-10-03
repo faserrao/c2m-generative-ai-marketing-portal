@@ -1,4 +1,15 @@
+export PYTHONPATH=
 export PYTHONPATH=/Users/frankserrao/MyStuff/TestAndPlay/Click2Mail/c2m-generative-ai-marketing-portal/assets/streamlit/src:/Users/frankserrao/MyStuff/TestAndPlay/Click2Mail/c2m-generative-ai-marketing-portal/assets/shared_module/python
 
+# python3 -m venv ../my_venv
+# source ../my_venv/bin/activate
 
+# ip install -r requirements.txt
 
+# cdk bootstrap &&
+# cdk synth &&
+# cdk deploy
+
+# For local execution
+# cd assets/streamlit/ &&
+# streamlit run src/Home.py

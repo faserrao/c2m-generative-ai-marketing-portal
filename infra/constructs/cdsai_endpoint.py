@@ -24,6 +24,15 @@ class CDSAIEndpointConstructs(Construct):
     ]
 
     def __init__(self, scope: Construct, construct_id: str, stack_name: str, config: Dict[str, Any], **kwargs) -> None:
+        """Initialize the CDSAIEndpointConstructs.
+
+        :param scope: The scope in which to define this construct.
+        :param construct_id: The ID of this construct.
+        :param stack_name: The name of the stack in which this construct is being created.
+        :param config: The configuration for this endpoint.
+        :param **kwargs: Additional keyword arguments.
+        """
+
         super().__init__(scope, construct_id, **kwargs)
         self.region_name = scope.region
 
@@ -97,19 +106,52 @@ class CDSAIEndpointConstructs(Construct):
 
     @property
     def name(self) -> str:
+        """The name of the endpoint.
+
+        :returns: The name of the endpoint.
+        :rtype: str
+        """
         return self.endpoint.endpoint_name
 
     @property
     def arn(self) -> str:
+        """The ARN of the SageMaker endpoint.
+
+        :returns: The ARN of the SageMaker endpoint.
+        :rtype: str
+        """
         return self.endpoint.ref
 
     def grant_invoke(self, role: iam.IRole) -> None:
+        """Grant a role the ability to invoke the endpoint.
+
+        :param role: The IAM role to grant the ability to invoke the endpoint to.
+        :type role: iam.IRole
+        :returns: None
+        :rtype: None
+        """
         role.attach_inline_policy(policy=self._invoke_policy)
 
     def create_endpoint_config_factory(
         self, config: Dict[str, Any], resource_prefix: str
     ) -> BaseEndpointConfigurationFactory:
-        """Factory method."""
+        """Create a factory for creating SageMaker endpoint configurations
+        based on the configuration provided in the input dictionary.
+
+        The factory created depends on the value of the "type" key in the input
+        configuration. The following types are supported:
+
+        - "jumpstart": Create a JumpStart endpoint configuration factory.
+        - "tgi": Create a Hugging Face TGI endpoint configuration factory.
+        - "marketplace": Create a Marketplace endpoint configuration factory.
+
+        :param config: The configuration for the endpoint.
+        :type config: Dict[str, Any]
+        :param resource_prefix: The prefix to apply to all resources created by this factory.
+        :type resource_prefix: str
+        :returns: The created factory.
+        :rtype: BaseEndpointConfigurationFactory
+        """
         endpoint_type = config["type"]
         user_config = config.get("endpoint_config", {})
         if endpoint_type == "jumpstart":

@@ -19,6 +19,15 @@ class HuggingFaceTGIEndpointConfigurationFactory(NonProprietaryModelEndpointConf
         super().__init__(user_config=user_config, resource_prefix=resource_prefix)
 
     def create_container_definition_config(self) -> Dict[str, Any]:
+        """Create a SageMaker container definition configuration.
+
+        The configuration will be a dictionary with the following keys:
+
+        - "environment": A dictionary with a single key-value pair: "HF_MODEL_ID" with the model ID.
+        - "image": The URI of the container image.
+
+        The user can override the default value of these keys in their configuration file.
+        """
         base_config = super().create_container_definition_config()
         environment = {"HF_MODEL_ID": self.model_id}
         environment.update(base_config.pop("environment", {}))
@@ -36,6 +45,18 @@ class HuggingFaceTGIEndpointConfigurationFactory(NonProprietaryModelEndpointConf
         return config
 
     def create_production_variant_config(self) -> Dict[str, Any]:
+        """Create a SageMaker production variant configuration.
+
+        The configuration will be a dictionary with the following keys:
+
+        - "instance_type": The type of instance to run the production variant on.
+        - The other keys are the same as the keyword arguments for the ``deploy`` method of the
+          :class:`sagemaker.model.Model` class.
+
+        The user can override the default value of these keys in their configuration file.
+
+        :return: A dictionary of configuration.
+        """
         base_config = super().create_production_variant_config()
         if "instance_type" not in base_config:
             raise ValueError("Missing mandatory configuration: instance type")

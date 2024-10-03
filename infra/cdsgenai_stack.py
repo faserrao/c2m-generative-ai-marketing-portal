@@ -21,6 +21,13 @@ class CDSGenAIStack(Stack):
     """GenAI Marketing Agent Portal Stack."""
 
     def __init__(self, scope: Construct, stack_name: str, config: Dict[str, Any], **kwargs) -> None:
+        """Initialize the CDSGenAIStack.
+
+        :param scope: The scope of this stack.
+        :param stack_name: The name of this stack.
+        :param config: The configuration for this stack.
+        :param **kwargs: Additional keyword arguments.
+        """
         super().__init__(scope, stack_name, **kwargs)
 
         ## **************** Create S3 Bucket ****************

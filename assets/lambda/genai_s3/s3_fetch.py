@@ -39,12 +39,15 @@ def lambda_handler(event, context):
     """
     # Get the HTTP method from the event object
     http_method = event["requestContext"]["http"]["method"]
+
     # Check if the request is a GET request
     if http_method == "GET":
         # Initialize the S3 client
         s3_client = boto3.client("s3")
-        # parse event
+
+        # Parse the event object
         event = json.loads(event["body"])
+
         # Get S3 url prefix and total number of pieces from the event
         s3_url_prefix = event["s3-url-prefix"]
         total_pieces = event["total-pieces"]
@@ -52,6 +55,8 @@ def lambda_handler(event, context):
         # Extract bucket name and folder path from the S3 URL prefix
         bucket_name = s3_url_prefix.split("/")[2]
         folder_path = "/".join(s3_url_prefix.split("/")[3:])
+
+        # Check if the total pieces is not 0
         if total_pieces != 0:
             # Total Pieces is not 0, therefore this is used by Pinpoint to fetch files
             try:
@@ -74,6 +79,8 @@ def lambda_handler(event, context):
 
                 # Extract full S3 URIs for the result
                 file_paths = [f"{bucket_name}/{file['Key']}" for file in latest_files]
+
+                # Return the latest files as a JSON response
                 return {
                     "statusCode": 200,
                     "body": json.dumps(file_paths),
@@ -83,11 +90,13 @@ def lambda_handler(event, context):
             except ClientError as e:
                 # Handle any errors that occur
                 print(e)
+                # Return an error response
                 return {
                     "statusCode": 500,
                     "body": "An error occurred while fetching the files",
                     "headers": {"Content-Type": CONTENT_TYPE_JSON},
                 }
+
         else:
             # Total Pieces is 0, therefore this is used by Personalize to fetch files
             try:
@@ -107,6 +116,8 @@ def lambda_handler(event, context):
 
                 # Extract full S3 URIs for the result
                 file_paths = [f"{bucket_name}/{file['Key']}" for file in sorted_files]
+
+                # Return the latest files as a JSON response
                 return {
                     "statusCode": 200,
                     "body": json.dumps(file_paths),
@@ -116,6 +127,7 @@ def lambda_handler(event, context):
             except ClientError as e:
                 # Handle any errors that occur
                 print(e)
+                # Return an error response
                 return {
                     "statusCode": 500,
                     "body": "An error occurred while fetching the files",

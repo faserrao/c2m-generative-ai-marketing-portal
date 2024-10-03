@@ -44,6 +44,52 @@ class CDSAIAPIConstructs(Construct):
         custom_enabled: bool = True,
         **kwargs,
     ) -> None:
+        """Construct for API Gateway.
+
+        Parameters
+        ----------
+        scope : Construct
+            The parent construct.
+        construct_id : str
+            The identifier of this construct.
+        stack_name : str
+            The name of the stack.
+        s3_data_bucket : _s3.Bucket
+            The S3 bucket for storing data.
+        bedrock_region : str
+            The region for Bedrock.
+        pinpoint_project_id : str
+            The ID of the Pinpoint project.
+        pinpoint_export_role_arn : str
+            The ARN of the role for exporting Pinpoint data.
+        architecture : str
+            The architecture of the Lambda function.
+        python_runtime : str
+            The Python runtime of the Lambda function.
+        email_identity : str
+            The email identity for Pinpoint.
+        sms_identity : str
+            The SMS identity for Pinpoint.
+        personalize_role_arn : str
+            The ARN of the role for Personalize.
+        personalize_solution_version_arn : str
+            The ARN of the solution version for Personalize.
+        bedrock_role_arn : str, optional
+            The ARN of the role for Bedrock.
+        email_enabled : bool, optional
+            Whether to enable email for Pinpoint.
+        sms_enabled : bool, optional
+            Whether to enable SMS for Pinpoint.
+        custom_enabled : bool, optional
+            Whether to enable custom channel for Pinpoint.
+        **kwargs
+            Additional keyword arguments.
+
+        Attributes
+        ----------
+        api_uri : str
+            The URI of the API Gateway.
+        """
         super().__init__(scope, construct_id, **kwargs)
 
         self.s3_data_bucket = s3_data_bucket
@@ -211,6 +257,28 @@ class CDSAIAPIConstructs(Construct):
 
     def create_cognito_user_pool(self):
         # Cognito User Pool
+        """Create a Cognito User Pool with advanced security enabled.
+
+        This user pool has the following properties:
+
+        - Auto verification of email
+        - MFA required, with only OTP allowed
+        - Password policy with the following requirements:
+            - Minimum length of 8 characters
+            - At least one digit
+            - At least one lowercase letter
+            - At least one uppercase letter
+            - At least one symbol
+        - Advanced security mode enabled
+        - Removal policy of DESTROY
+
+        Also creates a client application with the following properties:
+
+        - User pool client name is the same as the user pool name
+        - No secret is generated
+        - Auth flow is user password
+        - Client ID is stored in the `client_id` attribute
+        """
         self.user_pool = cognito.UserPool(
             self,
             f"{self.prefix}-user-pool",
@@ -255,6 +323,11 @@ class CDSAIAPIConstructs(Construct):
     def create_lambda_layers(self, stack_name):
         #        bundling_image = self._runtime.bundling_image
         #        python_version = self._runtime.name.replace("python", "")  # Extracts '3.9' from 'python3.9'
+        """Creates layers for langchain and factory_module, and shared_module.
+
+        :param stack_name: The name of the stack.
+        :return: None
+        """
         self.layer_langchain = _lambda.LayerVersion(
             self,
             f"{stack_name}-langchain-layer",
@@ -323,6 +396,50 @@ class CDSAIAPIConstructs(Construct):
     # **************** Lambda Functions ****************
     def create_lambda_functions(self, stack_name):
         # ********* Create Marketing Content Bedrock *********
+        """Creates the Lambda functions for this stack.
+
+        The functions are created using the given runtime, and are assigned the given
+        role and layers. The functions are given the given names, and are given the
+        given memory size and timeouts. The functions are also given the given
+        environment variables, which are used to configure the functions.
+
+        The functions are created with aliases named "Warm", which are used to
+        configure provisioned concurrency for the functions.
+
+        The functions are assigned the following roles:
+
+        - The `bedrock_content_generation_lambda` function is assigned the
+        `bedrock_content_generation_role` role.
+        - The `pinpoint_segment_lambda` function is assigned the
+        `lambda_pinpoint_segment_role` role.
+        - The `pinpoint_job_lambda` function is assigned the
+        `lambda_pinpoint_job_role` role.
+        - The `pinpoint_message_lambda` function is assigned the
+        `lambda_pinpoint_message_role` role.
+        - The `s3_fetch_lambda` function is assigned the `lambda_s3_role` role.
+        - The `personalize_batch_segment_job_lambda` function is assigned the
+        `personalize_role` role.
+        - The `personalize_batch_segment_jobs_lambda` function is assigned the
+        `personalize_role` role.
+
+        :param stack_name: The name of the stack.
+        :param runtime: The runtime to use for the functions.
+        :param bedrock_content_generation_role: The role to assign to the
+        `bedrock_content_generation_lambda` function.
+        :param lambda_pinpoint_segment_role: The role to assign to the
+        `pinpoint_segment_lambda` function.
+        :param lambda_pinpoint_job_role: The role to assign to the
+        `pinpoint_job_lambda` function.
+        :param lambda_pinpoint_message_role: The role to assign to the
+        `pinpoint_message_lambda` function.
+        :param lambda_s3_role: The role to assign to the `s3_fetch_lambda`
+        function.
+        :param personalize_role: The role to assign to the
+        `personalize_batch_segment_job_lambda` and
+        `personalize_batch_segment_jobs_lambda` functions.
+        :param layers: The layers to assign to the functions.
+        """
+
         self.bedrock_content_generation_lambda = _lambda.Function(
             self,
             f"{stack_name}-bedrock-content-generation-lambda",
@@ -586,6 +703,12 @@ class CDSAIAPIConstructs(Construct):
     # **************** IAM Permissions ****************
     def create_roles(self, stack_name: str):
         # ********* IAM Roles *********
+        """Creates the IAM Roles and Policies for the various Lambda functions,
+        API Gateway, and Personalize.
+
+        :param stack_name: The name of the CDK Stack
+        :return: None
+        """
         self.bedrock_content_generation_role = iam.Role(
             self,
             f"{stack_name}-bedrock-content-generation-role",

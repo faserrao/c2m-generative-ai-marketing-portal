@@ -22,19 +22,31 @@ PASSWORD = "Babushka1!"
 
 
 def c2m_check_job_status(job_id: str = None):
-    """Check the status of a Click2Mail job."""
+    """Check the status of a Click2Mail job.
+
+    Args:
+        job_id (str): ID of the job to check. Defaults to None.
+
+    Returns:
+        dict: Response containing status code, body, and headers.
+    """
     url = CHECK_JOB_STATUS_URL + job_id
     headers = {"user-agent": "my-app/0.0.1"}
 
     try:
+        # Make a GET request to the Click2Mail API
         response = requests.get(url, headers=headers, auth=(USERNAME, PASSWORD))
-        response.raise_for_status()  # Raise an exception for HTTP errors
+        # Raise an exception if the request fails
+        response.raise_for_status()
+        # If the request is successful, return a 200 status code, the response body, and the JSON content type
         if response.status_code == 201:
             print_response("Check job status call successful", response)
             return {"statusCode": 200, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
-        print_response("Add credit call failed", response)
+        # If the request fails, return a 400 status code, the response body, and the JSON content type
+        print_response("Check job status call failed", response)
         return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
     except requests.exceptions.RequestException as e:
-        exception_string = f"Add credit http request failed: {e}, {str(e)}"
+        # If there is an exception, return a 400 status code, the exception string, and the JSON content type
+        exception_string = f"Check job status http request failed: {e}, {str(e)}"
         print_response(exception_string)
         return {"statusCode": 400, "body": str(e), "headers": {"Content-Type": CONTENT_TYPE_JSON}}

@@ -31,7 +31,18 @@ PINPOINT_PROJECT_ID = os.environ["PINPOINT_PROJECT_ID"]
 
 
 def lambda_handler(event, context):
-    """Handle HTTP requests to interact with Pinpoint segments."""
+    """Handle HTTP requests to interact with Pinpoint segments.
+
+    This handler responds to GET requests and returns a list of all segments
+    in the specified Pinpoint project.
+
+    Args:
+        event (dict): API Gateway event object
+        context (dict): AWS Lambda context object
+
+    Returns:
+        dict: API Gateway response object
+    """
     # Get the HTTP method from the event object
     http_method = event["requestContext"]["http"]["method"]
 

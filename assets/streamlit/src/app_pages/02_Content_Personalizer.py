@@ -157,6 +157,15 @@ box_style = {
 
 
 def create_personalize_batch_segment(item_ids, num_results):
+    """Create an Amazon Personalize batch segment job.
+
+    Args:
+        item_ids (str): A string of comma-separated item IDs to segment.
+        num_results (int): The number of results desired for each item.
+
+    Returns:
+        list: The response content from the Amazon Personalize API.
+    """
     return personalize_api.invoke_personalize_batch_segment(
         access_token=st.session_state["access_token"],
         item_ids=item_ids,
@@ -165,31 +174,71 @@ def create_personalize_batch_segment(item_ids, num_results):
 
 
 def get_personalize_job(job_arn):
+    """Get a job from Amazon Personalize.
+
+    Args:
+        job_arn (str): The ARN of the job to describe.
+
+    Returns:
+        list: The response content from the Amazon Personalize API.
+    """
     return personalize_api.invoke_personalize_describe_job(
         access_token=st.session_state["access_token"], job_arn=job_arn
     )
 
 
 def get_personalize_jobs():
+    """Get all batch segment jobs from Amazon Personalize.
+
+    Returns:
+        list: The response content from the Amazon Personalize API.
+    """
     return personalize_api.invoke_personalize_get_jobs(
         access_token=st.session_state["access_token"],
     )
 
 
 @st.cache_data(ttl=30)
-def cached_get_personalize_jobs():
-    """Cached wrapper for get_personalize_jobs function."""
+def cached_get_personalize_jobs() -> list:
+    """Cached wrapper for get_personalize_jobs function.
+
+    Returns:
+        list: The response content from the Amazon Personalize API.
+    """
     return get_personalize_jobs()
 
 
 def read_s3_file(file_path):
-    """Read a JSON file from S3 and return its content."""
+    """Read a JSON file from S3 and return its content.
+
+    Args:
+        file_path (str): The path to the JSON file in S3.
+
+    Returns:
+        str: The content of the JSON file.
+    """
+    # Read the file from S3
     with fs.open(file_path, "rb") as s3_file:
+        # Decode the binary content to a string
         return s3_file.read().decode("utf-8")
 
 
 def process_json_content(content):
-    """Process the JSON content and return a DataFrame."""
+    """Process the JSON content and return a DataFrame.
+
+    The JSON content is expected to be a newline-separated list of JSON strings.
+    Each JSON string is expected to have the following format:
+    {
+        "input": {
+            "itemId": string
+        },
+        "output": {
+            "usersList": [string]
+        }
+    }
+    The function processes each JSON string and returns a DataFrame with the
+    itemId and userId columns.
+    """
     # Split the content by newline to get individual JSON strings
     json_strings = content.strip().split("\n")
 
@@ -205,15 +254,27 @@ def process_json_content(content):
     return pd.DataFrame(processed_data)
 
 
-def save_df_session_state(df, df_name):
-    """Save dataframe and its name to session state."""
+def save_df_session_state(df: pd.DataFrame, df_name: str):
+    """Save dataframe and its name to session state.
+
+    Args:
+        df (pd.DataFrame): The dataframe to be saved.
+        df_name (str): The name of the dataframe to be saved.
+    """
+    # Save the dataframe to the session state
     st.session_state["df"] = df
+
+    # Save the name of the dataframe to the session state
     st.session_state["df_name"] = df_name
 
 
-def disable(b):
-    """Set the 'disabled' state in the session state."""
-    st.session_state["disabled"] = b
+def disable(disabled: bool) -> None:
+    """Set the 'disabled' state in the Streamlit session state.
+
+    Args:
+        disabled (bool): The state to set the 'disabled' session state variable to.
+    """
+    st.session_state["disabled"] = disabled
 
 
 #########################

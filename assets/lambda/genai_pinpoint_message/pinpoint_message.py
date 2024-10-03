@@ -43,14 +43,41 @@ SMS_IDENTITY = os.environ["SMS_IDENTITY"]
 #########################
 
 
-def parse_custom_address(address: str):
+def parse_custom_address(address: str) -> dict:
+    """Parse a custom address string into an address object.
+
+    The address string should contain four parts separated by "%":
+    address_1%city%state%postal_code
+
+    Args:
+        address (str): The custom address string.
+
+    Returns:
+        dict: An address object containing the parsed information.
+    """
+    # Split the address string into four parts
     address_1, city, state, postal_code = address.split("%")
+
+    # Create an address object with the parsed information
     address_object = {"address_1": address_1, "city": city, "state": state, "postal_code": postal_code}
+
     print(address_object)
     return address_object
 
 
 def lambda_handler(event, context):
+    """Handle HTTP requests to send a message using Pinpoint.
+
+    This function is responsible for sending a message using Pinpoint based on the
+    channel specified in the request.
+
+    Args:
+        event (dict): The API Gateway event object.
+        context (object): The AWS Lambda context object.
+
+    Returns:
+        dict: The response object.
+    """
     print("Entering pinpoint_message() Lambda")
     print(f"EMAIL_IDENTITY: {EMAIL_IDENTITY}")
     print(f"event: {event}")
@@ -62,18 +89,17 @@ def lambda_handler(event, context):
     if http_method == "POST":
         # Get the Pinpoint project ID from the environment variable
         pinpoint_project_id = os.environ["PINPOINT_PROJECT_ID"]
-        # parse event
+
+        # Parse the event
         event = json.loads(event["body"])
         print(f"pinpoint_message() event: {event}")
+
         address = event["address"]
         channel = event["channel"]
 
-        # FAS
-        # Need to preface the SMS address with +1 or pinpoint SMS
-        # will not work.
+        # Preface the SMS address with +1 if it's an SMS message
         if channel == "SMS":
             address = "+1" + address
-        print(f"address: {address}")
 
         message_subject = event["message-subject"]
         message_body_html = event["message-body-html"]
@@ -84,10 +110,7 @@ def lambda_handler(event, context):
 
         message_request = {"Addresses": {address: {"ChannelType": channel}}}
 
-        # FAS
-        # Ensure that this Lambda has permission to access and use the SES Identity
-        # associated with EMAIL_IDENTITY.
-
+        # Check if the channel is EMAIL
         if channel == "EMAIL":
             message_request["MessageConfiguration"] = {
                 "EmailMessage": {
@@ -101,6 +124,7 @@ def lambda_handler(event, context):
             }
             print(f"email message_request: {message_request}")
 
+        # Check if the channel is SMS
         elif channel == "SMS":
             sms_config = {"Body": message_body_text, "MessageType": "PROMOTIONAL"}
 
@@ -111,6 +135,7 @@ def lambda_handler(event, context):
             message_request["MessageConfiguration"] = {"SMSMessage": sms_config}
             print(f"sms message_request: {message_request}")
 
+        # Check if the channel is CUSTOM
         elif channel == "CUSTOM":
             print("Channel is CUSTOM")
             print("In the pinpoint_message() Lambda")

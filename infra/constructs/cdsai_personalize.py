@@ -66,6 +66,16 @@ class PersonalizeConstruct(Construct):
         personalize_solution_version_arn: str,
         **kwargs,
     ) -> None:
+        """Initialize the PersonalizeConstruct.
+
+        :param scope: The scope of this stack.
+        :param construct_id: The identifier of this construct.
+        :param stack_name: The name of this stack.
+        :param s3_data_bucket: The S3 bucket for storing data.
+        :param deploy_personalize: Whether to deploy the Personalize infrastructure.
+        :param personalize_solution_version_arn: The ARN of the Personalize solution version.
+        :param **kwargs: Additional keyword arguments.
+        """
         super().__init__(scope, construct_id, **kwargs)
         self.personalize_role_ARN = self.grant_personalize_s3_export(s3_data_bucket)
         if deploy_personalize:
@@ -74,6 +84,12 @@ class PersonalizeConstruct(Construct):
 
     def grant_personalize_s3_export(self, bucket):
         # Define the IAM policy
+        """Grant the necessary permissions for Amazon Personalize to export
+        data to the given S3 bucket.
+
+        :param bucket: The S3 bucket to grant access to.
+        :return: The ARN of the IAM role created for Amazon Personalize.
+        """
         export_policy_document = iam.PolicyDocument(
             statements=[
                 iam.PolicyStatement(
