@@ -75,6 +75,7 @@ package.json
 *.DS_Store
 temp/
 assets/streamlit/src/.env
+ARCHIVE
 ARCHIVE/
 .swm/
 .mypy_cache/
