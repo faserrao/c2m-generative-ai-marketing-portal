@@ -78,6 +78,7 @@ assets/streamlit/src/.env
 ARCHIVE/
 .swm/
 .mypy_cache/
+.ruff_cache/
 
 # Reference Files
 ReferenceFiles/
