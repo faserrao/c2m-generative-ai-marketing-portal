@@ -266,13 +266,17 @@ class MessageConfigFactoryCreator:
         """
         channel_states = get_channel_states()
         if channel_states.get(channel):
+
             if channel == "EMAIL":
                 # Create and return an EmailMessageConfig instance
                 return EmailMessageConfig()
-            elif channel == "SMS":
+
+            if channel == "SMS":
                 # Create and return an SMSMessageConfig instance
                 return SMSMessageConfig()
-            elif channel == "CUSTOM":
-                # Create and return a CustomMessageConfig instance
-                return CustomMessageConfig()
+
+            channel == "CUSTOM"
+            # Create and return a CustomMessageConfig instance
+            return CustomMessageConfig()
+
         raise ValueError(f"Unsupported channel: {channel}")

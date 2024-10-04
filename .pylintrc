@@ -1,2 +1,5 @@
 [FORMAT]
 max-line-length=120
+[MESSAGES CONTROL]
+disable = E0401, C0413, C0301, C0103
+

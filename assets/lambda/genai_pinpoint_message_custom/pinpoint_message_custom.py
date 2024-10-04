@@ -13,7 +13,7 @@ HANDLER.setFormatter(logging.Formatter("%(levelname)s | %(name)s | %(message)s")
 LOGGER.addHandler(HANDLER)
 
 
-def lambda_handler(event: dict, context: object) -> dict:
+def lambda_handler(event, context):
     """Handle Lambda function invocation for custom Pinpoint message
     generation.
 

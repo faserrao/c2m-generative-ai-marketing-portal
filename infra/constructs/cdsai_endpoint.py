@@ -1,3 +1,9 @@
+"""This module contains constructs for creating CDS AI endpoints.
+
+It provides factories for creating endpoint configurations and grants
+access to various resources, such as image repositories and model
+artifacts.
+"""
 from typing import Any, Dict
 
 from aws_cdk import aws_iam as iam

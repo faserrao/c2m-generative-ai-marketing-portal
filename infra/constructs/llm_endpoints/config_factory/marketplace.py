@@ -1,3 +1,24 @@
+"""The `BaseEndpointConfigurationFactory` is an abstract base class that
+defines the structure of a factory for creating configurations for SageMaker
+endpoints. It is an abstract base class, meaning it cannot be instantiated
+directly.
+
+Here is a succinct explanation of what each method does:
+
+- `__init__`: Initializes the factory with the user-provided configuration and a resource prefix.
+
+- `create_container_definition_config`: Creates a configuration for a SageMaker container definition.
+
+- `create_model_config`: Creates a configuration for a SageMaker model.
+
+- `create_production_variant_config`: Creates a configuration for a SageMaker production variant.
+
+- `create_endpoint_config_config`: Creates a configuration for a SageMaker endpoint configuration.
+
+- `create_endpoint_config`: Creates a configuration for a SageMaker endpoint.
+
+All of these methods are abstract, meaning they must be implemented in any class that inherits from `BaseEndpointConfigurationFactory`.
+"""
 from typing import Any, Dict
 
 from infra.constructs.llm_endpoints.config_factory.base import BasicEndpointConfigurationFactory

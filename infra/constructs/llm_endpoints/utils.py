@@ -1,3 +1,4 @@
+"""This module contains utility functions for SageMaker Endpoints."""
 from sagemaker.utils import sagemaker_timestamp
 
 from infra.constructs.llm_endpoints.constants import NAME_SEPARATOR

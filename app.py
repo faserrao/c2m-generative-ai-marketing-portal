@@ -1,3 +1,7 @@
+"""
+This module contains the main application stack for CDS Gen AI.
+It defines a stack that provisions the necessary resources for the application, including IAM roles, CloudFormation stacks, and other dependencies.
+"""
 import os
 from pathlib import Path
 

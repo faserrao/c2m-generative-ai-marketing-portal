@@ -1,3 +1,4 @@
+"""Model Spec Jumpstarter."""
 from typing import Any, Dict
 
 from sagemaker import environment_variables, image_uris, instance_types, model_uris

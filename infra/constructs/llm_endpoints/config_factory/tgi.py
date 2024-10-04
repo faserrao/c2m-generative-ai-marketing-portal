@@ -1,3 +1,4 @@
+"""Hugging Face TGI configuration factory."""
 from typing import Any, Dict
 
 import sagemaker.session

@@ -1,3 +1,10 @@
+"""This module contains classes for creating IAM roles for SageMaker Endpoints.
+
+The `SageMakerEndpointBasicExecutionRole` class defines an IAM role with
+the minimum set of permissions required for SageMaker Endpoints to
+function. It is given permission to create and write to CloudWatch logs.
+"""
+
 from __future__ import annotations
 
 import re

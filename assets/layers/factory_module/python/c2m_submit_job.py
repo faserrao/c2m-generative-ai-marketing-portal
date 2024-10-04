@@ -40,14 +40,16 @@ def c2m_submit_job(billing_type: str = "User Credit", job_id: str = "") -> dict:
         response = requests.post(url, data=values, headers=headers, auth=(USERNAME, PASSWORD))
         # Raise an exception if request fails
         response.raise_for_status()
+
         if response.status_code == 200:
             # Return success response
             print_response("Submit job successful", response)
             return {"statusCode": 200, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
-        else:
-            # Return failure response
-            print_response("Submit job failed:", response)
-            return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
+
+        # Return failure response
+        print_response("Submit job failed:", response)
+        return {"statusCode": 400, "body": response.text, "headers": {"Content-Type": CONTENT_TYPE_JSON}}
+
     except requests.exceptions.RequestException as e:
         # Handle any exceptions that occur
         exception_string = f"Submit job http request failed:: {e}, {str(e)}"

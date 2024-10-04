@@ -186,8 +186,8 @@ def lambda_handler(event, context):
     model_id = MODELS_MAPPING[model_params_value["model_id"]]
     LOGGER.info("model_id: %s", model_id)
 
-    with open(f"model_configs/{model_id}.json", encoding="utf-8") as f:
-        fixed_params = json.load(f)
+    with open(f"model_configs/{model_id}.json", encoding="utf-8") as file:
+        fixed_params = json.load(file)
 
     # load variable model params
     amazon_flag = False

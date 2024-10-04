@@ -1,3 +1,9 @@
+"""This module contains a Stack for deploying Streamlit applications.
+
+It defines a NestedStack that provisions the necessary resources for a
+Streamlit application, including CloudFront distributions, ECS clusters,
+and IAM roles.
+"""
 import os
 from pathlib import Path
 

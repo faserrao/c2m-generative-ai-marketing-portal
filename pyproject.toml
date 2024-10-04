@@ -43,6 +43,7 @@ line_length = 120
 skip_gitignore = true
 
 [tool.ruff]
+ignore = ["E402", "E501"]
 select = ["E", "F", "C", "W", "R", "B", "Q"]
 line-length = 120
 target-version="py39"
@@ -72,3 +73,5 @@ line-length = 120
 
 [tool.flake8]
 max-line-length = 120
+ignore = ["E402", "E501"]
+

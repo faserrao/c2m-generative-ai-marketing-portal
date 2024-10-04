@@ -1,3 +1,4 @@
+"""The endpoint configuration factory base class."""
 from abc import ABC, abstractmethod
 from typing import Any, Dict
 
