@@ -1,9 +1,7 @@
+"""Lamda that sends a custom message"""
 import json
 import logging
 import sys
-import pkgutil
-import subprocess
-
 
 from factory_module import MessageConfigFactoryCreator  # Import your factory module
 
@@ -25,17 +23,11 @@ def lambda_handler(event, context):
         dict: A dictionary containing the response status code, body, and headers
     """
 
-    # Check if the Python packages required for Pinpoint messaging are installed
-    installed_modules = [mod.name for mod in pkgutil.iter_modules()]
-    print(f"installed_modules() event: {installed_modules}")
-
-    # Print the current version of the packages
-    result = subprocess.run(["pip", "freeze"], stdout=subprocess.PIPE)
-    result.stdout.decode("utf-8")
+    print(f"event = {event}")
+    print(f"context = {context}")
 
     # Parse the event object
     event_body = json.loads(event["body"])
-    print(f"pinpoint_message() event: {event}")
     address = event_body["address"]
     message_subject = event_body["message-subject"]
     message_body_html = event_body["message-body-html"]
