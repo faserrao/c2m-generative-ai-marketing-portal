@@ -228,7 +228,3 @@ CUSTOM,11408 Night Star Way%Reston%VA%20194,ACTIVE,NONE.....
   | assets/lambda/genai_pinpoint_message/c2m_upload_document.py | Calls the C2M Upload Document API| https://developers.click2mail.com/docs/add-credit
 
 ## Contributors
-
-Tristan Nguyen (@nnatri) [LinkedIn](https://www.linkedin.com/in/nguyennhianhtri/)
-
-Philipp Kaindl (@philikai) [LinkedIn](https://www.linkedin.com/in/philipp-kaindl/)
