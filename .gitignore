@@ -80,6 +80,9 @@ ARCHIVE/
 .swm/
 .mypy_cache/
 .ruff_cache/
+*.bak
+setup_and_build_commands.txt
+*.code-workspace
 
 # Reference Files
 ReferenceFiles/

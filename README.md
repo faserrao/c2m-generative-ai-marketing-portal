@@ -10,7 +10,7 @@ This library is licensed under the MIT-0 License. See the LICENSE file.
 
 ## Demo Video
 
-https://github.com/aws-samples/generative-ai-marketing-portal/assets/120146166/c6408d9c-a3df-4063-b315-b7b4525a6b70
+Will be developed once the POC has been ported to the C2M environment.
 
 ## Prerequisites
 
@@ -33,58 +33,6 @@ git clone https://github.com/aws-samples/generative-ai-marketing-portal &&
 cd generative-ai-marketing-portal
 ```
 
-### Using Cloud9
-
-- Follow this [link](https://docs.aws.amazon.com/cloud9/latest/user-guide/sample-cdk.html) to setup your AWS Cloud9 environment. We recommend at least a t3.small instance for this deployment.
-- To prevent running out of space in later deployment steps, resize your Cloud9 EBS volume to at least 20 GB by running the following command from project root folder: (change "20" to the appropriate size that you need)
-
-```
-bash resize.sh 20
-```
-
-### Build Langchain Lambda Layer
-
-- Enter the following commands to build the Langchain lambda layer for the corresponding Python Runtime Environment.
-
-#### Python 3.9
-
-```
-pushd assets/layers/langchain &&
-docker run \
- -v "$(pwd):/var/task" \
- "public.ecr.aws/sam/build-python3.9" \
- /bin/sh -c "pip install -r requirements.txt \
- -t python/lib/python3.9/site-packages/; exit" &&
-zip -r langchain-layer.zip python &&
-popd
-```
-
-#### Python 3.10
-
-```
-pushd assets/layers/langchain &&
-docker run \
- -v "$(pwd):/var/task" \
- "public.ecr.aws/sam/build-python3.10" \
- /bin/sh -c "pip install -r requirements.txt \
- -t python/lib/python3.10/site-packages/; exit" &&
-zip -r langchain-layer.zip python &&
-popd
-```
-
-#### Python 3.11
-
-```
-pushd assets/layers/langchain &&
-docker run \
- -v "$(pwd):/var/task" \
- "public.ecr.aws/sam/build-python3.11" \
- /bin/sh -c "pip install -r requirements.txt \
- -t python/lib/python3.11/site-packages/; exit" &&
-zip -r langchain-layer.zip python &&
-popd
-```
-
 ### CDK Deployment
 
 - Run the following commands to deploy the solution. The entire deployment can take up to 10 minutes.
@@ -94,10 +42,6 @@ popd
   pip install -r requirements.txt
   ```
 
-- For local development and testing:
-  ```
-  pip install -r requirements-dev.txt
-  ```
 - Edit config.yml file:
   - Change "email_identity" to your own email address
   - Change architecture to ARM_64 if you are deploying locally using an M1 Macbook.
@@ -151,9 +95,7 @@ popd
 cdk destroy
 ```
 
-2. If you used Cloud9 for deployment, destroy the Cloud9 instance by opening the [Cloud9 console](https://us-west-2.console.aws.amazon.com/cloud9/home?region=us-west-2) and clicking on Delete.
-
-3. We retain the CloudfrontLogBucket. If no longer needed, empty and delete the S3 bucket.
+2. We retain the CloudfrontLogBucket. If no longer needed, empty and delete the S3 bucket.
 
 ### [OPTIONAL] Deploy Solution Version for Amazon Personalize
 
