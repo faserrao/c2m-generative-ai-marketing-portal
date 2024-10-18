@@ -29,8 +29,8 @@ Please make sure you have installed the following tools, languages as well as ac
 ### Clone this repository
 
 ```console
-git clone https://github.com/faserrao/c2m-generative-ai-marketing-portal.git &&
-cd c2m-generative-ai-marketing-portal
+git clone https://github.com/aws-samples/generative-ai-marketing-portal &&
+cd generative-ai-marketing-portal
 ```
 
 ### CDK Deployment
@@ -60,7 +60,7 @@ cd c2m-generative-ai-marketing-portal
   - PersonalizeRoleARN
   - S3BucketNameOutput
   - CloudfrontDistributionDomain
-- Upload sample Pinpoint user segment file (assets/demo-data/df_segment_data_v4.csv) to Amazon Pinpoint by following the instructions [here](https://docs.aws.amazon.com/pinpoint/latest/userguide/segments-importing.html)
+- Upload sample Pinpoint user segment file (assets/demo-data/df_segment_data.csv) to Amazon Pinpoint by following the instructions [here](https://docs.aws.amazon.com/pinpoint/latest/userguide/segments-importing.html)
   - The first five rows have been hard-coded to have the highest conversion probabibility based on User.UserAttributes.Probability column. Communications will be sent to the highest probability first.
   - Replace verified email addresses and phone numbers in the **Address** column for these 5 rows to your own values to test receiving the email/SMS on your own devices.
 
