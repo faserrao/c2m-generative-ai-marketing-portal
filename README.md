@@ -26,6 +26,22 @@ Please make sure you have installed the following tools, languages as well as ac
 
 ## Setup instructions
 
+### Create directory where the c2m code will be cloned
+
+```console
+mkdir c2m
+cd c2m
+```
+
+### Create a python virtual environment and activate it
+
+```console
+python -m venv c2m_venv
+cd c2m_venv/bin
+source ./activate
+cd ..
+```
+
 ### Clone this repository
 
 ```console
