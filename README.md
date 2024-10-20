@@ -36,7 +36,7 @@ cd c2m
 ### Create a python virtual environment and activate it
 
 ```console
-python -m venv c2m_venv
+python3 -m venv c2m_venv
 cd c2m_venv/bin
 source ./activate
 cd ..
