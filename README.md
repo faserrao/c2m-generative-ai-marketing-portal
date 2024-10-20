@@ -39,7 +39,7 @@ cd c2m
 python3 -m venv c2m_venv
 cd c2m_venv/bin
 source ./activate
-cd ..
+cd ../..
 ```
 
 ### Clone this repository
